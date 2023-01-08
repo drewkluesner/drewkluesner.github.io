@@ -141,7 +141,7 @@ limitations under the License.
         try {
           // Fetch first 10 files
           
-          await sheets.spreadsheets.values.append({
+          await gapi.spreadsheets.values.append({
             spreadsheetId: '1G9mqNZEhJdft4ZixKTqAHxNZ8lAcptheL4kxSsX3Zzg',
             range: 'Data!A2:E',
             valueInputOption: "USER_ENTERED",
