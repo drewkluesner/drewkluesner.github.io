@@ -147,6 +147,7 @@ limitations under the License.
         } catch (err) {
           document.getElementById('content').innerText = err.message;
 
+        try {
           response = await gapi.client.sheets.spreadsheets.values.append({
             spreadsheetId: '1G9mqNZEhJdft4ZixKTqAHxNZ8lAcptheL4kxSsX3Zzg',
             range: 'Data!A2:E',
