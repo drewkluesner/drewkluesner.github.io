@@ -19,6 +19,23 @@
 		padding: 10px;
 		font-size: 100%;
 	}
+	
+	.yesno {
+		background-color: #555599;
+		color: #FFFFFF;
+		border-radius: 5px;
+		padding: 10px;
+		font-size: 100%;
+	}
+	
+	.Points {
+		background-color: #008080;
+		color: #FFFFFF;
+		border-radius: 5px;
+		padding: 10px;
+		font-size: 100%;
+	}
+
 
 	.TeleOpMode {
 		background-color: #FF00FF		;
@@ -52,7 +69,7 @@
 		display: grid;
     grid-gap: 10px;
 		grid-template-columns: repeat(9, 75px);
-		grid-template-rows: 50px 50px ;
+		grid-template-rows: 50px 30px ;
 		grid-auto-flow: column;
 	}
 
@@ -61,7 +78,7 @@
 		display: grid;
     grid-gap: 10px;
 		grid-template-columns: repeat(10, 75px);
-		grid-template-rows: 25px 25px ;
+		grid-template-rows: 25px 30px ;
 		grid-auto-flow: column;
 	}
 
@@ -70,7 +87,7 @@
 		display: grid;
     grid-gap: 10px;
 		grid-template-columns: repeat(10, 75px);
-		grid-template-rows: 25px 25px ;
+		grid-template-rows: 25px 30px ;
 		grid-auto-flow: column;
 	}
 
@@ -79,7 +96,7 @@
 		display: grid;
     grid-gap: 10px;
 		grid-template-columns: repeat(2, 50px);
-		grid-template-rows: 50px 25px ;
+		grid-template-rows: 50px 30px ;
 		grid-auto-flow: row;
 	}
 
@@ -324,8 +341,13 @@ function reset(){
 </script>
 
 	 
-	 <h3>MatchData2</h3>
+	 <h3>MatchData</h3>
 	 
+	 <h4>Welcome to my sandox</h4>
+	 Click on the colored boxes to see things change and click reest to start over.
+	 --Drew
+	 <br><br><br>
+	 ################################################################################
 	 
 	 <div class="MatchMeta">
 		<div class="label" id="MatchIDLabel">MatchID</div>
@@ -336,13 +358,13 @@ function reset(){
 		<div class="label" id="TeamIDLabel">TeamID</div>
 		<div class="value" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
 		<div class="label" id="ConeLabel">Pick Up Cone</div>
-		<div class="value" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
+		<div class="yesno" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
 		<div class="label" id="BlockLabel">Pick Up Block</div>
-		<div class="value" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
+		<div class="yesno" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
 		<div class="label" id="FumbleLabel">Fumble</div>
-		<div class="value" id="FumbleType" onclick='ToggleYesNo(this.id)'>NO</div>	
+		<div class="yesno" id="FumbleType" onclick='ToggleYesNo(this.id)'>NO</div>	
 		<div class="label" id="CoOpLabel">3 GP per Grid</div>
-		<div class="value" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>	
+		<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>	
 		
 	</div>
 
@@ -351,16 +373,16 @@ function reset(){
 	 <h3>Autonomous Movement</h3>
 	 <div class="Movement">		
 		<div class="label" id="AutoMoveLabel">Auto: Did it Move?</div>
-		<div class="label" id="AutoMove" onclick='ToggleYesNo(this.id)'>NO</div>
+		<div class="yesno" id="AutoMove" onclick='ToggleYesNo(this.id)'>NO</div>
 		
 		<div class="label" id="AutoMovePtsLabel">Auto Move Pts</div>		
 		<div class="box" id="AutoMovePts">0</div>
 
 		<div class="label" id="AutoDocLabel">Auto: Docked?</div>
-		<div class="label" id="AutoDoc" onclick='ToggleYesNo(this.id)'>NO</div>
+		<div class="yesno" id="AutoDoc" onclick='ToggleYesNo(this.id)'>NO</div>
 		
 		<div class="label" id="AutoEngagedLabel">Auto: Engaged?</div>
-		<div class="label" id="AutoEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
+		<div class="yesno" id="AutoEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
 		
 		<div class="label" id="AutoDocEngPtsLabel">Auto Dock Pts</div>		
 		<div class="box" id="AutoDocEngPts">0</div>
@@ -371,13 +393,13 @@ function reset(){
 	<h3>EndGame Movements</h3>
 	<div class="Movement2">
 		<div class="label" id="EndGameDockedLabel">EndGame: Docked?</div>
-		<div class="label" id="EndGameDocked" onclick='ToggleYesNo(this.id)'>NO</div>
+		<div class="yesno" id="EndGameDocked" onclick='ToggleYesNo(this.id)'>NO</div>
 		
 		<div class="label" id="EndGameEngagedLabel">EndGame: Engaged?</div>
-		<div class="label" id="EndGameEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
+		<div class="yesno" id="EndGameEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
 		
 		<div class="label" id="EndGameParkedLabel">EndGame: Parked?</div>
-		<div class="label" id="EndGameParked" onclick='ToggleYesNo(this.id)'>NO</div>
+		<div class="yesno" id="EndGameParked" onclick='ToggleYesNo(this.id)'>NO</div>
 		
 		<div class="label" id="EndGameEngPtsLabel">EndGame Pts</div>		
 		<div class="box" id="EndGameEngPts">0</div>		
@@ -388,11 +410,16 @@ function reset(){
 	 <br>
 	 
 	 <h3>GameGrid</h3>
-	 
+	 <h4>Click the Pink window to toggle between autonmous and teleop</h4>
 	 <div class="Mode">
 		 <div class="label" id="ModeIDLabel:">Current Mode</div>
 		 <div class="TeleOpMode" id="ModeID" onclick='ChangeMode(this.id)' >Auto</div>
 	 </div> 
+	 ##############################################################################
+	 <br>
+	 <br>
+	 <br>
+	 
 	 <div class="wrapper">
 	 	<div class="label" id="col0Top" >Top</div>
 	 	<div class="label" id="col0Mid" >Mid</div>
@@ -442,18 +469,18 @@ function reset(){
 	<div class ="PointTotals">
 		
 		<div class="label" id="TeamPointsLabel">Team Points</div>
-		<div class="value" id="TeamPoints" >0</div>
+		<div class="Points" id="TeamPoints" >0</div>
 		
 		<div class="label" id="AllianceOffenseLabel">Allicance Points</div>
-		<div class="value" id="AllianceOPoints" onclick='ChangePrompt(this.id)' >0</div>
+		<div class="Points" id="AllianceOPoints" onclick='ChangePrompt(this.id)' >0</div>
 		<div class="label" id="AllianceDLabel">Opponent Points</div>
-		<div class="value" id="AllianceDPoints" onclick='ChangePrompt(this.id)' >0</div>
+		<div class="Points" id="AllianceDPoints" onclick='ChangePrompt(this.id)' >0</div>
 		
 		<div class="label" id="AllianceLinksLabel">Team Links</div>
-		<div class="value" id="AllianceLinks" onclick='ChangePrompt(this.id)' >0</div>
+		<div class="Points" id="AllianceLinks" onclick='ChangePrompt(this.id)' >0</div>
 				
 		<div class="label" id="AllianceChargeStationLabel">Team Total ChargePts</div>
-		<div class="value" id="AllianceChargeStation" onclick='ChangePrompt(this.id)'>0</div>						
+		<div class="Points" id="AllianceChargeStation" onclick='ChangePrompt(this.id)'>0</div>						
 	 </div>
 
 	<br>
