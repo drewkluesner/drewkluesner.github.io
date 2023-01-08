@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Example 18</title>
-    
-    <style>
+    <title>FRC7531 Scouting</title>
+	
+<!--  1/7/2023 updated basic functions    
+
+ -->    
+ 
+ 
+ <style>
 	body {
 		margin: 40px;
 	}
@@ -73,8 +78,8 @@
 		width: 600px;
 		display: grid;
     grid-gap: 10px;
-		grid-template-columns: repeat(10, 75px);
-		grid-template-rows: 25px 25px ;
+		grid-template-columns: repeat(2, 50px);
+		grid-template-rows: 50px 25px ;
 		grid-auto-flow: row;
 	}
 
@@ -84,8 +89,8 @@
 		width: 600px;
 		display: grid;
     grid-gap: 10px;
-		grid-template-columns: repeat(10, 75px);
-		grid-template-rows: 100px 100px 100px 20px ;
+		grid-template-columns: repeat(10, 50px);
+		grid-template-rows: 50px 50px 50px 50px ;
 		grid-auto-flow: column;
 	}
 
@@ -300,8 +305,18 @@ function reset(){
 	document.getElementById('col9Mid').innerHTML = 0;
 	document.getElementById('col9Low').innerHTML = 0;
 	
-	document.getElementById('MobilityType').innerHTML = 0;
-	
+
+	document.getElementById('Block').innerHTML = "NO";
+	document.getElementById('FumbleType').innerHTML = "NO";
+	document.getElementById('CoOp').innerHTML = "NO";
+	document.getElementById('Cone').innerHTML = "NO";
+	document.getElementById('AutoMove').innerHTML = "NO";
+	document.getElementById('AutoDoc').innerHTML = "NO";
+	document.getElementById('AutoEngaged').innerHTML = "NO";
+	document.getElementById('EndGameDocked').innerHTML = "NO";
+	document.getElementById('EndGameEngaged').innerHTML = "NO";
+	document.getElementById('EndGameParked').innerHTML = "NO";
+	alert ("hi")
 	
 	updateTotal()
 } 
@@ -309,7 +324,7 @@ function reset(){
 </script>
 
 	 
-	 <h3>MatchData</h3>
+	 <h3>MatchData2</h3>
 	 
 	 
 	 <div class="MatchMeta">
@@ -380,9 +395,9 @@ function reset(){
 	 </div> 
 	 <div class="wrapper">
 	 	<div class="label" id="col0Top" >Top</div>
-	 	<div class="label" id="col1Mid" >Mid</div>
-	 	<div class="label" id="col1Low" >Low</div>
-		<div class="label" id="col1Label" ></div>
+	 	<div class="label" id="col0Mid" >Mid</div>
+	 	<div class="label" id="col0Low" >Low</div>
+		<div class="label" id="col0Label" ></div>
 		
 	 	<div class="box" id="col1Top" onclick='myfunction(this.id)'>0</div>
 	 	<div class="box" id="col1Mid" onclick='myfunction(this.id)'>0</div>
