@@ -139,8 +139,7 @@ limitations under the License.
       async function listMajors() {
         let response;
         try {
-          // Fetch first 10 files
-          
+            
             
           const body = {values: [[
             new Date(), // Timestamp
@@ -157,11 +156,9 @@ limitations under the License.
             // On success
             console.log(`${response.result.updates.updatedCells} cells appended.`)
             sendResponse({success: true});
-          });
-        })
+          });            
             
             
-          
         } catch (err) {
           document.getElementById('content').innerText = err.message;
           return;
