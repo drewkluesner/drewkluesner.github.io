@@ -15,24 +15,25 @@
     <script>
     function makeApiCall() {
       var params = {
-        // The ID of the spreadsheet to retrieve data from.
-        spreadsheetId: '1G9mqNZEhJdft4ZixKTqAHxNZ8lAcptheL4kxSsX3Zzg',  // TODO: Update placeholder value.
+        // The ID of the spreadsheet to update.
+        spreadsheetId: 'my-spreadsheet-id',  // TODO: Update placeholder value.
 
-        // The A1 notation of the values to retrieve.
-        range: 'Data!A2:E',  // TODO: Update placeholder value.
+        // The A1 notation of a range to search for a logical table of data.
+        // Values will be appended after the last row of the table.
+        range: 'my-range',  // TODO: Update placeholder value.
 
-        // How values should be represented in the output.
-        // The default render option is ValueRenderOption.FORMATTED_VALUE.
-        valueRenderOption: '',  // TODO: Update placeholder value.
+        // How the input data should be interpreted.
+        valueInputOption: '',  // TODO: Update placeholder value.
 
-        // How dates, times, and durations should be represented in the output.
-        // This is ignored if value_render_option is
-        // FORMATTED_VALUE.
-        // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
-        dateTimeRenderOption: '',  // TODO: Update placeholder value.
+        // How the input data should be inserted.
+        insertDataOption: '',  // TODO: Update placeholder value.
       };
 
-      var request = gapi.client.sheets.spreadsheets.values.get(params);
+      var valueRangeBody = {
+        // TODO: Add desired properties to the request body.
+      };
+
+      var request = gapi.client.sheets.spreadsheets.values.append(params, valueRangeBody);
       request.then(function(response) {
         // TODO: Change code below to process the `response` object:
         console.log(response.result);
@@ -40,6 +41,8 @@
         console.error('error: ' + reason.result.error.message);
       });
     }
+      
+      
     function initClient() {
       var API_KEY = 'AIzaSyC_h1-qrTYtvQLEn3PEz8YSh-Uzr4v0DV0';  // TODO: Update placeholder with desired API key.
 
