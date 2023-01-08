@@ -19,6 +19,17 @@
 		padding: 10px;
 		font-size: 100%;
 	}
+
+	.Keys {
+		border-width:2px;
+		border-style:solid;
+		border-color:black;
+		border-color: #000000;
+		border-width: 5px;
+		border-radius: 5px;
+		padding: 10px;
+		font-size: 100%;
+	}
 	
 	.yesno {
 		background-color: #555599;
@@ -63,35 +74,35 @@
 	.MatchMeta {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 50px 30px ;
+		grid-template-rows: 25px 50px ;
 		grid-auto-flow: column;
 	}
 
 	.MatchDetailMeta {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 50px 30px ;
+		grid-template-rows: 25px 50px ;
 		grid-auto-flow: column;
 	}
 
 	.Movement {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 25px 30px ;
+		grid-template-rows: 25px 50px ;
 		grid-auto-flow: column;
 	}
 
 	.Movement2 {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 25px 30px ;
+		grid-template-rows: 25px 50px ;
 		grid-auto-flow: column;
 	}
 
 	.Mode {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 50px 30px ;
+		grid-template-rows: 50px 50px ;
 		grid-auto-flow: row;
 	}
 
@@ -340,17 +351,18 @@ function reset(){
 	 Click on the colored boxes to see things change and click reest to start over.
 	 --Drew
 	 <br><br><br>
-	 ################################################################################
+	 
 	 
 	 <div class="MatchMeta">
 		<div class="label" id="MatchIDLabel">MatchID</div>
-		<div class="value" id="MatchID">1</div>
+		<div class="Keys" id="MatchID">1</div>
 		<div class="label" id="ScoutIDLabel">ScoutName</div>
-		<div class="value" id="ScoutID" onclick='ChangePrompt(this.id)'>Drew</div>		
+		<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Drew</div>		
 
 		<div class="label" id="TeamIDLabel">TeamID</div>
-		<div class="value" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
+		<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
 	</div>
+	<br>
 	<div class="MatchDetailMeta">
 		<div class="label" id="ConeLabel">Pick Up Cone</div>
 		<div class="yesno" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
@@ -371,7 +383,9 @@ function reset(){
 		
 		<div class="label" id="AutoMovePtsLabel">Auto Move Pts</div>		
 		<div class="box" id="AutoMovePts">0</div>
-
+	</div>
+	<br>
+	<div class="Movement">
 		<div class="label" id="AutoDocLabel">Auto: Docked?</div>
 		<div class="yesno" id="AutoDoc" onclick='ToggleYesNo(this.id)'>NO</div>
 		
@@ -409,7 +423,6 @@ function reset(){
 		 <div class="label" id="ModeIDLabel:">Current Mode</div>
 		 <div class="TeleOpMode" id="ModeID" onclick='ChangeMode(this.id)' >Auto</div>
 	 </div> 
-	 ##############################################################################
 	 <br>
 	 <br>
 	 <br>
