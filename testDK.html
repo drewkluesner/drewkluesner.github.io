@@ -146,6 +146,18 @@ limitations under the License.
           });
         } catch (err) {
           document.getElementById('content').innerText = err.message;
+
+          response = await gapi.client.sheets.spreadsheets.values.append({
+            spreadsheetId: '1G9mqNZEhJdft4ZixKTqAHxNZ8lAcptheL4kxSsX3Zzg',
+            range: 'Data!A2:E',
+            valueInputOption: "USER_ENTERED",
+            resource: {
+                values: [["Gabriella", "Female", "4. Senior"]],
+            },             
+          });
+        } catch (err) {
+          document.getElementById('content').innerText = err.message;
+            
           return;
         }
         const range = response.result;
