@@ -1,40 +1,51 @@
 <!doctype html>
 <html>
 <head>
-  <title>Update Google Sheets</title>
+  <title>Batch Update Google Sheets</title>
 </head>
 <body>
-  <form id="form">
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name"><br>
-    <label for="email">Email:</label><br>
-    <input type="text" id="email" name="email"><br><br>
-    <input type="submit" value="Submit">
-  </form> 
+  <button id="button">Update Sheet</button>
+  <script src="https://apis.google.com/js/client.js"></script>
   <script>
-    function updateSheet(name, email) {
+    var clientId = "172471412542-4hj16ngmoeo9sg314p81gj66p37to1jp.apps.googleusercontent.com";
+    var scope = "https://www.googleapis.com/auth/spreadsheets";
+
+    gapi.load("client:auth2", function() {
+      gapi.auth2.init({
+        client_id: clientId,
+        scope: scope
+      });
+    });
+
+    function batchUpdate(accessToken) {
       // Replace the ID below with the ID of your Google Sheets document
       var sheetId = "1G9mqNZEhJdft4ZixKTqAHxNZ8lAcptheL4kxSsX3Zzg";
-      var url = "https://sheets.googleapis.com/v4/spreadsheets/" + sheetId + "/values/A1:append?insertDataOption=INSERT_ROWS&responseValueRenderOption=FORMATTED_VALUE&responseDateTimeRenderOption=SERIAL_NUMBER&valueInputOption=USER_ENTERED";
+      var url = "https://sheets.googleapis.com/v4/spreadsheets/" + sheetId + ":batchUpdate";
 
-      var data = [
-        {
-          "range": "A1",
-          "values": [
-            [name, email]
-          ]
-        }
-      ];
+      var data = {
+        "requests": [
+          {
+            "updateCells": {
+              "range": {
+                "sheetId": 0,
+                "startRowIndex": 0,
+                "endRowIndex": 10,
+                "startColumnIndex": 0,
+                "endColumnIndex": 3
+              },
+              "fields": "*"
+            }
+          }
+        ]
+      };
 
       var options = {
         method: 'POST',
         headers: {
-          "Authorization": "Bearer 172471412542-mttk2k0rput8li38i7uhp615pfns7vb7.apps.googleusercontent.com",
+          "Authorization": "Bearer " + accessToken,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          "requests": data
-        })
+        body: JSON.stringify(data)
       };
 
       fetch(url, options)
@@ -46,12 +57,15 @@
         });
     }
 
-    // When the form is submitted, update the Google Sheets document
-    document.getElementById('form').onsubmit = function(e) {
-      e.preventDefault();
-      var name = document.getElementById('name').value;
-      var email = document.getElementById('email').value;
-      updateSheet(name, email);
+    // When the button is clicked, get the OAuth 2.0 access token and perform the batch update
+    document.getElementById('button').onclick = function() {
+      var isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
+      if (!isSignedIn) {
+        gapi.auth2.getAuthInstance().signIn();
+      } else {
+        var accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
+        batchUpdate(accessToken);
+      }
     };
   </script>
 </body>
