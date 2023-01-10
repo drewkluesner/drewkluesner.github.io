@@ -121,6 +121,29 @@ limitations under the License.
       /**
        *  Sign out the user upon button click.
        */
+
+        
+        function updateSheet() {
+          // Set up the request
+          const request = {
+            spreadsheetId: SPREADSHEET_ID, // The ID of the spreadsheet to update
+            range: 'Data!A2', // The range of cells to update
+            valueInputOption: 'RAW', // How the input data should be interpreted
+            resource: {
+              values: [[Math.random()]] // The new values to set in the cells
+            },
+            auth: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true)
+          };
+
+          // Make the request to update the cells
+          gapi.client.sheets.spreadsheets.values.update(request).then(function(response) {
+            console.log(response.result);
+          }, function(response) {
+            console.error(response.result.error);
+          });
+        }
+        
+        
       function handleSignoutClick() {
         const token = gapi.client.getToken();
         if (token !== null) {
@@ -138,6 +161,10 @@ limitations under the License.
        */
       async function listMajors() {
         let response;
+        
+          update_sheet()
+          
+          
         try {
           // Fetch first 10 files
           response = await gapi.client.sheets.spreadsheets.values.get({
