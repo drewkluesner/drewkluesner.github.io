@@ -218,8 +218,8 @@ limitations under the License.
           }
           document.getElementById('signout_button').style.visibility = 'visible';
           document.getElementById('authorize_button').innerText = 'Refresh';
-          await listMajors();
-          await updateSheet();
+          /*await listMajors();
+          await updateSheet();*/
 		  await appendData();
         };
 
@@ -269,7 +269,7 @@ limitations under the License.
 			insertDataOption: 'INSERT_ROWS', // How the input data should be inserted
 			valueInputOption: 'RAW', // How the input data should be interpreted
 			resource: {
-			  values: [[Math.random(), Math.random(), Math.random(), Math.random(), Math.random(), 
+			  values: [[document.getElementById('MatchID').innerHTML, document.getElementById('ScoutID').innerHTML, document.getElementById('TeamID').innerHTML, Math.random(), Math.random(), 
 					   Math.random(), Math.random(), Math.random(), Math.random(), Math.random()]] // The new values to append to the sheet
 			},
 		  };
