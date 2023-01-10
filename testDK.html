@@ -106,6 +106,7 @@ limitations under the License.
           document.getElementById('signout_button').style.visibility = 'visible';
           document.getElementById('authorize_button').innerText = 'Refresh';
           await listMajors();
+          await updateSheet();
         };
 
         if (gapi.client.getToken() === null) {
@@ -164,10 +165,7 @@ limitations under the License.
        */
       async function listMajors() {
         let response;
-        
-          update_sheet()
-          
-          
+                 
         try {
           // Fetch first 10 files
           response = await gapi.client.sheets.spreadsheets.values.get({
