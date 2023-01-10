@@ -33,6 +33,14 @@ limitations under the License.
 		font-size: 100%;
 	}
 
+	.blockbox {
+		background-color: #990000;
+		color: #fff;
+		border-radius: 5px;
+		padding: 10px;
+		font-size: 100%;
+	}
+
 	.Keys {
 		border-width:2px;
 		border-style:solid;
@@ -105,6 +113,14 @@ limitations under the License.
 		grid-template-rows: 25px 50px ;
 		grid-auto-flow: column;
 	}
+
+	.Fumble {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 25px 50px ;
+		grid-auto-flow: column;
+	}
+
 
 	.Movement2 {
 		display: grid;
@@ -337,6 +353,12 @@ function updateTotal()
 	{
 		sum += parseFloat($(this).text());
 	});
+	$('.blockbox').each(function()
+	{
+		sum += parseFloat($(this).text());
+	});
+	
+	
 	document.getElementById('TeamPoints').innerHTML =sum;
 
 }
@@ -351,12 +373,12 @@ function updateRP()
 		document.getElementById('AllianceWinRP').innerHTML = 0;
 	
 	if (document.getElementById('CoOp').innerHTML == "YES")
-		if (document.getElementById('AllianceLinks').innerHTML >=4)
+		if (document.getElementById('AllianceLinks').innerHTML >=3)
 			document.getElementById('LinkRP').innerHTML = 1;
 		else
 			document.getElementById('LinkRP').innerHTML = 0;
 	else
-		if (document.getElementById('AllianceLinks').innerHTML >5)
+		if (document.getElementById('AllianceLinks').innerHTML >4)
 			document.getElementById('LinkRP').innerHTML = 1;
 		else
 			document.getElementById('LinkRP').innerHTML = 0;
@@ -381,11 +403,14 @@ function myfunction(id) {
 
 	let Val = 0;	
 	
-	if (document.getElementById('ModeID').innerHTML == "Auto")
+	if (document.getElementById(id).innerHTML  > 0)
+		document.getElementById(id).innerHTML = 0;
+		
+    else if (document.getElementById('ModeID').innerHTML == "Auto")
 	{
 		if (id.match(/Top/))
 		{
-			Val = 6;
+				Val = 6;
 		}
 		else if (id.match(/Mid/))
 		{
@@ -439,6 +464,15 @@ function ChangeMode(id) {
 	   document.getElementById(id).innerHTML  = "Auto"
 
  } 
+
+
+function increment(id, value) {
+    document.getElementById(id).innerHTML = Number(document.getElementById(id).innerHTML) + value;
+ } 
+
+function SubtractFumble() {
+	    document.getElementById('FumbleType').innerHTML = Number(document.getElementById('FumbleType').innerHTML) -1;
+} 
 
 function ToggleYesNo(id) {
 	
@@ -568,16 +602,6 @@ function reset(){
 		<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
 	</div>
 	<br>
-	<div class="MatchDetailMeta">
-		<div class="label" id="ConeLabel">Pick Up Cone</div>
-		<div class="yesno" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
-		<div class="label" id="BlockLabel">Pick Up Block</div>
-		<div class="yesno" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
-		<div class="label" id="FumbleLabel">Fumble</div>
-		<div class="yesno" id="FumbleType" onclick='ToggleYesNo(this.id)'>NO</div>	
-		<div class="label" id="CoOpLabel">3 GP per Grid</div>
-		<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>		
-	</div>
 
 	 <br>
 	 <br>
@@ -642,8 +666,8 @@ function reset(){
 	 	<div class="box" id="col1Mid" onclick='myfunction(this.id)'>0</div>
 	 	<div class="box" id="col1Low" onclick='myfunction(this.id)'>0</div>
 		<div class="label" id="col1Label" >Col1</div>
-	 	<div class="box" id="col2Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col2Mid" onclick='myfunction(this.id)'>0</div>
+	 	<div class="blockbox" id="col2Top" onclick='myfunction(this.id)'>0</div>
+	 	<div class="blockbox" id="col2Mid" onclick='myfunction(this.id)'>0</div>
 	 	<div class="box" id="col2Low" onclick='myfunction(this.id)'>0</div>
 		<div class="label" id="col2Label" >Col2</div>
 	 	<div class="box" id="col3Top" onclick='myfunction(this.id)'>0</div>
@@ -654,8 +678,8 @@ function reset(){
 	 	<div class="box" id="col4Mid" onclick='myfunction(this.id)'>0</div>
 	 	<div class="box" id="col4Low" onclick='myfunction(this.id)'>0</div>
 		<div class="label" id="col4Label" >Col4</div>
-	 	<div class="box" id="col5Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col5Mid" onclick='myfunction(this.id)'>0</div>
+	 	<div class="blockbox" id="col5Top" onclick='myfunction(this.id)'>0</div>
+	 	<div class="blockbox" id="col5Mid" onclick='myfunction(this.id)'>0</div>
 	 	<div class="box" id="col5Low" onclick='myfunction(this.id)'>0</div>
 		<div class="label" id="col5Label" >Col5</div>
 	 	<div class="box" id="col6Top" onclick='myfunction(this.id)'>0</div>
@@ -666,8 +690,8 @@ function reset(){
 	 	<div class="box" id="col7Mid" onclick='myfunction(this.id)'>0</div>
 	 	<div class="box" id="col7Low" onclick='myfunction(this.id)'>0</div>
 		<div class="label" id="col7Label" >Col7</div>
-	 	<div class="box" id="col8Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col8Mid" onclick='myfunction(this.id)'>0</div>
+	 	<div class="blockbox" id="col8Top" onclick='myfunction(this.id)'>0</div>
+	 	<div class="blockbox" id="col8Mid" onclick='myfunction(this.id)'>0</div>
 	 	<div class="box" id="col8Low" onclick='myfunction(this.id)'>0</div>
 		<div class="label" id="col8Label" >Col8</div>		
 	 	<div class="box" id="col9Top" onclick='myfunction(this.id)'>0</div>
@@ -675,6 +699,29 @@ function reset(){
 	 	<div class="box" id="col9Low" onclick='myfunction(this.id)'>0</div>
 		<div class="label" id="col9Label" >Col9</div>
 	</div>
+	
+	<div class="Fumble">
+		<div class="label" id="FumbleLabel">FumbleCounter</div>
+		<div class="yesno" id="FumbleType" onclick='increment(this.id, 1)'>0</div>	
+
+		<div class="label" id="FumbleLabel">Fumble</div>
+		<div class="yesno" id="FumbleDec" onclick='SubtractFumble(FumbleType)'>Subtract from Fumble</div>	
+	</div>			
+	
+	<br>
+	<br>
+	
+	
+	<div class="MatchDetailMeta">
+		<div class="label" id="ConeLabel">Score Cone?</div>
+		<div class="yesno" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
+		<div class="label" id="BlockLabel">Score Block?</div>
+		<div class="yesno" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
+
+		<div class="label" id="CoOpLabel">3 GP per Grid</div>
+		<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>		
+	</div>
+		
 
 	<br>
 	<h3> Point Totals</h3>
