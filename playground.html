@@ -244,7 +244,7 @@ limitations under the License.
   
           // Set up the request
           const request = {
-            spreadsheetId: '1G9mqNZEhJdft4ZixKTqAHxNZ8lAcptheL4kxSsX3Zzg', // The ID of the spreadsheet to update
+            spreadsheetId: '1JTg8hwLcdisRMR0c2rAI9_0ABHc8NgyV3Hku0Ud9_6k', // The ID of the spreadsheet to update
             range: 'Data!A2', // The range of cells to update
             valueInputOption: 'RAW', // How the input data should be interpreted
             resource: {
@@ -264,7 +264,7 @@ limitations under the License.
 		function appendData() {
 		  // Set up the request
 		  const request = {
-			spreadsheetId: '1G9mqNZEhJdft4ZixKTqAHxNZ8lAcptheL4kxSsX3Zzg', // The ID of the spreadsheet to update
+			spreadsheetId: '1JTg8hwLcdisRMR0c2rAI9_0ABHc8NgyV3Hku0Ud9_6k', // The ID of the spreadsheet to update
 			range: 'Data!A:J', // The name of the sheet to append the data to
 			insertDataOption: 'INSERT_ROWS', // How the input data should be inserted
 			valueInputOption: 'RAW', // How the input data should be interpreted
@@ -303,7 +303,7 @@ limitations under the License.
         try {
           // Fetch first 10 files
           response = await gapi.client.sheets.spreadsheets.values.get({
-            spreadsheetId: '1G9mqNZEhJdft4ZixKTqAHxNZ8lAcptheL4kxSsX3Zzg',
+            spreadsheetId: '1JTg8hwLcdisRMR0c2rAI9_0ABHc8NgyV3Hku0Ud9_6k',
             range: 'Data!A2:E',
           });
         } catch (err) {
