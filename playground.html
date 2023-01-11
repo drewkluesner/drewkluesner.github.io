@@ -70,7 +70,7 @@ limitations under the License.
 
 
 	.TeleOpMode {
-		background-color: #FF00FF		;
+		background-color: brown;
 		color: #fff;
 		border-radius: 5px;
 		padding: 10px;
@@ -459,10 +459,17 @@ function ChangeItem(id) {
  
 function ChangeMode(id) {
     if (document.getElementById(id).innerHTML == "Auto")
-	   document.getElementById(id).innerHTML = "Tele"
+	{
+	   document.getElementById(id).innerHTML = "Tele";
+	   let element = document.querySelector(".TeleOpMode	");
+	   element.style.backgroundColor = "blue";
+	}   
 	else
-	   document.getElementById(id).innerHTML  = "Auto"
-
+	{
+	   document.getElementById(id).innerHTML  = "Auto";
+	   let element = document.querySelector(".TeleOpMode");
+	   element.style.backgroundColor = "brown";
+	}
  } 
 
 
@@ -578,7 +585,7 @@ function reset(){
 	document.getElementById('EndGameDocked').innerHTML = "NO";
 	document.getElementById('EndGameEngaged').innerHTML = "NO";
 	document.getElementById('EndGameParked').innerHTML = "NO";
-	alert ("hi")
+	alert ("Everything is AWESOME!")
 	
 	updateTotal()
 } 
