@@ -472,6 +472,8 @@ function increment(id, value) {
 
 function SubtractFumble() {
 	    document.getElementById('FumbleType').innerHTML = Number(document.getElementById('FumbleType').innerHTML) -1;
+		if  (Number(document.getElementById('FumbleType').innerHTML) < 0)
+			document.getElementById('FumbleType').innerHTML = 0
 } 
 
 function ToggleYesNo(id) {
