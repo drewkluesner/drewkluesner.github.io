@@ -70,7 +70,7 @@ limitations under the License.
 
 
 	.TeleOpMode {
-		background-color: #FF00FF		;
+		background-color: brown;
 		color: #fff;
 		border-radius: 5px;
 		padding: 10px;
@@ -459,10 +459,17 @@ function ChangeItem(id) {
  
 function ChangeMode(id) {
     if (document.getElementById(id).innerHTML == "Auto")
-	   document.getElementById(id).innerHTML = "Tele"
+	{
+	   document.getElementById(id).innerHTML = "Tele";
+	   let element = document.querySelector(".TeleOpMode	");
+	   element.style.backgroundColor = "blue";
+	}   
 	else
-	   document.getElementById(id).innerHTML  = "Auto"
-
+	{
+	   document.getElementById(id).innerHTML  = "Auto";
+	   let element = document.querySelector(".TeleOpMode");
+	   element.style.backgroundColor = "brown";
+	}
  } 
 
 
@@ -472,6 +479,8 @@ function increment(id, value) {
 
 function SubtractFumble() {
 	    document.getElementById('FumbleType').innerHTML = Number(document.getElementById('FumbleType').innerHTML) -1;
+		if  (Number(document.getElementById('FumbleType').innerHTML) < 0)
+			document.getElementById('FumbleType').innerHTML = 0
 } 
 
 function ToggleYesNo(id) {
@@ -576,7 +585,7 @@ function reset(){
 	document.getElementById('EndGameDocked').innerHTML = "NO";
 	document.getElementById('EndGameEngaged').innerHTML = "NO";
 	document.getElementById('EndGameParked').innerHTML = "NO";
-	alert ("hi")
+	alert ("Everything is AWESOME!")
 	
 	updateTotal()
 } 
@@ -607,7 +616,7 @@ function reset(){
 	 <br>
 	 <h3>Autonomous Movement</h3>
 	 <div class="Movement">		
-		<div class="label" id="AutoMoveLabel">Auto: Did it Move?</div>
+		<div class="label" id="AutoMoveLabel">Auto: Did it exit the community?</div>
 		<div class="yesno" id="AutoMove" onclick='ToggleYesNo(this.id)'>NO</div>
 		
 		<div class="label" id="AutoMovePtsLabel">Auto Move Pts</div>		
@@ -627,22 +636,7 @@ function reset(){
 	<br>
 	<br>
 	
-	<h3>EndGame Movements</h3>
-	<div class="Movement2">
-		<div class="label" id="EndGameDockedLabel">EndGame: Docked?</div>
-		<div class="yesno" id="EndGameDocked" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="EndGameEngagedLabel">EndGame: Engaged?</div>
-		<div class="yesno" id="EndGameEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="EndGameParkedLabel">EndGame: Parked?</div>
-		<div class="yesno" id="EndGameParked" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="EndGameEngPtsLabel">EndGame Pts</div>		
-		<div class="box" id="EndGameEngPts">0</div>		
-		
-	 </div>
-	 
+
 	 <br>
 	 <br>
 	 
@@ -657,11 +651,12 @@ function reset(){
 	 <br>
 	 
 	 <div class="wrapper">
+	 <!-- 
 	 	<div class="label" id="col0Top" >Top</div>
 	 	<div class="label" id="col0Mid" >Mid</div>
 	 	<div class="label" id="col0Low" >Low</div>
 		<div class="label" id="col0Label" ></div>
-		
+	 -->
 	 	<div class="box" id="col1Top" onclick='myfunction(this.id)'>0</div>
 	 	<div class="box" id="col1Mid" onclick='myfunction(this.id)'>0</div>
 	 	<div class="box" id="col1Low" onclick='myfunction(this.id)'>0</div>
@@ -711,6 +706,24 @@ function reset(){
 	<br>
 	<br>
 	
+	
+	<h3>EndGame Movements</h3>
+	<div class="Movement2">
+		<div class="label" id="EndGameDockedLabel">EndGame: Docked?</div>
+		<div class="yesno" id="EndGameDocked" onclick='ToggleYesNo(this.id)'>NO</div>
+		
+		<div class="label" id="EndGameEngagedLabel">EndGame: Engaged?</div>
+		<div class="yesno" id="EndGameEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
+		
+		<div class="label" id="EndGameParkedLabel">EndGame: Parked?</div>
+		<div class="yesno" id="EndGameParked" onclick='ToggleYesNo(this.id)'>NO</div>
+		
+		<div class="label" id="EndGameEngPtsLabel">EndGame Pts</div>		
+		<div class="box" id="EndGameEngPts">0</div>		
+		
+	 </div>
+	 <br><br>
+	 
 	
 	<div class="MatchDetailMeta">
 		<div class="label" id="ConeLabel">Score Cone?</div>
