@@ -52,6 +52,17 @@ limitations under the License.
 		padding: 10px;
 		font-size: 200%;
 	}
+
+	.label {
+		border-width:2px;
+		border-style:solid;
+		border-color:black;
+		border-color: #000000;
+		border-width: 5px;
+		border-radius: 5px;
+		padding: 10px;
+		font-size: 150%;
+	}
 	
 	.yesno {
 		background-color: #555599;
@@ -96,7 +107,7 @@ limitations under the License.
 	.MatchMeta {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 25px 50px ;
+		grid-template-rows: 50px 50px ;
 		grid-auto-flow: column;
 	}
 
@@ -111,14 +122,14 @@ limitations under the License.
 	.Movement {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 25px 50px ;
+		grid-template-rows: 50px 50px ;
 		grid-auto-flow: column;
 	}
 
 	.Fumble {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 25px 50px ;
+		grid-template-rows: 50px 50px ;
 		grid-auto-flow: column;
 	}
 
@@ -126,7 +137,7 @@ limitations under the License.
 	.Movement2 {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 25px 50px ;
+		grid-template-rows: 50px 50px ;
 		grid-auto-flow: column;
 	}
 
@@ -696,6 +707,7 @@ function reset(){
 		<div class="label" id="col9Label" >Col9</div>
 	</div>
 	
+	<br>
 	<div class="Fumble">
 		<div class="label" id="FumbleLabel">FumbleCounter</div>
 		<div class="yesno" id="FumbleType" onclick='increment(this.id, 1)'>0</div>	
