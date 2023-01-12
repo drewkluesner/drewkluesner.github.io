@@ -206,8 +206,13 @@ limitations under the License.
 
 		function showApp()
 		{
-		  document.getElementById("MainDiv").style.visibility = "visible";
-		  alert("Hi Mom");
+			  var x = document.getElementById('MainDiv');
+			  if (x.style.visibility === 'hidden') {
+				x.style.visibility = 'visible';
+			  } else {
+				x.style.visibility = 'hidden';
+			  }
+
 		}
 
 
@@ -250,8 +255,11 @@ limitations under the License.
       function maybeEnableButtons() {
         if (gapiInited && gisInited) {
           document.getElementById('authorize_button').style.visibility = 'visible';
-		  document.getElementById("MainDiv").style.visibility = "visible";
-
+		  
+			  var x = document.getElementById('MainDiv');
+			  if (x.style.visibility === 'hidden') {
+				x.style.visibility = 'visible';
+			  }
         }
       }
 
@@ -685,7 +693,7 @@ function reset(){
  
 </script>
 
-	<div class=MainView" id="MainDiv" hidden  >
+	<div class=MainView" id="MainDiv"   >
 		 
 		 <h3>MatchData</h3>
 		 
