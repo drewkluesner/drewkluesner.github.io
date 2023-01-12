@@ -26,6 +26,8 @@ limitations under the License.
 		background-color:  #bfbfbf;
 	}
 
+
+
 	.box {
 		background-color: #444;
 		color: #fff;
@@ -174,8 +176,9 @@ limitations under the License.
     <p>7531 - Scouting App</p>
 
     <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+    <button id="authorize_button" onclick="handleAuthClick()">Authorize and push data to google sheets</button>
     <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+    <button id="nogoogle" onclick="showApp()">Incase you dont have a google account and want to play with the layout click me.</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -202,6 +205,18 @@ limitations under the License.
 
       document.getElementById('authorize_button').style.visibility = 'hidden';
       document.getElementById('signout_button').style.visibility = 'hidden';
+
+		function showApp()
+		{
+			  var x = document.getElementById('MainDiv');
+			  if (x.style.visibility === 'hidden') {
+				x.style.visibility = 'visible';
+			  } else {
+				x.style.visibility = 'hidden';
+			  }
+
+		}
+
 
       /**
        * Callback after api.js is loaded.
@@ -242,6 +257,8 @@ limitations under the License.
       function maybeEnableButtons() {
         if (gapiInited && gisInited) {
           document.getElementById('authorize_button').style.visibility = 'visible';
+		  
+	
         }
       }
 
@@ -256,8 +273,12 @@ limitations under the License.
           document.getElementById('signout_button').style.visibility = 'visible';
           document.getElementById('authorize_button').innerText = 'Refresh';
           /*await listMajors();
-          await updateSheet();*/
-		  await appendData();
+          await updateSheet();
+		  await appendData();*/
+		  var x = document.getElementById('MainDiv');
+			  if (x.style.visibility === 'hidden') {
+				x.style.visibility = 'visible';
+			  }
         };
 
         if (gapi.client.getToken() === null) {
@@ -302,12 +323,63 @@ limitations under the License.
 		  // Set up the request
 		  const request = {
 			spreadsheetId: '1JTg8hwLcdisRMR0c2rAI9_0ABHc8NgyV3Hku0Ud9_6k', // The ID of the spreadsheet to update
-			range: 'Data!A:J', // The name of the sheet to append the data to
+			range: 'Data!A:AY', // The name of the sheet to append the data to
 			insertDataOption: 'INSERT_ROWS', // How the input data should be inserted
 			valueInputOption: 'RAW', // How the input data should be interpreted
 			resource: {
-			  values: [[document.getElementById('MatchID').innerHTML, document.getElementById('ScoutID').innerHTML, document.getElementById('TeamID').innerHTML, Math.random(), Math.random(), 
-					   Math.random(), Math.random(), Math.random(), Math.random(), Math.random()]] // The new values to append to the sheet
+			  values: [[
+				document.getElementById('MatchID').innerHTML, 
+				document.getElementById('ScoutID').innerHTML, 
+				document.getElementById('TeamID').innerHTML, 
+				document.getElementById('col1Top').innerHTML,
+				document.getElementById('col1Mid').innerHTML,
+				document.getElementById('col1Low').innerHTML,
+				document.getElementById('col2Top').innerHTML,
+				document.getElementById('col2Mid').innerHTML,
+				document.getElementById('col2Low').innerHTML,	
+				document.getElementById('col3Top').innerHTML,
+				document.getElementById('col3Mid').innerHTML,
+				document.getElementById('col3Low').innerHTML,	
+				document.getElementById('col4Top').innerHTML,
+				document.getElementById('col4Mid').innerHTML,
+				document.getElementById('col4Low').innerHTML,
+				document.getElementById('col5Top').innerHTML,
+				document.getElementById('col5Mid').innerHTML,
+				document.getElementById('col5Low').innerHTML,	
+				document.getElementById('col6Top').innerHTML,
+				document.getElementById('col6Mid').innerHTML,
+				document.getElementById('col6Low').innerHTML,
+				document.getElementById('col7Top').innerHTML,
+				document.getElementById('col7Mid').innerHTML,
+				document.getElementById('col7Low').innerHTML,
+				document.getElementById('col8Top').innerHTML,
+				document.getElementById('col8Mid').innerHTML,
+				document.getElementById('col8Low').innerHTML,	
+				document.getElementById('col9Top').innerHTML,
+				document.getElementById('col9Mid').innerHTML,
+				document.getElementById('col9Low').innerHTML,
+				document.getElementById('Block').innerHTML,
+				document.getElementById('FumbleType').innerHTML,
+				document.getElementById('CoOp').innerHTML,
+				document.getElementById('Cone').innerHTML,
+				document.getElementById('AutoMove').innerHTML,
+				document.getElementById('AutoMovePts').innerHTML,
+				document.getElementById('AutoDoc').innerHTML,
+				document.getElementById('AutoEngaged').innerHTML,
+				document.getElementById('AutoDocEngPts').innerHTML,
+				document.getElementById('EndGameDocked').innerHTML,
+				document.getElementById('EndGameEngaged').innerHTML,
+				document.getElementById('EndGameParked').innerHTML,
+				document.getElementById('EndGameEngPts').innerHTML,				
+				document.getElementById('AllianceOPoints').innerHTML,
+				document.getElementById('AllianceDPoints').innerHTML,
+				document.getElementById('AllianceLinks').innerHTML,
+				document.getElementById('AllianceChargeStation').innerHTML,
+				document.getElementById('AllianceWinRP').innerHTML,
+				document.getElementById('LinkRP').innerHTML,
+				document.getElementById('ChargeRP').innerHTML,
+				document.getElementById('TotalRP').innerHTML
+				]] // The new values to append to the sheet
 			},
 		  };
 				// Make the request to append the data
@@ -316,6 +388,8 @@ limitations under the License.
 		  }, function(response) {
 			console.error(response.result.error);
 		  });
+		  
+		  reset();
 		}  
 
         
@@ -541,7 +615,13 @@ function ChangePrompt(id) {
 
 	let value = ""
 	let promptVal = ""
- 	if (id.match(/Team/))
+
+	if (id.match(/Match/))
+	{
+		value = "Match ID"
+		promptVal = ""
+	}	
+ 	else if (id.match(/Team/))
 	{
 		value = "Team ID"
 		promptVal = "7531"
@@ -565,6 +645,8 @@ function ChangePrompt(id) {
  } 
 
 function reset(){
+	document.getElementById('MatchID').innerHTML = Number(document.getElementById('MatchID').innerHTML) + 1;
+
 	document.getElementById('col1Top').innerHTML = 0;
 	document.getElementById('col1Mid').innerHTML = 0;
 	document.getElementById('col1Low').innerHTML = 0;
@@ -597,7 +679,7 @@ function reset(){
 	
 
 	document.getElementById('Block').innerHTML = "NO";
-	document.getElementById('FumbleType').innerHTML = "NO";
+	document.getElementById('FumbleType').innerHTML = "0";
 	document.getElementById('CoOp').innerHTML = "NO";
 	document.getElementById('Cone').innerHTML = "NO";
 	document.getElementById('AutoMove').innerHTML = "NO";
@@ -608,190 +690,204 @@ function reset(){
 	document.getElementById('EndGameParked').innerHTML = "NO";
 	alert ("Everything is AWESOME!")
 	
+	document.getElementById('AllianceOPoints').innerHTML=0;
+	document.getElementById('AllianceDPoints').innerHTML=0;
+	document.getElementById('AllianceLinks').innerHTML=0;
+	document.getElementById('AllianceChargeStation').innerHTML=0;
+	document.getElementById('AllianceWinRP').innerHTML=0;
+	document.getElementById('LinkRP').innerHTML=0;
+	document.getElementById('ChargeRP').innerHTML=0;
+	document.getElementById('TotalRP').innerHTML=0;
+	
+	document.getElementById('AutoMovePts').innerHTML=0;
+	document.getElementById('AutoDocEngPts').innerHTML=0;
+	document.getElementById('EndGameEngPts').innerHTML=0;
+	
 	updateTotal()
 } 
  
 </script>
 
-	 
-	 <h3>MatchData</h3>
-	 
-	 Click on the values to see how things change.
-	 
-	 <div class="MatchMeta">
-		<div class="label" id="MatchIDLabel">MatchID</div>
-		<div class="Keys" id="MatchID">1</div>
-		<div class="label" id="ScoutIDLabel">ScoutName</div>
-		<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Drew</div>		
+	<div class=MainView" id="MainDiv" style="visibility:hidden;" >
+		 
+		 <h3>MatchData</h3>
+		 
+		 Click on the values to see how things change.
+		 
+		 <div class="MatchMeta">
+			<div class="label" id="MatchIDLabel">MatchID</div>
+			<div class="Keys" id="MatchID" onclick='ChangePrompt(this.id)'>1</div>
+			<div class="label" id="ScoutIDLabel">ScoutName</div>
+			<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Elmo</div>		
 
-		<div class="label" id="TeamIDLabel">TeamID</div>
-		<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
+			<div class="label" id="TeamIDLabel">TeamID</div>
+			<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
+		</div>
+		<br>
+
+		 <br>
+		 <br>
+		 <h3>Autonomous Movement</h3>
+		 <div class="Movement">		
+			<div class="label" id="AutoMoveLabel">Auto: Did it exit the community?</div>
+			<div class="yesno" id="AutoMove" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="AutoMovePtsLabel">Auto Move Pts</div>		
+			<div class="box" id="AutoMovePts">0</div>
+		</div>
+		<br>
+		<div class="Movement">
+			<div class="label" id="AutoDocLabel">Auto: Docked?</div>
+			<div class="yesno" id="AutoDoc" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="AutoEngagedLabel">Auto: Engaged?</div>
+			<div class="yesno" id="AutoEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="AutoDocEngPtsLabel">Auto Dock Pts</div>		
+			<div class="box" id="AutoDocEngPts">0</div>
+		</div>
+		<br>
+		<br>
+		
+
+		 <br>
+		 <br>
+		 
+		 <h3>GameGrid</h3>
+		 <h4>Click the Blue/Tele or Brown/Auto window to toggle between autonmous and teleop</h4>
+		 <div class="Mode">
+			 <div class="label" id="ModeIDLabel:">Current Mode</div>
+			 <div class="TeleOpMode" id="ModeID" onclick='ChangeMode(this.id)' >Auto</div>
+		 </div> 
+		 <br>
+		 <br>
+		 <br>
+		 
+		 <div class="wrapper">
+		 <!-- 
+			<div class="label" id="col0Top" >Top</div>
+			<div class="label" id="col0Mid" >Mid</div>
+			<div class="label" id="col0Low" >Low</div>
+			<div class="label" id="col0Label" ></div>
+		 -->
+			<div class="box" id="col1Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col1Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col1Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col1Label" >Col1</div>
+			<div class="blockbox" id="col2Top" onclick='myfunction(this.id)'>0</div>
+			<div class="blockbox" id="col2Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col2Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col2Label" >Col2</div>
+			<div class="box" id="col3Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col3Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col3Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col3Label" >Col3</div>
+			<div class="box" id="col4Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col4Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col4Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col4Label" >Col4</div>
+			<div class="blockbox" id="col5Top" onclick='myfunction(this.id)'>0</div>
+			<div class="blockbox" id="col5Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col5Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col5Label" >Col5</div>
+			<div class="box" id="col6Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col6Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col6Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col6Label" >Col6</div>	
+			<div class="box" id="col7Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col7Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col7Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col7Label" >Col7</div>
+			<div class="blockbox" id="col8Top" onclick='myfunction(this.id)'>0</div>
+			<div class="blockbox" id="col8Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col8Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col8Label" >Col8</div>		
+			<div class="box" id="col9Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col9Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col9Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col9Label" >Col9</div>
+		</div>
+		
+		<br>
+		<div class="Fumble">
+			<div class="label" id="FumbleLabel">FumbleCounter</div>
+			<div class="yesno" id="FumbleType" onclick='increment(this.id, 1)'>0</div>	
+
+			<div class="label" id="FumbleLabel">Fumble</div>
+			<div class="yesno" id="FumbleDec" onclick='SubtractFumble(FumbleType)'>Subtract from Fumble</div>	
+		</div>			
+		
+		<br>
+		<br>
+		
+		
+		<h3>EndGame Movements</h3>
+		<div class="Movement2">
+			<div class="label" id="EndGameDockedLabel">EndGame: Docked?</div>
+			<div class="yesno" id="EndGameDocked" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="EndGameEngagedLabel">EndGame: Engaged?</div>
+			<div class="yesno" id="EndGameEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="EndGameParkedLabel">EndGame: Parked?</div>
+			<div class="yesno" id="EndGameParked" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="EndGameEngPtsLabel">EndGame Pts</div>		
+			<div class="box" id="EndGameEngPts">0</div>		
+			
+		 </div>
+		 <br><br>
+		 
+		
+		<div class="MatchDetailMeta">
+			<div class="label" id="ConeLabel">Score Cone?</div>
+			<div class="yesno" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
+			<div class="label" id="BlockLabel">Score Block?</div>
+			<div class="yesno" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
+
+			<div class="label" id="CoOpLabel">3 GP per Grid</div>
+			<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>		
+		</div>
+			
+
+		<br>
+		<h3> Point Totals</h3>
+		<div class ="PointTotals">
+			
+			<div class="label" id="TeamPointsLabel">Team Points</div>
+			<div class="Points" id="TeamPoints" >0</div>
+			
+			<div class="label" id="AllianceOffenseLabel">Allicance Points</div>
+			<div class="Points" id="AllianceOPoints" onclick='ChangePrompt(this.id)' >0</div>
+			<div class="label" id="AllianceDLabel">Opponent Points</div>
+			<div class="Points" id="AllianceDPoints" onclick='ChangePrompt(this.id)' >0</div>
+			
+			<div class="label" id="AllianceLinksLabel">Team Links</div>
+			<div class="Points" id="AllianceLinks" onclick='ChangePrompt(this.id)' >0</div>
+					
+			<div class="label" id="AllianceChargeStationLabel">Team Total ChargePts</div>
+			<div class="Points" id="AllianceChargeStation" onclick='ChangePrompt(this.id)'>0</div>						
+		 </div>
+
+		<br>
+		<h3> Ranking Points</h3>
+
+		<div class="RP">
+			<div class="label" id="AllianceWinRPLabel">OutcomeRP</div>
+			<div class="rpvalue" id="AllianceWinRP" >0</div>
+			<div class="label" id="LinkRPLabel">LinkRP</div>
+			<div class="rpvalue" id="LinkRP" >0</div>
+			<div class="label" id="ChargeRPLabel">ChargeRP</div>
+			<div class="rpvalue" id="ChargeRP" >0</div>
+			<div class="label" id="TotalLabel">TotalRP</div>
+			<div class="value" id="TotalRP" >0</div>
+			
+		</div>	
+
+
+		<div class="button"><button id="reset" name="reset" onclick="reset()">RESET ME</button></div>
+		<div class="button"><button id="reset" name="reset" onclick="appendData()">Submit ME</button></div>
 	</div>
-	<br>
-
-	 <br>
-	 <br>
-	 <h3>Autonomous Movement</h3>
-	 <div class="Movement">		
-		<div class="label" id="AutoMoveLabel">Auto: Did it exit the community?</div>
-		<div class="yesno" id="AutoMove" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="AutoMovePtsLabel">Auto Move Pts</div>		
-		<div class="box" id="AutoMovePts">0</div>
-	</div>
-	<br>
-	<div class="Movement">
-		<div class="label" id="AutoDocLabel">Auto: Docked?</div>
-		<div class="yesno" id="AutoDoc" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="AutoEngagedLabel">Auto: Engaged?</div>
-		<div class="yesno" id="AutoEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="AutoDocEngPtsLabel">Auto Dock Pts</div>		
-		<div class="box" id="AutoDocEngPts">0</div>
-	</div>
-	<br>
-	<br>
-	
-
-	 <br>
-	 <br>
-	 
-	 <h3>GameGrid</h3>
-	 <h4>Click the Blue/Tele or Brown/Auto window to toggle between autonmous and teleop</h4>
-	 <div class="Mode">
-		 <div class="label" id="ModeIDLabel:">Current Mode</div>
-		 <div class="TeleOpMode" id="ModeID" onclick='ChangeMode(this.id)' >Auto</div>
-	 </div> 
-	 <br>
-	 <br>
-	 <br>
-	 
-	 <div class="wrapper">
-	 <!-- 
-	 	<div class="label" id="col0Top" >Top</div>
-	 	<div class="label" id="col0Mid" >Mid</div>
-	 	<div class="label" id="col0Low" >Low</div>
-		<div class="label" id="col0Label" ></div>
-	 -->
-	 	<div class="box" id="col1Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col1Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col1Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col1Label" >Col1</div>
-	 	<div class="blockbox" id="col2Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="blockbox" id="col2Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col2Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col2Label" >Col2</div>
-	 	<div class="box" id="col3Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col3Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col3Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col3Label" >Col3</div>
-	 	<div class="box" id="col4Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col4Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col4Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col4Label" >Col4</div>
-	 	<div class="blockbox" id="col5Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="blockbox" id="col5Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col5Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col5Label" >Col5</div>
-	 	<div class="box" id="col6Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col6Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col6Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col6Label" >Col6</div>	
-	 	<div class="box" id="col7Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col7Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col7Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col7Label" >Col7</div>
-	 	<div class="blockbox" id="col8Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="blockbox" id="col8Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col8Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col8Label" >Col8</div>		
-	 	<div class="box" id="col9Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col9Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col9Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col9Label" >Col9</div>
-	</div>
-	
-	<br>
-	<div class="Fumble">
-		<div class="label" id="FumbleLabel">FumbleCounter</div>
-		<div class="yesno" id="FumbleType" onclick='increment(this.id, 1)'>0</div>	
-
-		<div class="label" id="FumbleLabel">Fumble</div>
-		<div class="yesno" id="FumbleDec" onclick='SubtractFumble(FumbleType)'>Subtract from Fumble</div>	
-	</div>			
-	
-	<br>
-	<br>
-	
-	
-	<h3>EndGame Movements</h3>
-	<div class="Movement2">
-		<div class="label" id="EndGameDockedLabel">EndGame: Docked?</div>
-		<div class="yesno" id="EndGameDocked" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="EndGameEngagedLabel">EndGame: Engaged?</div>
-		<div class="yesno" id="EndGameEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="EndGameParkedLabel">EndGame: Parked?</div>
-		<div class="yesno" id="EndGameParked" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="EndGameEngPtsLabel">EndGame Pts</div>		
-		<div class="box" id="EndGameEngPts">0</div>		
-		
-	 </div>
-	 <br><br>
-	 
-	
-	<div class="MatchDetailMeta">
-		<div class="label" id="ConeLabel">Score Cone?</div>
-		<div class="yesno" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
-		<div class="label" id="BlockLabel">Score Block?</div>
-		<div class="yesno" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
-
-		<div class="label" id="CoOpLabel">3 GP per Grid</div>
-		<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>		
-	</div>
-		
-
-	<br>
-	<h3> Point Totals</h3>
-	<div class ="PointTotals">
-		
-		<div class="label" id="TeamPointsLabel">Team Points</div>
-		<div class="Points" id="TeamPoints" >0</div>
-		
-		<div class="label" id="AllianceOffenseLabel">Allicance Points</div>
-		<div class="Points" id="AllianceOPoints" onclick='ChangePrompt(this.id)' >0</div>
-		<div class="label" id="AllianceDLabel">Opponent Points</div>
-		<div class="Points" id="AllianceDPoints" onclick='ChangePrompt(this.id)' >0</div>
-		
-		<div class="label" id="AllianceLinksLabel">Team Links</div>
-		<div class="Points" id="AllianceLinks" onclick='ChangePrompt(this.id)' >0</div>
-				
-		<div class="label" id="AllianceChargeStationLabel">Team Total ChargePts</div>
-		<div class="Points" id="AllianceChargeStation" onclick='ChangePrompt(this.id)'>0</div>						
-	 </div>
-
-	<br>
-	<h3> Ranking Points</h3>
-
-	<div class="RP">
-		<div class="label" id="AllianceWinRPLabel">OutcomeRP</div>
-		<div class="rpvalue" id="AllianceWinRP" >0</div>
-		<div class="label" id="LinkRPLabel">LinkRP</div>
-		<div class="rpvalue" id="LinkRP" >0</div>
-		<div class="label" id="ChargeRPLabel">ChargeRP</div>
-		<div class="rpvalue" id="ChargeRP" >0</div>
-		<div class="label" id="TotalLabel">TotalRP</div>
-		<div class="value" id="TotalRP" >0</div>
-		
-	</div>	
-
-
-	<div class="button"><button id="reset" name="reset" onclick="reset()">RESET ME</button></div>
-	<div class="button"><button id="reset" name="reset" onclick="appendData()">Submit ME</button></div>
-
 	
   </body>
 </html>
