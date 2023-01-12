@@ -258,10 +258,7 @@ limitations under the License.
         if (gapiInited && gisInited) {
           document.getElementById('authorize_button').style.visibility = 'visible';
 		  
-			  var x = document.getElementById('MainDiv');
-			  if (x.style.visibility === 'hidden') {
-				x.style.visibility = 'visible';
-			  }
+	
         }
       }
 
@@ -278,7 +275,10 @@ limitations under the License.
           /*await listMajors();
           await updateSheet();
 		  await appendData();*/
-
+		  var x = document.getElementById('MainDiv');
+			  if (x.style.visibility === 'hidden') {
+				x.style.visibility = 'visible';
+			  }
         };
 
         if (gapi.client.getToken() === null) {
