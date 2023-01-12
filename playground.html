@@ -176,6 +176,7 @@ limitations under the License.
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
     <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+    <button id="authorize_button" onclick="noGoogle()">Incase you dont have a google account and want to play with the layout click me.</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -256,8 +257,10 @@ limitations under the License.
           document.getElementById('signout_button').style.visibility = 'visible';
           document.getElementById('authorize_button').innerText = 'Refresh';
           /*await listMajors();
-          await updateSheet();*/
-		  await appendData();
+          await updateSheet();
+		  await appendData();*/
+		  let element = document.getElementById("MainView");
+		  let hidden = element.getAttribute("hidden");
         };
 
         if (gapi.client.getToken() === null) {
@@ -674,185 +677,186 @@ function reset(){
  
 </script>
 
-	 
-	 <h3>MatchData</h3>
-	 
-	 Click on the values to see how things change.
-	 
-	 <div class="MatchMeta">
-		<div class="label" id="MatchIDLabel">MatchID</div>
-		<div class="Keys" id="MatchID" onclick='ChangePrompt(this.id)'>1</div>
-		<div class="label" id="ScoutIDLabel">ScoutName</div>
-		<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Drew</div>		
+	<div class=MainView" hidden>
+		 
+		 <h3>MatchData</h3>
+		 
+		 Click on the values to see how things change.
+		 
+		 <div class="MatchMeta">
+			<div class="label" id="MatchIDLabel">MatchID</div>
+			<div class="Keys" id="MatchID" onclick='ChangePrompt(this.id)'>1</div>
+			<div class="label" id="ScoutIDLabel">ScoutName</div>
+			<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Drew</div>		
 
-		<div class="label" id="TeamIDLabel">TeamID</div>
-		<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
+			<div class="label" id="TeamIDLabel">TeamID</div>
+			<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
+		</div>
+		<br>
+
+		 <br>
+		 <br>
+		 <h3>Autonomous Movement</h3>
+		 <div class="Movement">		
+			<div class="label" id="AutoMoveLabel">Auto: Did it exit the community?</div>
+			<div class="yesno" id="AutoMove" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="AutoMovePtsLabel">Auto Move Pts</div>		
+			<div class="box" id="AutoMovePts">0</div>
+		</div>
+		<br>
+		<div class="Movement">
+			<div class="label" id="AutoDocLabel">Auto: Docked?</div>
+			<div class="yesno" id="AutoDoc" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="AutoEngagedLabel">Auto: Engaged?</div>
+			<div class="yesno" id="AutoEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="AutoDocEngPtsLabel">Auto Dock Pts</div>		
+			<div class="box" id="AutoDocEngPts">0</div>
+		</div>
+		<br>
+		<br>
+		
+
+		 <br>
+		 <br>
+		 
+		 <h3>GameGrid</h3>
+		 <h4>Click the Blue/Tele or Brown/Auto window to toggle between autonmous and teleop</h4>
+		 <div class="Mode">
+			 <div class="label" id="ModeIDLabel:">Current Mode</div>
+			 <div class="TeleOpMode" id="ModeID" onclick='ChangeMode(this.id)' >Auto</div>
+		 </div> 
+		 <br>
+		 <br>
+		 <br>
+		 
+		 <div class="wrapper">
+		 <!-- 
+			<div class="label" id="col0Top" >Top</div>
+			<div class="label" id="col0Mid" >Mid</div>
+			<div class="label" id="col0Low" >Low</div>
+			<div class="label" id="col0Label" ></div>
+		 -->
+			<div class="box" id="col1Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col1Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col1Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col1Label" >Col1</div>
+			<div class="blockbox" id="col2Top" onclick='myfunction(this.id)'>0</div>
+			<div class="blockbox" id="col2Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col2Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col2Label" >Col2</div>
+			<div class="box" id="col3Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col3Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col3Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col3Label" >Col3</div>
+			<div class="box" id="col4Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col4Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col4Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col4Label" >Col4</div>
+			<div class="blockbox" id="col5Top" onclick='myfunction(this.id)'>0</div>
+			<div class="blockbox" id="col5Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col5Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col5Label" >Col5</div>
+			<div class="box" id="col6Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col6Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col6Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col6Label" >Col6</div>	
+			<div class="box" id="col7Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col7Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col7Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col7Label" >Col7</div>
+			<div class="blockbox" id="col8Top" onclick='myfunction(this.id)'>0</div>
+			<div class="blockbox" id="col8Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col8Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col8Label" >Col8</div>		
+			<div class="box" id="col9Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col9Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col9Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col9Label" >Col9</div>
+		</div>
+		
+		<br>
+		<div class="Fumble">
+			<div class="label" id="FumbleLabel">FumbleCounter</div>
+			<div class="yesno" id="FumbleType" onclick='increment(this.id, 1)'>0</div>	
+
+			<div class="label" id="FumbleLabel">Fumble</div>
+			<div class="yesno" id="FumbleDec" onclick='SubtractFumble(FumbleType)'>Subtract from Fumble</div>	
+		</div>			
+		
+		<br>
+		<br>
+		
+		
+		<h3>EndGame Movements</h3>
+		<div class="Movement2">
+			<div class="label" id="EndGameDockedLabel">EndGame: Docked?</div>
+			<div class="yesno" id="EndGameDocked" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="EndGameEngagedLabel">EndGame: Engaged?</div>
+			<div class="yesno" id="EndGameEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="EndGameParkedLabel">EndGame: Parked?</div>
+			<div class="yesno" id="EndGameParked" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="EndGameEngPtsLabel">EndGame Pts</div>		
+			<div class="box" id="EndGameEngPts">0</div>		
+			
+		 </div>
+		 <br><br>
+		 
+		
+		<div class="MatchDetailMeta">
+			<div class="label" id="ConeLabel">Score Cone?</div>
+			<div class="yesno" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
+			<div class="label" id="BlockLabel">Score Block?</div>
+			<div class="yesno" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
+
+			<div class="label" id="CoOpLabel">3 GP per Grid</div>
+			<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>		
+		</div>
+			
+
+		<br>
+		<h3> Point Totals</h3>
+		<div class ="PointTotals">
+			
+			<div class="label" id="TeamPointsLabel">Team Points</div>
+			<div class="Points" id="TeamPoints" >0</div>
+			
+			<div class="label" id="AllianceOffenseLabel">Allicance Points</div>
+			<div class="Points" id="AllianceOPoints" onclick='ChangePrompt(this.id)' >0</div>
+			<div class="label" id="AllianceDLabel">Opponent Points</div>
+			<div class="Points" id="AllianceDPoints" onclick='ChangePrompt(this.id)' >0</div>
+			
+			<div class="label" id="AllianceLinksLabel">Team Links</div>
+			<div class="Points" id="AllianceLinks" onclick='ChangePrompt(this.id)' >0</div>
+					
+			<div class="label" id="AllianceChargeStationLabel">Team Total ChargePts</div>
+			<div class="Points" id="AllianceChargeStation" onclick='ChangePrompt(this.id)'>0</div>						
+		 </div>
+
+		<br>
+		<h3> Ranking Points</h3>
+
+		<div class="RP">
+			<div class="label" id="AllianceWinRPLabel">OutcomeRP</div>
+			<div class="rpvalue" id="AllianceWinRP" >0</div>
+			<div class="label" id="LinkRPLabel">LinkRP</div>
+			<div class="rpvalue" id="LinkRP" >0</div>
+			<div class="label" id="ChargeRPLabel">ChargeRP</div>
+			<div class="rpvalue" id="ChargeRP" >0</div>
+			<div class="label" id="TotalLabel">TotalRP</div>
+			<div class="value" id="TotalRP" >0</div>
+			
+		</div>	
+
+
+		<div class="button"><button id="reset" name="reset" onclick="reset()">RESET ME</button></div>
+		<div class="button"><button id="reset" name="reset" onclick="appendData()">Submit ME</button></div>
 	</div>
-	<br>
-
-	 <br>
-	 <br>
-	 <h3>Autonomous Movement</h3>
-	 <div class="Movement">		
-		<div class="label" id="AutoMoveLabel">Auto: Did it exit the community?</div>
-		<div class="yesno" id="AutoMove" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="AutoMovePtsLabel">Auto Move Pts</div>		
-		<div class="box" id="AutoMovePts">0</div>
-	</div>
-	<br>
-	<div class="Movement">
-		<div class="label" id="AutoDocLabel">Auto: Docked?</div>
-		<div class="yesno" id="AutoDoc" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="AutoEngagedLabel">Auto: Engaged?</div>
-		<div class="yesno" id="AutoEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="AutoDocEngPtsLabel">Auto Dock Pts</div>		
-		<div class="box" id="AutoDocEngPts">0</div>
-	</div>
-	<br>
-	<br>
-	
-
-	 <br>
-	 <br>
-	 
-	 <h3>GameGrid</h3>
-	 <h4>Click the Blue/Tele or Brown/Auto window to toggle between autonmous and teleop</h4>
-	 <div class="Mode">
-		 <div class="label" id="ModeIDLabel:">Current Mode</div>
-		 <div class="TeleOpMode" id="ModeID" onclick='ChangeMode(this.id)' >Auto</div>
-	 </div> 
-	 <br>
-	 <br>
-	 <br>
-	 
-	 <div class="wrapper">
-	 <!-- 
-	 	<div class="label" id="col0Top" >Top</div>
-	 	<div class="label" id="col0Mid" >Mid</div>
-	 	<div class="label" id="col0Low" >Low</div>
-		<div class="label" id="col0Label" ></div>
-	 -->
-	 	<div class="box" id="col1Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col1Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col1Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col1Label" >Col1</div>
-	 	<div class="blockbox" id="col2Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="blockbox" id="col2Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col2Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col2Label" >Col2</div>
-	 	<div class="box" id="col3Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col3Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col3Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col3Label" >Col3</div>
-	 	<div class="box" id="col4Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col4Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col4Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col4Label" >Col4</div>
-	 	<div class="blockbox" id="col5Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="blockbox" id="col5Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col5Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col5Label" >Col5</div>
-	 	<div class="box" id="col6Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col6Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col6Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col6Label" >Col6</div>	
-	 	<div class="box" id="col7Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col7Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col7Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col7Label" >Col7</div>
-	 	<div class="blockbox" id="col8Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="blockbox" id="col8Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col8Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col8Label" >Col8</div>		
-	 	<div class="box" id="col9Top" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col9Mid" onclick='myfunction(this.id)'>0</div>
-	 	<div class="box" id="col9Low" onclick='myfunction(this.id)'>0</div>
-		<div class="label" id="col9Label" >Col9</div>
-	</div>
-	
-	<br>
-	<div class="Fumble">
-		<div class="label" id="FumbleLabel">FumbleCounter</div>
-		<div class="yesno" id="FumbleType" onclick='increment(this.id, 1)'>0</div>	
-
-		<div class="label" id="FumbleLabel">Fumble</div>
-		<div class="yesno" id="FumbleDec" onclick='SubtractFumble(FumbleType)'>Subtract from Fumble</div>	
-	</div>			
-	
-	<br>
-	<br>
-	
-	
-	<h3>EndGame Movements</h3>
-	<div class="Movement2">
-		<div class="label" id="EndGameDockedLabel">EndGame: Docked?</div>
-		<div class="yesno" id="EndGameDocked" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="EndGameEngagedLabel">EndGame: Engaged?</div>
-		<div class="yesno" id="EndGameEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="EndGameParkedLabel">EndGame: Parked?</div>
-		<div class="yesno" id="EndGameParked" onclick='ToggleYesNo(this.id)'>NO</div>
-		
-		<div class="label" id="EndGameEngPtsLabel">EndGame Pts</div>		
-		<div class="box" id="EndGameEngPts">0</div>		
-		
-	 </div>
-	 <br><br>
-	 
-	
-	<div class="MatchDetailMeta">
-		<div class="label" id="ConeLabel">Score Cone?</div>
-		<div class="yesno" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
-		<div class="label" id="BlockLabel">Score Block?</div>
-		<div class="yesno" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
-
-		<div class="label" id="CoOpLabel">3 GP per Grid</div>
-		<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>		
-	</div>
-		
-
-	<br>
-	<h3> Point Totals</h3>
-	<div class ="PointTotals">
-		
-		<div class="label" id="TeamPointsLabel">Team Points</div>
-		<div class="Points" id="TeamPoints" >0</div>
-		
-		<div class="label" id="AllianceOffenseLabel">Allicance Points</div>
-		<div class="Points" id="AllianceOPoints" onclick='ChangePrompt(this.id)' >0</div>
-		<div class="label" id="AllianceDLabel">Opponent Points</div>
-		<div class="Points" id="AllianceDPoints" onclick='ChangePrompt(this.id)' >0</div>
-		
-		<div class="label" id="AllianceLinksLabel">Team Links</div>
-		<div class="Points" id="AllianceLinks" onclick='ChangePrompt(this.id)' >0</div>
-				
-		<div class="label" id="AllianceChargeStationLabel">Team Total ChargePts</div>
-		<div class="Points" id="AllianceChargeStation" onclick='ChangePrompt(this.id)'>0</div>						
-	 </div>
-
-	<br>
-	<h3> Ranking Points</h3>
-
-	<div class="RP">
-		<div class="label" id="AllianceWinRPLabel">OutcomeRP</div>
-		<div class="rpvalue" id="AllianceWinRP" >0</div>
-		<div class="label" id="LinkRPLabel">LinkRP</div>
-		<div class="rpvalue" id="LinkRP" >0</div>
-		<div class="label" id="ChargeRPLabel">ChargeRP</div>
-		<div class="rpvalue" id="ChargeRP" >0</div>
-		<div class="label" id="TotalLabel">TotalRP</div>
-		<div class="value" id="TotalRP" >0</div>
-		
-	</div>	
-
-
-	<div class="button"><button id="reset" name="reset" onclick="reset()">RESET ME</button></div>
-	<div class="button"><button id="reset" name="reset" onclick="appendData()">Submit ME</button></div>
-
 	
   </body>
 </html>
