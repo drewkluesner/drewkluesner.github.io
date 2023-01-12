@@ -206,10 +206,8 @@ limitations under the License.
 
 		function showApp()
 		{
-			var div = document.getElementById('MainView');
-			// hide
-			div.style.visibility = 'hidden';
-			alert("Hi was here");
+		  document.getElementById("MainDiv").style.visibility = "visible";
+		  alert("Hi Mom");
 		}
 
 
@@ -252,6 +250,8 @@ limitations under the License.
       function maybeEnableButtons() {
         if (gapiInited && gisInited) {
           document.getElementById('authorize_button').style.visibility = 'visible';
+		  document.getElementById("MainDiv").style.visibility = "visible";
+
         }
       }
 
@@ -268,7 +268,6 @@ limitations under the License.
           /*await listMajors();
           await updateSheet();
 		  await appendData();*/
-		  $("#MainView").show();
 
         };
 
@@ -686,7 +685,7 @@ function reset(){
  
 </script>
 
-	<div class=MainView" hidden>
+	<div class=MainView" id="MainDiv" hidden  >
 		 
 		 <h3>MatchData</h3>
 		 
