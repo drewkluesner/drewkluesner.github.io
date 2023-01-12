@@ -176,7 +176,7 @@ limitations under the License.
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
     <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-    <button id="authorize_button" onclick="noGoogle()">Incase you dont have a google account and want to play with the layout click me.</button>
+    <button id="nogoogle" onclick="noGoogle()">Incase you dont have a google account and want to play with the layout click me.</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -203,6 +203,12 @@ limitations under the License.
 
       document.getElementById('authorize_button').style.visibility = 'hidden';
       document.getElementById('signout_button').style.visibility = 'hidden';
+
+      function nogoogle() {
+	  {
+	  $("#MainView").show();
+
+	  }
 
       /**
        * Callback after api.js is loaded.
@@ -687,7 +693,7 @@ function reset(){
 			<div class="label" id="MatchIDLabel">MatchID</div>
 			<div class="Keys" id="MatchID" onclick='ChangePrompt(this.id)'>1</div>
 			<div class="label" id="ScoutIDLabel">ScoutName</div>
-			<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Drew</div>		
+			<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Elmo</div>		
 
 			<div class="label" id="TeamIDLabel">TeamID</div>
 			<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
