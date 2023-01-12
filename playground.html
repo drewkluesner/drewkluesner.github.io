@@ -259,8 +259,8 @@ limitations under the License.
           /*await listMajors();
           await updateSheet();
 		  await appendData();*/
-		  let element = document.getElementById("MainView");
-		  let hidden = element.getAttribute("hidden"); 
+		  $("#MainView").show();
+
         };
 
         if (gapi.client.getToken() === null) {
