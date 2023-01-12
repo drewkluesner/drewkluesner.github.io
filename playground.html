@@ -176,7 +176,7 @@ limitations under the License.
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
     <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-    <button id="nogoogle" onclick="noGoogle()">Incase you dont have a google account and want to play with the layout click me.</button>
+    <button id="nogoogle" onclick="showApp()">Incase you dont have a google account and want to play with the layout click me.</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -204,11 +204,14 @@ limitations under the License.
       document.getElementById('authorize_button').style.visibility = 'hidden';
       document.getElementById('signout_button').style.visibility = 'hidden';
 
-      function nogoogle() {
-	  {
-	  $("#MainView").show();
+		function showApp()
+		{
+			var div = document.getElementById('MainView');
+			// hide
+			div.style.visibility = 'hidden';
+			alert("Hi was here");
+		}
 
-	  }
 
       /**
        * Callback after api.js is loaded.
