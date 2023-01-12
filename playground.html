@@ -302,7 +302,7 @@ limitations under the License.
 		  // Set up the request
 		  const request = {
 			spreadsheetId: '1JTg8hwLcdisRMR0c2rAI9_0ABHc8NgyV3Hku0Ud9_6k', // The ID of the spreadsheet to update
-			range: 'Data!A:J', // The name of the sheet to append the data to
+			range: 'Data!A:AY', // The name of the sheet to append the data to
 			insertDataOption: 'INSERT_ROWS', // How the input data should be inserted
 			valueInputOption: 'RAW', // How the input data should be interpreted
 			resource: {
@@ -357,7 +357,7 @@ limitations under the License.
 				document.getElementById('AllianceWinRP').innerHTML,
 				document.getElementById('LinkRP').innerHTML,
 				document.getElementById('ChargeRP').innerHTML,
-				document.getElementById('TotalRP').innerHTML,
+				document.getElementById('TotalRP').innerHTML
 				]] // The new values to append to the sheet
 			},
 		  };
@@ -367,6 +367,8 @@ limitations under the License.
 		  }, function(response) {
 			console.error(response.result.error);
 		  });
+		  
+		  reset();
 		}  
 
         
@@ -592,7 +594,13 @@ function ChangePrompt(id) {
 
 	let value = ""
 	let promptVal = ""
- 	if (id.match(/Team/))
+
+	if (id.match(/Match/))
+	{
+		value = "Match ID"
+		promptVal = ""
+	}	
+ 	else if (id.match(/Team/))
 	{
 		value = "Team ID"
 		promptVal = "7531"
@@ -616,6 +624,8 @@ function ChangePrompt(id) {
  } 
 
 function reset(){
+	document.getElementById('col1Top').innerHTML = Number(document.getElementById('col1Top').innerHTML)+1;
+
 	document.getElementById('col1Top').innerHTML = 0;
 	document.getElementById('col1Mid').innerHTML = 0;
 	document.getElementById('col1Low').innerHTML = 0;
@@ -671,7 +681,7 @@ function reset(){
 	 
 	 <div class="MatchMeta">
 		<div class="label" id="MatchIDLabel">MatchID</div>
-		<div class="Keys" id="MatchID">1</div>
+		<div class="Keys" id="MatchID" onclick='ChangePrompt(this.id)'>1</div>
 		<div class="label" id="ScoutIDLabel">ScoutName</div>
 		<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Drew</div>		
 
