@@ -27,6 +27,19 @@ limitations under the License.
 	}
 
 
+	.specialButton { 
+	background-color: Green;  
+	border: none; 
+	color: white; 
+	padding: 12px 70px; 
+	text-align: center; 
+	text-decoration: none; 
+	display: inline-block; 
+	margin: 2px 6px; 
+	cursor: pointer; 
+	font-size:50px; 
+	} 
+
 
 	.box {
 		background-color: #444;
@@ -176,9 +189,9 @@ limitations under the License.
     <p>7531 - Scouting App</p>
 
     <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize_button" onclick="handleAuthClick()">Authorize and push data to google sheets</button>
-    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-    <button id="nogoogle" onclick="showApp()">Incase you dont have a google account and want to play with the layout click me.</button>
+    <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize and push data to google sheets</button>
+    <button class="specialButton" id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+    <button class="specialButton" id="nogoogle" onclick="showApp()">Incase you dont have a google account and want to play with the layout click me.</button>
 
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
