@@ -50,7 +50,7 @@ limitations under the License.
 	}
 
 	.blockbox {
-		background-color: #990000;
+		background-color: teal;
 		color: #fff;
 		border-radius: 5px;
 		padding: 10px;
@@ -406,6 +406,10 @@ limitations under the License.
 			console.error(response.result.error);
 		  });
 		  
+		  if (TotalRP > 2)
+		  {
+		    alert("Easter Egg!  The first person to inform coach Ann of this sighting will be entitled to a candy bar which drew will purchase.  1/15/2023");
+		  }
 		  reset();
 		}  
 
@@ -514,12 +518,30 @@ function updateRP()
 function myfunction(id) { 
 
 	let Val = 0;	
+
+	const box = document.getElementById(id);
+	const className = box.getAttribute("class");
+	let borderString = "thick solid";
+
 	
 	if (document.getElementById(id).innerHTML  > 0)
+	{
 		document.getElementById(id).innerHTML = 0;
-		
+
+		if (className == "blockbox")
+		{
+			color = "teal";
+		}
+		else
+		{
+			color = "#444"
+		}
+		borderString = "initial none"
+		alert(borderString + color)	
+	}		
     else if (document.getElementById('ModeID').innerHTML == "Auto")
 	{
+		color = "Brown";
 		if (id.match(/Top/))
 		{
 				Val = 6;
@@ -539,6 +561,7 @@ function myfunction(id) {
 	}
 	else if (document.getElementById('ModeID').innerHTML == "Tele")
 	{
+		color = "Blue";
 		if (id.match(/Top/))
 		{
 			Val = 5;
@@ -557,6 +580,13 @@ function myfunction(id) {
 		}			
 	}
     document.getElementById(id).innerHTML = Val;
+
+
+	document.getElementById(id).style.border = borderString;
+	document.getElementById(id).style.borderBlockColor = color;	
+
+
+	document.getElementById(id).
 	updateRP();
 	updateTotal();
  } 
@@ -719,7 +749,18 @@ function reset(){
 	document.getElementById('AutoMovePts').innerHTML=0;
 	document.getElementById('AutoDocEngPts').innerHTML=0;
 	document.getElementById('EndGameEngPts').innerHTML=0;
-	
+
+	var ele = document.getElementsByClassName('blockbox');
+	for (var i=0; i< ele.length; i++ ) {
+		document.getElementById(ele[i].id).style.border = "none";
+	}
+
+
+	var ele = document.getElementsByClassName('box');
+	for (var i=0; i< ele.length; i++ ) {
+		document.getElementById(ele[i].id).style.border = "none";
+	}
+
 	updateTotal()
 } 
  
@@ -862,7 +903,7 @@ function reset(){
 			<div class="label" id="BlockLabel">Score Block?</div>
 			<div class="yesno" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
 
-			<div class="label" id="CoOpLabel">3 GP per Grid</div>
+			<div class="label" id="CoOpLabel">3 GP in Middle Grid</div>
 			<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>		
 		</div>
 			
