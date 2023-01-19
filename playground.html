@@ -200,7 +200,6 @@ limitations under the License.
     <p>7531 - Scouting App</p>
 	<p>version: 1/15/2023</p>
 	<h3> Main updates:  Required Google Account (use alcrobotX emails) to submit</h3>
-	<h3> Watch out for easter eggs</h3>
 
     <!--Add buttons to initiate auth sequence and sign out-->
     <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize and push data to google sheets</button>
@@ -418,10 +417,7 @@ limitations under the License.
 			console.error(response.result.error);
 		  });
 		  
-		  if (Number(document.getElementById('TotalRP').innerHTML) > 2)
-		  {
-		    alert("Easter Egg!  The first person to inform coach Ann of this sighting will be entitled to a candy bar which drew will purchase.  1/15/2023");
-		  }
+
 		  reset();
 		}  
 
