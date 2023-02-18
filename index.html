@@ -743,6 +743,16 @@ function ToggleColor(id) {
 
 
 function ToggleYesNo(id) {
+
+	if (id == 'AutoDoc')
+	{
+		if(document.getElementById(id).innerHTML == "YES")
+		{
+			document.getElementById('AutoEngaged').innerHTML = "NO"		
+		}
+	}
+
+
 	
     if (document.getElementById(id).innerHTML == "YES")
 	   document.getElementById(id).innerHTML = "NO"
@@ -754,8 +764,6 @@ function ToggleYesNo(id) {
 		document.getElementById('AutoMovePts').innerHTML =3
 	else
 		document.getElementById('AutoMovePts').innerHTML =0
-	
-	
 	
 	if(document.getElementById('AutoEngaged').innerHTML == "YES")
 	{
@@ -769,6 +777,10 @@ function ToggleYesNo(id) {
 			document.getElementById('AutoDocEngPts').innerHTML = 8
 	else
 		document.getElementById('AutoDocEngPts').innerHTML = 0
+
+
+
+
 		
 	if (id == 'EndGameParked')
 	{
