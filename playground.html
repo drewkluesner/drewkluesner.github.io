@@ -170,6 +170,17 @@ limitations under the License.
 		grid-auto-flow: column;
 		height: 200px
 	}
+	
+	.Auto2 {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 80px 100px ;
+		grid-auto-flow: column;
+		height: 200px
+		font-size: 64px;
+
+	}
+
 
 	.Fumble {
 		display: grid;
@@ -805,13 +816,13 @@ function reset(){
 
 		 <h3>Autonomous Movement</h3>
 		 
-		 <div class="Movement">
+		 <div class="Auto2">
 		 <input type="checkbox" id="didItMove" name="didItMove" value="isChecked">
 			<label for="myCheckbox">Did It Move?</label>
 		</input>
 		</div>
 		<br>
-		 <div class="Movement">
+		 <div class="Auto2">
 			
 		  <label for="time">Auto Location:</label>
 		  <select id="time" name="time">
