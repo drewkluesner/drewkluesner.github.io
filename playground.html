@@ -804,6 +804,30 @@ function reset(){
 		<br>
 
 		 <h3>Autonomous Movement</h3>
+		 
+		 <div class="didItMove">
+		 <input type="checkbox" id="didItMove" name="didItMove" value="isChecked">
+			<label for="myCheckbox">Did It Move?</label>
+		</input>
+
+		  <label for="time">Auto Location:</label>
+		  <select id="time" name="time">
+			<option value="OpenSpaceSide">Open Space Side</option>
+			<option value="Middle">Middle</option>
+			<option value="RestrictedSpaceSide">RestrictedSpaceSide</option>
+		  </select>
+
+
+		 <input type="radio" id="autoLocation" name="autoLocation" value="isChecked">
+			<label for="myCheckbox">Did It Move?</label>
+		</input>
+
+		
+			<div class="label" id="AutoMoveLabel">Auto: Did it exit the community?</div>
+		     
+		 </div>
+		 
+		 
 		 <div class="Movement">		
 			<div class="label" id="AutoMoveLabel">Auto: Did it exit the community?</div>
 			<div class="yesno" id="AutoMove" onclick='ToggleYesNo(this.id)'>NO</div>
