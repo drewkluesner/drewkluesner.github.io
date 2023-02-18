@@ -87,7 +87,7 @@ limitations under the License.
 	.label {
 		padding: 10px;
 		font-size: 40px;
-		height: 50px;
+		height: 100px;
 	}
 	
 	.value{
@@ -159,36 +159,9 @@ limitations under the License.
 		display: grid;
     grid-gap: 10px;
 	    grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: 60px 60px 60px;
-		grid-auto-flow: row;
-	}
-
-	.TeamColorDiv {
-		display: grid;
-		grid-gap: 10px;
-	    grid-template-columns: repeat(2, 1fr);
 		grid-template-rows: 50px 50px ;
 		grid-auto-flow: row;
-		height: 100px;
-		font-size: 48px;
 	}
-
-	.AutoLocationLabel {
-		display: grid;
-		grid-gap: 10px;
-	    grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: 50px 50px ;
-		grid-auto-flow: row;
-		height: 100px;
-		font-size: 48px;
-		border-width:2px;
-		border-style:solid;
-		border-color:black;
-		border-color: #000000;
-		border-width: 5px;
-		border-radius: 5px;
-	}
-
 
 	.Movement {
 		display: grid;
@@ -197,23 +170,7 @@ limitations under the License.
 		grid-auto-flow: column;
 		height: 200px
 	}
-	
-	.Auto2 {
-		display: grid;
-    grid-gap: 10px;
-		grid-template-rows: 80px 100px ;
-		grid-auto-flow: column;
-		height: 200px
-		font-size: 64px;
 
-	}
-
-	.TeamColorLabel
-	{
-		font-size: 64px;
-
-	}
-	
 	.Fumble {
 		display: grid;
     grid-gap: 10px;
@@ -648,7 +605,7 @@ function myfunction(id) {
 	document.getElementById(id).style.border = borderString;
 	document.getElementById(id).style.borderBlockColor = color;	
 
-    document.getElementById('ModeID').innerHTML = "Tele"
+
 	document.getElementById(id).
 	updateRP();
 	updateTotal();
@@ -688,60 +645,6 @@ function SubtractFumble() {
 			document.getElementById('FumbleType').innerHTML = 0
 } 
 
-
-function ToggleAutoLocation(id) {
-
-    if (document.getElementById(id).innerHTML == "ClickMe")
-	{
-		document.getElementById(id).innerHTML = "OpenSpace";
-	}
-	else if (document.getElementById(id).innerHTML == "OpenSpace")
-	{
-	    document.getElementById(id).innerHTML = "MiddleSpace";		
-	}
-	else if (document.getElementById(id).innerHTML == "MiddleSpace")
-	{
-	    document.getElementById(id).innerHTML = "RestrictedSpace";		
-	}
-	else if (document.getElementById(id).innerHTML == "RestrictedSpace")
-	{
-	    document.getElementById(id).innerHTML = "OpenSpace";		
-	}
-	else
-	{
-	    document.getElementById(id).innerHTML = "This shouldn't happen";		
-	}		
-
-}
-
-
-function ToggleColor(id) {
-	
-    if (document.getElementById(id).innerHTML == "Black")
-	{
-		   var element = document.getElementById(id);
-	       element.style.backgroundColor = "blue";
-		   document.getElementById(id).innerHTML = "BLUE";
-
-	    document.getElementById(id).style.borderBlockColor = blue;
-	}
-	else if (document.getElementById(id).innerHTML == "BLUE")
-	{
-	    document.getElementById(id).innerHTML = "RED";
-		var element = document.getElementById(id);
-	    element.style.backgroundColor = "red";
-		
-	}
-	else
-	{
-		var element = document.getElementById(id);
-	    element.style.backgroundColor = "blue";
-	    document.getElementById(id).innerHTML  = "BLUE";
-	    document.getElementById(id).style.borderBlockColor = "blue";
-	}		
- } 
-
-
 function ToggleYesNo(id) {
 	
     if (document.getElementById(id).innerHTML == "YES")
@@ -755,13 +658,6 @@ function ToggleYesNo(id) {
 	else
 		document.getElementById('AutoMovePts').innerHTML =0
 	
-	
-	
-	if(document.getElementById('AutoEngaged').innerHTML == "YES")
-	{
-		document.getElementById('AutoDoc').innerHTML = "YES"
-	}
-		
 	if(document.getElementById('AutoDoc').innerHTML == "YES")
 		if (document.getElementById('AutoEngaged').innerHTML == "YES")
 			document.getElementById('AutoDocEngPts').innerHTML = 12
@@ -769,41 +665,6 @@ function ToggleYesNo(id) {
 			document.getElementById('AutoDocEngPts').innerHTML = 8
 	else
 		document.getElementById('AutoDocEngPts').innerHTML = 0
-		
-	if (id == 'EndGameParked')
-	{
-		if (document.getElementById('EndGameParked').innerHTML == "YES")
-		{
-			document.getElementById('EndGameDocked').innerHTML = "NO";
-			document.getElementById('EndGameEngaged').innerHTML = "NO";
-		}
-	}
-	else
-	if (id == 'EndGameEngaged')
-	{
-		if (document.getElementById('EndGameEngaged').innerHTML == "YES")
-		{
-			document.getElementById('EndGameDocked').innerHTML = "YES";
-			document.getElementById('EndGameParked').innerHTML = "NO";
-		}
-	}
-	else
-	if (id == 'EndGameDocked')
-	{	
-		if (document.getElementById('EndGameDocked').innerHTML == "YES")
-		{
-			document.getElementById('EndGameParked').innerHTML = "NO";
-			document.getElementById('EndGameEngaged').innerHTML = "NO";
-		}
-		else
-		{
-			document.getElementById('EndGameEngaged').innerHTML = "NO";
-
-		}
-	}
-
-	document.getElementById('EndGameEngPts').innerHTML = 0
-
 
 	if(document.getElementById('EndGameDocked').innerHTML == "YES")
 		if (document.getElementById('EndGameEngaged').innerHTML == "YES")
@@ -932,7 +793,7 @@ function reset(){
 		 Click on the values to see how things change.
 		 
 		 <div class="MatchMeta">
-			<div class="label" id="Label">MatchID</div>
+			<div class="label" id="MatchIDLabel">MatchID</div>
 			<div class="Keys" id="MatchID" onclick='ChangePrompt(this.id)'>1</div>
 			<div class="label" id="ScoutIDLabel">ScoutName</div>
 			<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Elmo</div>		
@@ -941,19 +802,8 @@ function reset(){
 			<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
 		</div>
 		<br>
-		
-		 <div class="TeamColorDiv">		
-			<div class="label" id="TeamColorLabel">TeamColor</div>
-			<div class="teamColor" id="TeamColor" onclick='ToggleColor(this.id)'>Black</div>
-		</div>
 
 		 <h3>Autonomous Movement</h3>
-
-		 <div class="TeamColorDiv">		
-			<div class="label" id="AutoLocationLabel:">Auto Start Location</div>
-			<div class="AutoLocationLabel" id="AutoLocationValue" onclick='ToggleAutoLocation(this.id)'>ClickMe</div>
-		</div>		 
-		 
 		 <div class="Movement">		
 			<div class="label" id="AutoMoveLabel">Auto: Did it exit the community?</div>
 			<div class="yesno" id="AutoMove" onclick='ToggleYesNo(this.id)'>NO</div>
@@ -976,7 +826,7 @@ function reset(){
 		 <h4>Click the Blue/Tele or Brown/Auto window to toggle between autonmous and teleop</h4>
 		 <div class="Mode">
 			 <div class="label" id="ModeIDLabel:">Current Mode</div>
-			 <div class="TeleOpMode" id="ModeID" onclick='ChangeMode(this.id)' >Tele</div>
+			 <div class="TeleOpMode" id="ModeID" onclick='ChangeMode(this.id)' >Auto</div>
 		 </div> 
 		 <br>
 
