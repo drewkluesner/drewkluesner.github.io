@@ -35,7 +35,7 @@ limitations under the License.
 			text-align: center;
 			text-decoration: none;
 			display: inline-block;
-			font-size: 16px;
+			font-size: 32px;
 	}
 
 	.specialButton { 
@@ -57,7 +57,10 @@ limitations under the License.
 		color: #fff;
 		border-radius: 5px;
 		padding: 10px;
-		font-size: 200%;
+		height: 60px;
+		font-size: 48px;
+		text-align: center;
+		
 	}
 
 	.blockbox {
@@ -65,7 +68,7 @@ limitations under the License.
 		color: #fff;
 		border-radius: 5px;
 		padding: 10px;
-		font-size: 200%;
+		font-size: 48px;
 	}
 
 	.Keys {
@@ -77,24 +80,28 @@ limitations under the License.
 		border-radius: 5px;
 		padding: 10px;
 		font-size: 200%;
+		width: 300px;
+  		height: 50px;
 	}
 
 	.label {
 		padding: 10px;
-		font-size: 150%;
+		font-size: 40px;
+		height: 100px;
 	}
 	
 	.value{
 		padding: 10px;
-		font-size: 150%;
+		font-size: 32px;
 		text-align: center;
 
 	}
 	
 	.rpvalue {
 		padding: 10px;
-		font-size: 150%;
+		font-size: 64px;
 		text-align: center;
+		
 	}
 	
 	.yesno {
@@ -102,7 +109,10 @@ limitations under the License.
 		color: #FFFFFF;
 		border-radius: 5px;
 		padding: 10px;
-		font-size: 200%;
+		height: 60px;
+		font-size: 48px 	;
+		text-align: center;
+
 	}
 	
 	.Points {
@@ -110,7 +120,8 @@ limitations under the License.
 		color: #FFFFFF;
 		border-radius: 5px;
 		padding: 10px;
-		font-size: 200%;
+		font-size: 64px;
+		height: 75px;
 	}
 
 
@@ -133,7 +144,7 @@ limitations under the License.
 	.PointTotals {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 50px 50px ;
+		grid-template-rows: 100px 50px ;
 		grid-auto-flow: column;
 	}
 
@@ -155,8 +166,9 @@ limitations under the License.
 	.Movement {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 50px 50px ;
+		grid-template-rows: 80px 100px ;
 		grid-auto-flow: column;
+		height: 200px
 	}
 
 	.Fumble {
@@ -164,14 +176,17 @@ limitations under the License.
     grid-gap: 10px;
 		grid-template-rows: 50px 50px ;
 		grid-auto-flow: column;
+		height:200px
 	}
 
 
 	.Movement2 {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 50px 50px ;
+		grid-template-rows: 100px 100px ;
 		grid-auto-flow: column;
+		height: 200px
+
 	}
 
 	.Mode {
@@ -198,9 +213,7 @@ limitations under the License.
   </head>
   <body>
     <p>7531 - Scouting App</p>
-	<p>version: 1/15/2023</p>
-	<h3> Main updates:  Required Google Account (use alcrobotX emails) to submit</h3>
-
+	<p>version: 2/10/2023</p>
     <!--Add buttons to initiate auth sequence and sign out-->
     <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize and push data to google sheets</button>
     <button class="specialButton" id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
@@ -790,8 +803,6 @@ function reset(){
 		</div>
 		<br>
 
-		 <br>
-		 <br>
 		 <h3>Autonomous Movement</h3>
 		 <div class="Movement">		
 			<div class="label" id="AutoMoveLabel">Auto: Did it exit the community?</div>
@@ -800,7 +811,6 @@ function reset(){
 			<div class="label" id="AutoMovePtsLabel">Auto Move Pts</div>		
 			<div class="box" id="AutoMovePts">0</div>
 		</div>
-		<br>
 		<div class="Movement">
 			<div class="label" id="AutoDocLabel">Auto: Docked?</div>
 			<div class="yesno" id="AutoDoc" onclick='ToggleYesNo(this.id)'>NO</div>
@@ -811,13 +821,7 @@ function reset(){
 			<div class="label" id="AutoDocEngPtsLabel">Auto Dock Pts</div>		
 			<div class="box" id="AutoDocEngPts">0</div>
 		</div>
-		<br>
-		<br>
-		
-
-		 <br>
-		 <br>
-		 
+				 
 		 <h3>GameGrid</h3>
 		 <h4>Click the Blue/Tele or Brown/Auto window to toggle between autonmous and teleop</h4>
 		 <div class="Mode">
@@ -825,9 +829,7 @@ function reset(){
 			 <div class="TeleOpMode" id="ModeID" onclick='ChangeMode(this.id)' >Auto</div>
 		 </div> 
 		 <br>
-		 <br>
-		 <br>
-		 
+
 		 <div class="wrapper">
 		 <!-- 
 			<div class="label" id="col0Top" >Top</div>
@@ -881,9 +883,6 @@ function reset(){
 			<div class="label" id="FumbleLabel">Fumble</div>
 			<div class="yesno" id="FumbleDec" onclick='SubtractFumble(FumbleType)'>Subtract from Fumble</div>	
 		</div>			
-		
-		<br>
-		<br>
 		
 		
 		<h3>EndGame Movements</h3>
@@ -948,7 +947,7 @@ function reset(){
 			<div class="value" id="TotalRP" >0</div>
 			
 		</div>	
-
+		<br>
 		<div class="buttons"><button class = "buttons" id="reset" name="submitMatch" onclick="appendData()">Submit Match</button></div>
 		<div class="buttons"><button class = "buttons" id="reset" name="reset" onclick="reset()">Reset Values</button></div>
 
