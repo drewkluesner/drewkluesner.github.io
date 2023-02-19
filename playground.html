@@ -433,6 +433,17 @@ limitations under the License.
           });
         }
         
+		function convertYesNoToNumber(str) {
+		  if (str.toUpperCase() === "YES") {
+			return 1;
+		  } else if (str.toUpperCase() === "NO") {
+			return 0;
+		  } else {
+			return 0; 
+		  }
+		}
+		
+		
 		function appendData() {
 		  // Set up the request
 		  
@@ -478,19 +489,19 @@ limitations under the License.
 				parseInt(document.getElementById('col7Low').innerHTML),
 				parseInt(document.getElementById('col8Low').innerHTML),	
 				parseInt(document.getElementById('col9Low').innerHTML),
-				document.getElementById('Block').innerHTML,
+				convertYesNoToNumber(document.getElementById('Block').innerHTML),
 				document.getElementById('FumbleType').innerHTML,
-				document.getElementById('CoOp').innerHTML,
-				document.getElementById('Cone').innerHTML,
-				document.getElementById('AutoLocationValue').innerHTML,				
-				document.getElementById('AutoMove').innerHTML,
+				convertYesNoToNumber(document.getElementById('CoOp').innerHTML),
+				convertYesNoToNumber(document.getElementById('Cone').innerHTML),
+				document.getElementById('AutoLocationValue').innerHTML,
+				convertYesNoToNumber(document.getElementById('AutoMove').innerHTML),
 				document.getElementById('AutoMovePts').innerHTML,
-				document.getElementById('AutoDoc').innerHTML,
-				document.getElementById('AutoEngaged').innerHTML,
-				document.getElementById('AutoDocEngPts').innerHTML,
-				document.getElementById('EndGameDocked').innerHTML,
-				document.getElementById('EndGameEngaged').innerHTML,
-				document.getElementById('EndGameParked').innerHTML,
+				convertYesNoToNumber(document.getElementById('AutoDoc').innerHTML),
+				convertYesNoToNumber(document.getElementById('AutoEngaged').innerHTML),
+				convertYesNoToNumber(document.getElementById('AutoDocEngPts').innerHTML),
+				convertYesNoToNumber(document.getElementById('EndGameDocked').innerHTML),
+				convertYesNoToNumber(document.getElementById('EndGameEngaged').innerHTML),
+				convertYesNoToNumber(document.getElementById('EndGameParked').innerHTML),
 				document.getElementById('EndGameEngPts').innerHTML,				
 				document.getElementById('AllianceOPoints').innerHTML,
 				document.getElementById('AllianceDPoints').innerHTML,
@@ -780,7 +791,7 @@ function ToggleAutoLocation(id) {
 
 function ToggleColor(id) {
 	
-    if (document.getElementById(id).innerHTML == "Black")
+    if (document.getElementById(id).innerHTML == "N/A")
 	{
 		   var element = document.getElementById(id);
 	       element.style.backgroundColor = "blue";
@@ -1022,7 +1033,7 @@ function reset(){
 		
 		 <div class="TeamColorDiv">		
 			<div class="label" id="TeamColorLabel">TeamColor</div>
-			<div class="teamColor" id="TeamColorValue" onclick='ToggleColor(this.id)'>Black</div>
+			<div class="teamColor" id="TeamColorValue" onclick='ToggleColor(this.id)'>N/A</div>
 		</div>
 
 		 <h1>Autonomous Movement</h1>
