@@ -444,6 +444,7 @@ limitations under the License.
 				document.getElementById('MatchID').innerHTML, 
 				document.getElementById('ScoutID').innerHTML, 
 				document.getElementById('TeamID').innerHTML, 
+				document.getELementById('teamColor').innerHTML,
 				document.getElementById('col1Top').innerHTML,
 				document.getElementById('col2Top').innerHTML,
 				document.getElementById('col3Top').innerHTML,
@@ -477,6 +478,7 @@ limitations under the License.
 				document.getElementById('FumbleType').innerHTML,
 				document.getElementById('CoOp').innerHTML,
 				document.getElementById('Cone').innerHTML,
+				document.getElementById('AutoLocationValue').innerHTML,				
 				document.getElementById('AutoMove').innerHTML,
 				document.getElementById('AutoMovePts').innerHTML,
 				document.getElementById('AutoDoc').innerHTML,
@@ -493,7 +495,9 @@ limitations under the License.
 				document.getElementById('AllianceWinRP').innerHTML,
 				document.getElementById('LinkRP').innerHTML,
 				document.getElementById('ChargeRP').innerHTML,
-				document.getElementById('TotalRP').innerHTML
+				document.getElementById('TotalRP').innerHTML,
+				document.getElementById('Summary').innerHTML
+
 				]] // The new values to append to the sheet
 			},
 		  };
@@ -959,6 +963,9 @@ function reset(){
 	document.getElementById('AutoMovePts').innerHTML=0;
 	document.getElementById('AutoDocEngPts').innerHTML=0;
 	document.getElementById('EndGameEngPts').innerHTML=0;
+	document.getElementById('Summary').innerHTML="";
+	document.getElementById('AutoLocationValue').innerHTML ="ClickMe"
+
 
 	var ele = document.getElementsByClassName('blockbox');
 	for (var i=0; i< ele.length; i++ ) {
