@@ -506,16 +506,16 @@ limitations under the License.
 				"Reserved",
 				"Reserved",
 				"Reserved",
-				"Reserved",				
-				'=countif(E'+(ROW() - 1)+':M'+(ROW() - 1)+',6)',
-				'=countif(N'+(ROW() - 1)+':V'+(ROW() - 1)+',4)',
-				'=countif(W'+(ROW() - 1)+':AE'+(ROW() - 1)+',3)',
-				'=Sum(E'+(ROW() - 1)+':M'+(ROW() - 1)+')',
-				'=Sum(N'+(ROW() - 1)+':V'+(ROW() - 1)+')',				
-				'=Sum(W'+(ROW() - 1)+':AE'+(ROW() - 1)+')',
-				'=Sum(BL'+(ROW() - 1)+':BN'+(ROW() - 1)+')',
-				'=Sum(H'+(ROW() - 1)+',I'+(ROW() - 1)+',J'+(ROW() - 1)+',Q'+(ROW() - 1)+',R'+(ROW() - 1)+',Z'+(ROW() - 1)+',AA'+(ROW() - 1)+',AB'+(ROW() - 1)+')'
-
+				"Reserved",
+				'=COUNTIF(INDIRECT("E"&ROW()):INDIRECT("M"&ROW()), 6)',
+				'=COUNTIF(INDIRECT("N"&ROW()):INDIRECT("V"&ROW()), 4)',
+				'=COUNTIF(INDIRECT("W"&ROW()):INDIRECT("AE"&ROW()), 3)',
+				'=SUM(INDIRECT("E"&ROW()&":M"&ROW()))',
+				'=SUM(INDIRECT("N"&ROW()&":V"&ROW()))',			
+				'=SUM(INDIRECT("W"&ROW()&":AE"&ROW()))',			
+				'=SUM(INDIRECT("BL"&ROW()&":BN"&ROW()))',			
+				'=SUM(INDIRECT("BL"&ROW()&":BN"&ROW()))',	
+				'=SUM(INDIRECT("H" & ROW() & ":J" & ROW() & ",Q" & ROW() & ":R" & ROW() & ",Z" & ROW() & ":AB" & ROW()))'
 
 				]] // The new values to append to the sheet
 			},
