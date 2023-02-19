@@ -84,6 +84,20 @@ limitations under the License.
   		height: 50px;
 	}
 
+	.SummaryKeys {
+		border-width:2px;
+		border-style:solid;
+		border-color:black;
+		border-color: #000000;
+		border-width: 5px;
+		border-radius: 5px;
+		padding: 10px;
+		font-size: 200%;
+		width: 100%;
+  		height: 250px;
+	}	
+
+
 	.label {
 		padding: 10px;
 		font-size: 40px;
@@ -126,11 +140,12 @@ limitations under the License.
 
 
 	.TeleOpMode {
-		background-color: brown;
+		background-color: blue;
 		color: #fff;
 		border-radius: 5px;
 		padding: 10px;
-		font-size: 200%;
+		height: 75px;
+		font-size: 64px;
 	}
 
 
@@ -155,11 +170,20 @@ limitations under the License.
 		grid-auto-flow: column;
 	}
 
+	.Summary {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 50px 300px ;
+		grid-auto-flow: column;
+	}
+
+
+
 	.MatchDetailMeta {
 		display: grid;
     grid-gap: 10px;
 	    grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: 60px 60px 60px;
+		grid-template-rows: 75px 75px 75px;
 		grid-auto-flow: row;
 	}
 
@@ -188,6 +212,12 @@ limitations under the License.
 		border-width: 5px;
 		border-radius: 5px;
 	}
+
+	.teamColor {
+		height: 100px;
+		font-size: 48px;
+	}
+
 
 
 	.Movement {
@@ -237,6 +267,7 @@ limitations under the License.
     grid-gap: 10px;
 		grid-template-rows: 50px 50px ;
 		grid-auto-flow: row;
+		height: 150px;
 	}
 
 
@@ -256,7 +287,7 @@ limitations under the License.
   </head>
   <body>
     <p>7531 - Scouting App</p>
-	<p>version: 2/10/2023</p>
+	<p>version: 2/18/2023</p>
     <!--Add buttons to initiate auth sequence and sign out-->
     <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize and push data to google sheets</button>
     <button class="specialButton" id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
@@ -403,6 +434,8 @@ limitations under the License.
         
 		function appendData() {
 		  // Set up the request
+
+
 		  const request = {
 			spreadsheetId: '1JTg8hwLcdisRMR0c2rAI9_0ABHc8NgyV3Hku0Ud9_6k', // The ID of the spreadsheet to update
 			range: 'Data!A:AY', // The name of the sheet to append the data to
@@ -413,6 +446,7 @@ limitations under the License.
 				document.getElementById('MatchID').innerHTML, 
 				document.getElementById('ScoutID').innerHTML, 
 				document.getElementById('TeamID').innerHTML, 
+				document.getElementById('TeamColorValue').innerHTML,
 				document.getElementById('col1Top').innerHTML,
 				document.getElementById('col2Top').innerHTML,
 				document.getElementById('col3Top').innerHTML,
@@ -446,6 +480,7 @@ limitations under the License.
 				document.getElementById('FumbleType').innerHTML,
 				document.getElementById('CoOp').innerHTML,
 				document.getElementById('Cone').innerHTML,
+				document.getElementById('AutoLocationValue').innerHTML,				
 				document.getElementById('AutoMove').innerHTML,
 				document.getElementById('AutoMovePts').innerHTML,
 				document.getElementById('AutoDoc').innerHTML,
@@ -462,7 +497,9 @@ limitations under the License.
 				document.getElementById('AllianceWinRP').innerHTML,
 				document.getElementById('LinkRP').innerHTML,
 				document.getElementById('ChargeRP').innerHTML,
-				document.getElementById('TotalRP').innerHTML
+				document.getElementById('TotalRP').innerHTML,
+				document.getElementById('Summary').innerHTML
+
 				]] // The new values to append to the sheet
 			},
 		  };
@@ -649,6 +686,11 @@ function myfunction(id) {
 	document.getElementById(id).style.borderBlockColor = color;	
 
     document.getElementById('ModeID').innerHTML = "Tele"
+	var element = document.getElementById('ModeID');
+
+	element.style.backgroundColor = "blue";
+
+
 	document.getElementById(id).
 	updateRP();
 	updateTotal();
@@ -663,16 +705,19 @@ function ChangeItem(id) {
  
  
 function ChangeMode(id) {
+
+
+
     if (document.getElementById(id).innerHTML == "Auto")
 	{
 	   document.getElementById(id).innerHTML = "Tele";
-	   let element = document.querySelector(".TeleOpMode	");
+	   var element = document.getElementById(id);
 	   element.style.backgroundColor = "blue";
 	}   
 	else
 	{
 	   document.getElementById(id).innerHTML  = "Auto";
-	   let element = document.querySelector(".TeleOpMode");
+	   var element = document.getElementById(id);
 	   element.style.backgroundColor = "brown";
 	}
  } 
@@ -920,6 +965,9 @@ function reset(){
 	document.getElementById('AutoMovePts').innerHTML=0;
 	document.getElementById('AutoDocEngPts').innerHTML=0;
 	document.getElementById('EndGameEngPts').innerHTML=0;
+	document.getElementById('Summary').innerHTML="";
+	document.getElementById('AutoLocationValue').innerHTML ="ClickMe"
+
 
 	var ele = document.getElementsByClassName('blockbox');
 	for (var i=0; i< ele.length; i++ ) {
@@ -956,10 +1004,10 @@ function reset(){
 		
 		 <div class="TeamColorDiv">		
 			<div class="label" id="TeamColorLabel">TeamColor</div>
-			<div class="teamColor" id="TeamColor" onclick='ToggleColor(this.id)'>Black</div>
+			<div class="teamColor" id="TeamColorValue" onclick='ToggleColor(this.id)'>Black</div>
 		</div>
 
-		 <h3>Autonomous Movement</h3>
+		 <h1>Autonomous Movement</h1>
 
 		 <div class="TeamColorDiv">		
 			<div class="label" id="AutoLocationLabel:">Auto Start Location</div>
@@ -984,57 +1032,51 @@ function reset(){
 			<div class="box" id="AutoDocEngPts">0</div>
 		</div>
 				 
-		 <h3>GameGrid</h3>
-		 <h4>Click the Blue/Tele or Brown/Auto window to toggle between autonmous and teleop</h4>
+		 <h1>GameGrid</h1>
 		 <div class="Mode">
-			 <div class="label" id="ModeIDLabel:">Current Mode</div>
+			 <div class="label" id="ModeIDLabel:">Current Mode:  For Autonomous change Tele to Auto</div>
 			 <div class="TeleOpMode" id="ModeID" onclick='ChangeMode(this.id)' >Tele</div>
 		 </div> 
 		 <br>
 
 		 <div class="wrapper">
-		 <!-- 
-			<div class="label" id="col0Top" >Top</div>
-			<div class="label" id="col0Mid" >Mid</div>
-			<div class="label" id="col0Low" >Low</div>
-			<div class="label" id="col0Label" ></div>
-		 -->
+
 			<div class="box" id="col1Top" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col1Mid" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col1Low" onclick='myfunction(this.id)'>0</div>
-			<div class="label" id="col1Label" >Col1</div>
+			<div class="label" id="col1Label" >C1</div>
 			<div class="blockbox" id="col2Top" onclick='myfunction(this.id)'>0</div>
 			<div class="blockbox" id="col2Mid" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col2Low" onclick='myfunction(this.id)'>0</div>
-			<div class="label" id="col2Label" >Col2</div>
+			<div class="label" id="col2Label" >C2</div>
 			<div class="box" id="col3Top" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col3Mid" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col3Low" onclick='myfunction(this.id)'>0</div>
-			<div class="label" id="col3Label" >Col3</div>
+			<div class="label" id="col3Label" >C3</div>
 			<div class="box" id="col4Top" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col4Mid" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col4Low" onclick='myfunction(this.id)'>0</div>
-			<div class="label" id="col4Label" >Col4</div>
+			<div class="label" id="col4Label" >C4</div>
 			<div class="blockbox" id="col5Top" onclick='myfunction(this.id)'>0</div>
 			<div class="blockbox" id="col5Mid" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col5Low" onclick='myfunction(this.id)'>0</div>
-			<div class="label" id="col5Label" >Col5</div>
+			<div class="label" id="col5Label" >C5</div>
 			<div class="box" id="col6Top" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col6Mid" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col6Low" onclick='myfunction(this.id)'>0</div>
-			<div class="label" id="col6Label" >Col6</div>	
+			<div class="label" id="col6Label" >C6</div>	
 			<div class="box" id="col7Top" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col7Mid" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col7Low" onclick='myfunction(this.id)'>0</div>
-			<div class="label" id="col7Label" >Col7</div>
+			<div class="label" id="col7Label" >C7</div>
 			<div class="blockbox" id="col8Top" onclick='myfunction(this.id)'>0</div>
 			<div class="blockbox" id="col8Mid" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col8Low" onclick='myfunction(this.id)'>0</div>
-			<div class="label" id="col8Label" >Col8</div>		
+			<div class="label" id="col8Label" >C8</div>		
 			<div class="box" id="col9Top" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col9Mid" onclick='myfunction(this.id)'>0</div>
 			<div class="box" id="col9Low" onclick='myfunction(this.id)'>0</div>
-			<div class="label" id="col9Label" >Col9</div>
+			<div class="label" id="col9Label" >C9</div>
 		</div>
 		
 		<br>
@@ -1047,7 +1089,7 @@ function reset(){
 		</div>			
 		
 		
-		<h3>EndGame Movements</h3>
+		<h1>EndGame Movements</h1>
 		<div class="Movement2">
 			<div class="label" id="EndGameDockedLabel">EndGame: Docked?</div>
 			<div class="yesno" id="EndGameDocked" onclick='ToggleYesNo(this.id)'>NO</div>
@@ -1070,14 +1112,13 @@ function reset(){
 			<div class="yesno" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
 			<div class="label" id="BlockLabel">Score Block?</div>
 			<div class="yesno" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
-
-			<div class="label" id="CoOpLabel">3 GP in Middle Grid</div>
+			<div class="label" id="CoOpLabel">CoOperation</div>
 			<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>		
 		</div>
 			
 
 		<br>
-		<h3> Point Totals</h3>
+		<h1> Point Totals</h1>
 		<div class ="PointTotals">
 			
 			<div class="label" id="TeamPointsLabel">Team Points</div>
@@ -1096,7 +1137,7 @@ function reset(){
 		 </div>
 
 		<br>
-		<h3> Ranking Points</h3>
+		<h1> Ranking Points</h1>
 
 		<div class="RP">
 			<div class="label" id="AllianceWinRPLabel">OutcomeRP</div>
@@ -1109,6 +1150,12 @@ function reset(){
 			<div class="value" id="TotalRP" >0</div>
 			
 		</div>	
+		<br>
+		<div class="Summary">
+			<div class="label" id="Label">Match Notes</div>
+			<div class="SummaryKeys" id="Summary" onclick='ChangePrompt(this.id)'></div>
+		</div>
+
 		<br>
 		<div class="buttons"><button class = "buttons" id="reset" name="submitMatch" onclick="appendData()">Submit Match</button></div>
 		<div class="buttons"><button class = "buttons" id="reset" name="reset" onclick="reset()">Reset Values</button></div>
