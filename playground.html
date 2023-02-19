@@ -436,10 +436,7 @@ limitations under the License.
 		function appendData() {
 		  // Set up the request
 		  
-			var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
-			var lastRow = sheet.getLastRow();
-			var newRow = lastRow + 1;
-			alert(newRow)
+
 			
 		  const request = {
 			spreadsheetId: '1JTg8hwLcdisRMR0c2rAI9_0ABHc8NgyV3Hku0Ud9_6k', // The ID of the spreadsheet to update
@@ -510,14 +507,14 @@ limitations under the License.
 				"Reserved",
 				"Reserved",
 				"Reserved",				
-				'=countif(E'+newRow+':M'+newRow+',6)',
-				'=countif(N'+newRow+':V'+newRow+',4)',
-				'=countif(W'+newRow+':AE'+newRow+',3)',
-				'=Sum(E'+newRow+':M'+newRow+')',
-				'=Sum(N'+newRow+':V'+newRow+')',				
-				'=Sum(W'+newRow+':AE'+newRow+')',
-				'=Sum(BL'+newRow+':BN'+newRow+')',
-				'=Sum(H'+newRow+',I'+newRow+',J'+newRow+',Q'+newRow+',R'+newRow+',Z'+newRow+',AA'+newRow+',AB'+newRow+')'
+				'=countif(E'+(ROW() - 1)+':M'+(ROW() - 1)+',6)',
+				'=countif(N'+(ROW() - 1)+':V'+(ROW() - 1)+',4)',
+				'=countif(W'+(ROW() - 1)+':AE'+(ROW() - 1)+',3)',
+				'=Sum(E'+(ROW() - 1)+':M'+(ROW() - 1)+')',
+				'=Sum(N'+(ROW() - 1)+':V'+(ROW() - 1)+')',				
+				'=Sum(W'+(ROW() - 1)+':AE'+(ROW() - 1)+')',
+				'=Sum(BL'+(ROW() - 1)+':BN'+(ROW() - 1)+')',
+				'=Sum(H'+(ROW() - 1)+',I'+(ROW() - 1)+',J'+(ROW() - 1)+',Q'+(ROW() - 1)+',R'+(ROW() - 1)+',Z'+(ROW() - 1)+',AA'+(ROW() - 1)+',AB'+(ROW() - 1)+')'
 
 
 				]] // The new values to append to the sheet
