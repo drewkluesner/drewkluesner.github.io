@@ -505,15 +505,15 @@ limitations under the License.
 				"Reserved",
 				"Reserved",
 				"Reserved",
-				"Reserved",
-				'=countif(E2:M2,6)',
-				'=countif(N2:V2,4)',
-				'=countif(W2:AE2,3)',
-				'=Sum(E2:M2)',
-				'=Sum(N2:V2)',				
-				'=sum(W2:AE2)',
-				'=Sum(BL2:BN2)',
-				'=SUm(H2,I2,J2,Q2,R2,Z2,AA2,AB2)'
+				"Reserved",				
+				'=countif(E'+EROW()+':M'+EROW()+',6)',
+				'=countif(N'+EROW()+':V'+EROW()+',4)',
+				'=countif(W'+EROW()+':AE'+EROW()+',3)',
+				'=Sum(E'+EROW()+':M'+EROW()+')',
+				'=Sum(N'+EROW()+':V'+EROW()+')',				
+				'=Sum(W'+EROW()+':AE'+EROW()+')',
+				'=Sum(BL'+EROW()+':BN'+EROW()+')',
+				'=Sum(H'+EROW()+',I'+EROW()+',J'+EROW()+',Q'+EROW()+',R'+EROW()+',Z'+EROW()+',AA'+EROW()+',AB'+EROW()+')'
 
 
 				]] // The new values to append to the sheet
