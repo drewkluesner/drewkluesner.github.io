@@ -1,101 +1,1195 @@
+<!--
+Copyright 2018 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!-- [START sheets_quickstart] -->
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, maximum-scale=1.0">
-		<title>Scouting PASS</title>
-		<link rel="shortcut icon" href="favicon.ico">
-		<link rel="icon" sizes="16x16 32x32 64x64" href="favicon.ico">
-		<script src="resources/js/easy.qrcode.min.js"></script>
-		<script src="resources/js/TBAInterface.js"></script>
-		<script src="resources/js/googleSheets.js"></script>
-		<script src="resources/js/scoutingPASS.js"></script>
-		<script src="2023/CU_config.js"></script>
-		<link rel="stylesheet" href="resources/css/scoutingPASS.css">
-	</head>
+  <head>
+    <title>7531-ScoutingApp</title>
+    <meta charset="utf-8" />
+	
+	 <style>
+	body {
+		margin: 40px;
+		background-color:  #bfbfbf;
+	}
 
-	<body>
-		<form id="scoutingForm" onsubmit="return false">
-			<div id="main-panel-holder">
-				<div id="prematch" class="main-panel" style="background-color: black;">
-					<h1 id="prematchHeader1" class="page_title"><span class="odd">P</span><span class="even">W</span><span class="odd">N</span><span class="even">A</span><span class="odd">G</span><span class="even">E</span><br>Scouting 2020</h1>
-					<h2 id="prematchHeader2">pre-match</h2>
-					<p class="match-label"><input type="button" value="Next" id="nextButton1" onclick="swipePage(1)"></p>
-					<table id="prematch_table" style="font: Roboto">
-					<!-- ###PRE-MATCH-COMPONENTS###-->
-					</table>
-					<p class="match-label"><input type="button" value="Next" id="nextButton2" onclick="swipePage(1)"></p>
-				</div>
+	.buttons
+	{
+			background-color: #4CAF50; /* Green */
+			border: none;
+			color: white;
+			padding: 15px 32px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 32px;
+	}
 
-				<div id="auton" class="main-panel" style="background-color: rgb(123, 168, 184);">
-					<h1 id="autonHeader" class="page_title"><span class="odd">P</span><span class="even">W</span><span class="odd">n</span><span class="even">A</span><span class="odd">G</span><span class="even">E</span><br>Scouting 2020</h1>
-					<h2 id="autonHeader">Auton</h2>
-					<p class="match-label"><input type="button" value="Prev" id="prevButton1" onclick="swipePage(-1)"><input type="button" value="Next" id="nextButton3" onclick="swipePage(1)"></p>
-					<table id="auton_table">
-					<!-- ###AUTON-COMPONENTS###-->
-					</table>
-					<p class="match-label"><input type="button" value="Prev" id="prevButton2" onclick="swipePage(-1)"> <input type="button" value="Next" id="nextButton4" onclick="swipePage(1)"></p>
-				</div>
+	.specialButton { 
+	background-color: Green;  
+	border: none; 
+	color: white; 
+	padding: 12px 70px; 
+	text-align: center; 
+	text-decoration: none; 
+	display: inline-block; 
+	margin: 2px 6px; 
+	cursor: pointer; 
+	font-size:25px; 
+	} 
 
-				<div id="teleop" class="main-panel" style="background-color: rgb(175, 207, 163);">
-					<h1 id="teleopHeader1" class="page_title"><span class="odd">P</span><span class="even">W</span><span class="odd">n</span><span class="even">A</span><span class="odd">G</span><span class="even">E</span><br>Scouting 2020</h1>
-					<h2 id="teleopHeader2" >Teleop</h2>
-					<p class="match-label"><input type="button" value="Prev" id="prevButton3" onclick="swipePage(-1)"><input type="button" value="Next" id="nextButton5" onclick="swipePage(1)"></p>
-					<table id="teleop_table">
-						<!-- ###TELEOP-COMPONENTS###-->
-					</table>
-					<p class="match-label"><input type="button" value="Prev" id="prevButton4" onclick="swipePage(-1)"> <input type="button" value="Next" id="nextButton6" onclick="swipePage(1)"></p>
-				</div>
 
-				<div id="endgame" class="main-panel" style="background-color: rgb(198, 186, 222);">
-					<h1 id= "endgameHeader" class="page_title"><span class="odd">P</span><span class="even">W</span><span class="odd">n</span><span class="even">A</span><span class="odd">G</span><span class="even">E</span><br>Scouting 2020</h1>
-					<h2 id="endgameHeader">Endgame</h2>
-					<p class="match-label"><input type="button" value="Prev" id="prevButton5" onclick="swipePage(-1)"><input type="button" value="Next" id="nextButton7" onclick="swipePage(1)"></p>
-					<table id="endgame_table">
-						<!-- ###ENDGAME-COMPONENTS###-->
-					</table>
-					<p class="match-label"><input type="button" value="Prev" id="prevButton6" onclick="swipePage(-1)"> <input type="button" value="Next" id="nextButton8" onclick="swipePage(1)"></p>
-				</div>
+	.box {
+		background-color: #444;
+		color: #fff;
+		border-radius: 5px;
+		padding: 10px;
+		height: 60px;
+		font-size: 48px;
+		text-align: center;
+		
+	}
 
-				<div id="post-match" class="main-panel" style="background-color: rgb(89, 134, 168);">
-					<h1 id="postmatchHeader" class="page_title"><span class="odd">P</span><span class="even">W</span><span class="odd">n</span><span class="even">A</span><span class="odd">G</span><span class="even">E</span><br>Scouting 2020</h1>
-					<h2>Miscellaneous</h2>
-					<p class="match-label"><input type="button" value="Prev" id="prevButton7" onclick="swipePage(-1)"><input type="button" value="Next" id="nextButton9" onclick="swipePage(1)"></p>
-					<table id="postmatch_table">
-						<!-- ###POST-MATCH-COMPONENTS###-->
-					</table>
-					<p class="match-label"><input type="button" value="Prev" id="prevButton8" onclick="swipePage(-1)"> <input type="button" value="Next" id="nextButton10" onclick="swipePage(1)"></p>
-				</div>
+	.blockbox {
+		background-color: teal;
+		color: #fff;
+		border-radius: 5px;
+		padding: 10px;
+		font-size: 48px;
+	}
 
-				<div id="qr-code" class="main-panel" style="background-color: white;">
-					<h1 id="qrHeader1" class="page_title"><span class="odd">P</span><span class="even">W</span><span class="odd">n</span><span class="even">A</span><span class="odd">G</span><span class="even">E</span><br>Scouting 2020</h1>
-					<h2 id="qrHeader2">Generate QR Code</h2>
-					<p class="match-label"><input type="button" value="Prev" id="prevButton9" onclick="swipePage(-1)"></p>
-					<p id="qr-info"><span id="display_qr-info" style="border: none; text-align: center;"></span></p>
-					<table id="qr-table"><tr><td width="5%">&nbsp;</td><td width="90%">
-						<div id="qrcode" style="text-align:center">
-							<script>
-						// Create QRCode Object
-								qr = new QRCode(document.getElementById("qrcode"), options)
-					</script>
-					</div>
-				</td><td width="5%">&nbsp;</td></tr>
-				<tr><td width="5%">&nbsp;</td><td width="90%">
-					<div>
-						<p id="data" style="text-align:center"></p>
-					</div>
-				</td><td width="5%">&nbsp;</td></tr>
-			</table>
-					<p></p>
-					<p class="match-label"><input type="button" value="Display Data" id="displayButton" onclick="displayData()"><input type="button" value="Copy Data" id="copyButton" onclick="copyData()"></p>
-					<div id="submitButton">
-						<button id="submit" type="submit" class="submitForm">Send to Google Sheets</button>
-					</div>
-					<div id="clearButton">
-						<button type="button" class="clearForm" onclick="clearForm()">Clear Form</button>
-					</div>
-					<br>
-				</div>
-			</div>
-		</body>
-	</form>
+	.Keys {
+		border-width:2px;
+		border-style:solid;
+		border-color:black;
+		border-color: #000000;
+		border-width: 5px;
+		border-radius: 5px;
+		padding: 10px;
+		font-size: 200%;
+		width: 300px;
+  		height: 50px;
+	}
+
+	.SummaryKeys {
+		border-width:2px;
+		border-style:solid;
+		border-color:black;
+		border-color: #000000;
+		border-width: 5px;
+		border-radius: 5px;
+		padding: 10px;
+		font-size: 200%;
+		width: 100%;
+  		height: 250px;
+	}	
+
+
+	.label {
+		padding: 10px;
+		font-size: 40px;
+		height: 50px;
+	}
+	
+	.value{
+		padding: 10px;
+		font-size: 32px;
+		text-align: center;
+
+	}
+	
+	.rpvalue {
+		padding: 10px;
+		font-size: 64px;
+		text-align: center;
+		
+	}
+	
+	.yesno {
+		background-color: #555599;
+		color: #FFFFFF;
+		border-radius: 5px;
+		padding: 10px;
+		height: 60px;
+		font-size: 48px 	;
+		text-align: center;
+
+	}
+	
+	.Points {
+		background-color: #008080;
+		color: #FFFFFF;
+		border-radius: 5px;
+		padding: 10px;
+		font-size: 64px;
+		height: 75px;
+	}
+
+
+	.TeleOpMode {
+		background-color: blue;
+		color: #fff;
+		border-radius: 5px;
+		padding: 10px;
+		height: 75px;
+		font-size: 64px;
+	}
+
+
+	.RP {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 50px 50px ;
+		grid-auto-flow: column;
+	}
+
+	.PointTotals {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 100px 50px ;
+		grid-auto-flow: column;
+	}
+
+	.MatchMeta {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 50px 50px ;
+		grid-auto-flow: column;
+	}
+
+	.Summary {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 50px 300px ;
+		grid-auto-flow: column;
+	}
+
+
+
+	.MatchDetailMeta {
+		display: grid;
+    grid-gap: 10px;
+	    grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 75px 75px 75px;
+		grid-auto-flow: row;
+	}
+
+	.TeamColorDiv {
+		display: grid;
+		grid-gap: 10px;
+	    grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 50px 50px ;
+		grid-auto-flow: row;
+		height: 100px;
+		font-size: 48px;
+	}
+
+	.AutoLocationLabel {
+		display: grid;
+		grid-gap: 10px;
+	    grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: 50px 50px ;
+		grid-auto-flow: row;
+		height: 100px;
+		font-size: 48px;
+		border-width:2px;
+		border-style:solid;
+		border-color:black;
+		border-color: #000000;
+		border-width: 5px;
+		border-radius: 5px;
+	}
+
+	.teamColor {
+		height: 100px;
+		font-size: 48px;
+	}
+
+
+
+	.Movement {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 80px 100px ;
+		grid-auto-flow: column;
+		height: 200px
+	}
+	
+	.Auto2 {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 80px 100px ;
+		grid-auto-flow: column;
+		height: 200px
+		font-size: 64px;
+
+	}
+
+	.TeamColorLabel
+	{
+		font-size: 64px;
+
+	}
+	
+	.Fumble {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 50px 50px ;
+		grid-auto-flow: column;
+		height:200px
+	}
+
+
+	.Movement2 {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 100px 100px ;
+		grid-auto-flow: column;
+		height: 200px
+
+	}
+
+	.Mode {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 50px 50px ;
+		grid-auto-flow: row;
+		height: 150px;
+	}
+
+
+
+	.wrapper {
+		display: grid;
+    grid-gap: 10px;
+		grid-template-rows: 75px 75px 75px 75px ;
+		grid-auto-flow: column;
+		text-align: center;
+
+	}
+
+
+   </style>
+	
+  </head>
+  <body>
+    <p>7531 - Scouting App</p>
+	<p>version: 2/19/2023</p>
+	Fixed Scope
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize and push data to google sheets</button>
+    <button class="specialButton" id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+    <button class="specialButton" id="nogoogle" onclick="showApp()">I don't have google let me in anyways.</button>
+	
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+
+    <script type="text/javascript">
+      /* exported gapiLoaded */
+      /* exported gisLoaded */
+      /* exported handleAuthClick */
+      /* exported handleSignoutClick */
+
+      // TODO(developer): Set to client ID and API key from the Developer Console
+      const CLIENT_ID = '172471412542-mttk2k0rput8li38i7uhp615pfns7vb7.apps.googleusercontent.com';
+      const API_KEY = 'AIzaSyC_h1-qrTYtvQLEn3PEz8YSh-Uzr4v0DV0';
+
+      // Discovery doc URL for APIs used by the quickstart
+      const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
+
+      let tokenClient;
+      let gapiInited = false;
+      let gisInited = false;
+
+      document.getElementById('authorize_button').style.visibility = 'hidden';
+      document.getElementById('signout_button').style.visibility = 'hidden';
+
+		function showApp()
+		{
+			  var x = document.getElementById('MainDiv');
+			  if (x.style.visibility === 'hidden') {
+				x.style.visibility = 'visible';
+			  } else {
+				x.style.visibility = 'hidden';
+			  }
+
+		}
+
+
+      /**
+       * Callback after api.js is loaded.
+       */
+      function gapiLoaded() {
+        gapi.load('client', initializeGapiClient);
+      }
+
+      /**
+       * Callback after the API client is loaded. Loads the
+       * discovery doc to initialize the API.
+       */
+      async function initializeGapiClient() {
+        await gapi.client.init({
+          apiKey: API_KEY,
+          discoveryDocs: [DISCOVERY_DOC],
+        });
+        gapiInited = true;
+        maybeEnableButtons();
+      }
+
+      /**
+       * Callback after Google Identity Services are loaded.
+       */
+      function gisLoaded() {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+          client_id: CLIENT_ID,
+          scope: SCOPES,
+          callback: '', // defined later
+        });
+        gisInited = true;
+        maybeEnableButtons();
+      }
+
+      /**
+       * Enables user interaction after all libraries are loaded.
+       */
+      function maybeEnableButtons() {
+        if (gapiInited && gisInited) {
+          document.getElementById('authorize_button').style.visibility = 'visible';
+		  
+	
+        }
+      }
+
+      /**
+       *  Sign in the user upon button click.
+       */
+      function handleAuthClick() {
+        tokenClient.callback = async (resp) => {
+          if (resp.error !== undefined) {
+            throw (resp);
+          }
+          document.getElementById('signout_button').style.visibility = 'visible';
+          document.getElementById('authorize_button').innerText = 'Refresh';
+          /*await listMajors();
+          await updateSheet();
+		  await appendData();*/
+		  var x = document.getElementById('MainDiv');
+			  if (x.style.visibility === 'hidden') {
+				x.style.visibility = 'visible';
+			  }
+        };
+
+        if (gapi.client.getToken() === null) {
+          // Prompt the user to select a Google Account and ask for consent to share their data
+          // when establishing a new session.
+          tokenClient.requestAccessToken({prompt: 'consent'});
+        } else {
+          // Skip display of account chooser and consent dialog for an existing session.
+          tokenClient.requestAccessToken({prompt: ''});
+        }
+      }
+
+      /**
+       *  Sign out the user upon button click.
+       */
+
+        
+        function updateSheet() {
+            
+          console.info("I was here");
+  
+          // Set up the request
+          const request = {
+            spreadsheetId: '1JTg8hwLcdisRMR0c2rAI9_0ABHc8NgyV3Hku0Ud9_6k', // The ID of the spreadsheet to update
+            range: 'Data!A2', // The range of cells to update
+            valueInputOption: 'RAW', // How the input data should be interpreted
+            resource: {
+              values: [[Math.random()]] // The new values to set in the cells
+            },
+         //   auth: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true)
+          };
+
+          // Make the request to update the cells
+          gapi.client.sheets.spreadsheets.values.update(request).then(function(response) {
+            console.log(response.result);
+          }, function(response) {
+            console.error(response.result.error);
+          });
+        }
+        
+		function convertYesNoToNumber(str) {
+		  if (str.toUpperCase() === "YES") {
+			return 1;
+		  } else if (str.toUpperCase() === "NO") {
+			return 0;
+		  } else {
+			return 0; 
+		  }
+		}
+		
+		
+		function appendData() {
+		  // Set up the request
+		  
+
+			
+		  const request = {
+			spreadsheetId: '1JTg8hwLcdisRMR0c2rAI9_0ABHc8NgyV3Hku0Ud9_6k', // The ID of the spreadsheet to update
+			range: 'Data!A:AY', // The name of the sheet to append the data to
+			insertDataOption: 'INSERT_ROWS', // How the input data should be inserted
+			valueInputOption: 'USER_ENTERED', // How the input data should be interpreted
+			resource: {
+			  values: [[
+				document.getElementById('MatchID').innerHTML, 
+				document.getElementById('ScoutID').innerHTML, 
+				document.getElementById('TeamID').innerHTML, 
+				document.getElementById('TeamColorValue').innerHTML,
+				parseInt(document.getElementById('col1Top').innerHTML),
+				parseInt(document.getElementById('col2Top').innerHTML),
+				parseInt(document.getElementById('col3Top').innerHTML),
+				parseInt(document.getElementById('col4Top').innerHTML),
+				parseInt(document.getElementById('col5Top').innerHTML),
+				parseInt(document.getElementById('col6Top').innerHTML),
+				parseInt(document.getElementById('col7Top').innerHTML),
+				parseInt(document.getElementById('col8Top').innerHTML),
+				parseInt(document.getElementById('col9Top').innerHTML),
+
+				parseInt(document.getElementById('col1Mid').innerHTML),
+				parseInt(document.getElementById('col2Mid').innerHTML),
+				parseInt(document.getElementById('col3Mid').innerHTML),
+				parseInt(document.getElementById('col4Mid').innerHTML),
+				parseInt(document.getElementById('col5Mid').innerHTML),
+				parseInt(document.getElementById('col6Mid').innerHTML),
+				parseInt(document.getElementById('col7Mid').innerHTML),
+				parseInt(document.getElementById('col8Mid').innerHTML),
+				parseInt(document.getElementById('col9Mid').innerHTML),
+				
+				parseInt(document.getElementById('col1Low').innerHTML),
+				parseInt(document.getElementById('col2Low').innerHTML),
+				parseInt(document.getElementById('col3Low').innerHTML),
+				parseInt(document.getElementById('col4Low').innerHTML),
+				parseInt(document.getElementById('col5Low').innerHTML),	
+				parseInt(document.getElementById('col6Low').innerHTML),
+				parseInt(document.getElementById('col7Low').innerHTML),
+				parseInt(document.getElementById('col8Low').innerHTML),	
+				parseInt(document.getElementById('col9Low').innerHTML),
+				convertYesNoToNumber(document.getElementById('Block').innerHTML),
+				document.getElementById('FumbleType').innerHTML,
+				convertYesNoToNumber(document.getElementById('CoOp').innerHTML),
+				convertYesNoToNumber(document.getElementById('Cone').innerHTML),
+				document.getElementById('AutoLocationValue').innerHTML,
+				convertYesNoToNumber(document.getElementById('AutoMove').innerHTML),
+				document.getElementById('AutoMovePts').innerHTML,
+				convertYesNoToNumber(document.getElementById('AutoDoc').innerHTML),
+				convertYesNoToNumber(document.getElementById('AutoEngaged').innerHTML),
+				convertYesNoToNumber(document.getElementById('AutoDocEngPts').innerHTML),
+				convertYesNoToNumber(document.getElementById('EndGameDocked').innerHTML),
+				convertYesNoToNumber(document.getElementById('EndGameEngaged').innerHTML),
+				convertYesNoToNumber(document.getElementById('EndGameParked').innerHTML),
+				document.getElementById('EndGameEngPts').innerHTML,				
+				document.getElementById('AllianceOPoints').innerHTML,
+				document.getElementById('AllianceDPoints').innerHTML,
+				document.getElementById('AllianceLinks').innerHTML,
+				document.getElementById('AllianceChargeStation').innerHTML,
+				document.getElementById('AllianceWinRP').innerHTML,
+				document.getElementById('LinkRP').innerHTML,
+				document.getElementById('ChargeRP').innerHTML,
+				document.getElementById('TotalRP').innerHTML,
+				document.getElementById('Summary').innerHTML,
+				"Reserved",
+				"Reserved",
+				"Reserved",
+				"Reserved",
+				"Reserved",
+				"Reserved",
+				"=COUNTIF(INDIRECT(\"E\"&ROW()):INDIRECT(\"M\"&ROW()), 6)",
+				"=COUNTIF(INDIRECT(\"N\"&ROW()):INDIRECT(\"V\"&ROW()), 4)",
+				"=COUNTIF(INDIRECT(\"W\"&ROW()):INDIRECT(\"AE\"&ROW()), 3)",
+				"=SUM(INDIRECT(\"E\"&ROW()&\":M\"&ROW()))",
+				"=SUM(INDIRECT(\"N\"&ROW()&\":V\"&ROW()))",			
+				"=SUM(INDIRECT(\"W\"&ROW()&\":AE\"&ROW()))",			
+				"=SUM(INDIRECT(\"BL\"&ROW()&\":BN\"&ROW()))",	
+				"=SUM(INDIRECT(\"H\"&ROW()), INDIRECT(\"I\"&ROW()), INDIRECT(\"J\"&ROW()), INDIRECT(\"Q\"&ROW()), INDIRECT(\"R\"&ROW()), INDIRECT(\"Z\"&ROW()), INDIRECT(\"AA\"&ROW()), INDIRECT(\"AB\"&ROW()))",
+				"=SUM(INDIRECT(\"F\"&ROW()), INDIRECT(\"I\"&ROW()), INDIRECT(\"L\"&ROW()))",
+				"=SUM(INDIRECT(\"O\"&ROW()), INDIRECT(\"R\"&ROW()), INDIRECT(\"U\"&ROW()))",
+				"=SUM(INDIRECT(\"BQ\"&ROW()&\":BR\"&ROW()))"
+				]] // The new values to append to the sheet
+			},
+		  };
+				// Make the request to append the data
+		  gapi.client.sheets.spreadsheets.values.append(request).then(function(response) {
+			console.log(response.result);
+		  }, function(response) {
+			console.error(response.result.error);
+		  });
+		  
+
+		  reset();
+		}  
+
+        
+      function handleSignoutClick() {
+        const token = gapi.client.getToken();
+        if (token !== null) {
+          google.accounts.oauth2.revoke(token.access_token);
+          gapi.client.setToken('');
+          document.getElementById('content').innerText = '';
+          document.getElementById('authorize_button').innerText = 'Authorize';
+          document.getElementById('signout_button').style.visibility = 'hidden';
+        }
+      }
+
+      /**
+       * Print the names and majors of students in a sample spreadsheet:
+       * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+       */
+      async function listMajors() {
+        let response;
+                 
+        try {
+          // Fetch first 10 files
+          response = await gapi.client.sheets.spreadsheets.values.get({
+            spreadsheetId: '1JTg8hwLcdisRMR0c2rAI9_0ABHc8NgyV3Hku0Ud9_6k',
+            range: 'Data!A2:E',
+          });
+        } catch (err) {
+          document.getElementById('content').innerText = err.message;
+          return;
+        }
+        const range = response.result;
+        if (!range || !range.values || range.values.length == 0) {
+          document.getElementById('content').innerText = 'No values found.';
+          return;
+        }
+        // Flatten to string to display
+        const output = range.values.reduce(
+            (str, row) => `${str}${row[0]}, ${row[4]}\n`,
+            'Name, Major:\n');
+        document.getElementById('content').innerText = output;
+      }
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+	
+	
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+function updateTotal()
+{
+	var sum = 0.0;
+	$('.box').each(function()
+	{
+		sum += parseFloat($(this).text());
+	});
+	$('.blockbox').each(function()
+	{
+		sum += parseFloat($(this).text());
+	});
+	
+	
+	document.getElementById('TeamPoints').innerHTML =sum;
+
+}
+
+function updateRP()
+{
+	if (document.getElementById('AllianceOPoints').innerHTML > document.getElementById('AllianceDPoints').innerHTML)
+		document.getElementById('AllianceWinRP').innerHTML = 2;
+	else if (document.getElementById('AllianceOPoints').innerHTML == document.getElementById('AllianceDPoints').innerHTML)
+		document.getElementById('AllianceWinRP').innerHTML = 1;
+	else
+		document.getElementById('AllianceWinRP').innerHTML = 0;
+	
+	if (document.getElementById('CoOp').innerHTML == "YES")
+		if (document.getElementById('AllianceLinks').innerHTML >=3)
+			document.getElementById('LinkRP').innerHTML = 1;
+		else
+			document.getElementById('LinkRP').innerHTML = 0;
+	else
+		if (document.getElementById('AllianceLinks').innerHTML >4)
+			document.getElementById('LinkRP').innerHTML = 1;
+		else
+			document.getElementById('LinkRP').innerHTML = 0;
+
+    if (document.getElementById('AllianceChargeStation').innerHTML >26) 
+		document.getElementById('ChargeRP').innerHTML = 1;
+	else
+		document.getElementById('ChargeRP').innerHTML = 0;
+	
+	var sum = 0.0;
+	$('.rpvalue').each(function()
+	{
+		sum += parseFloat($(this).text());
+	});
+	document.getElementById('TotalRP').innerHTML =sum;
+
+}
+
+
+
+function myfunction(id) { 
+
+	let Val = 0;	
+
+	const box = document.getElementById(id);
+	const className = box.getAttribute("class");
+	let borderString = "thick solid";
+
+	
+	if (document.getElementById(id).innerHTML  > 0)
+	{
+		document.getElementById(id).innerHTML = 0;
+
+		if (className == "blockbox")
+		{
+			color = "teal";
+		}
+		else
+		{
+			color = "#444"
+		}
+		borderString = "initial none"
+	}		
+    else if (document.getElementById('ModeID').innerHTML == "Auto")
+	{
+		color = "Brown";
+		if (id.match(/Top/))
+		{
+				Val = 6;
+		}
+		else if (id.match(/Mid/))
+		{
+			Val = 4;
+		}
+		else if (id.match(/Low/))
+		{
+			Val = 3;
+		}
+		else
+		{
+			Val = 0;
+		}
+	}
+	else if (document.getElementById('ModeID').innerHTML == "Tele")
+	{
+		color = "Blue";
+		if (id.match(/Top/))
+		{
+			Val = 5;
+		}
+		else if (id.match(/Mid/))
+		{
+			Val = 3;
+		}
+		else if (id.match(/Low/))
+		{
+			Val = 2;
+		}
+		else
+		{
+			Val = 0;
+		}			
+	}
+    document.getElementById(id).innerHTML = Val;
+
+
+	document.getElementById(id).style.border = borderString;
+	document.getElementById(id).style.borderBlockColor = color;	
+
+    document.getElementById('ModeID').innerHTML = "Tele"
+	var element = document.getElementById('ModeID');
+
+	element.style.backgroundColor = "blue";
+
+
+	updateRP();
+	updateTotal();
+ } 
+ 
+function ChangeItem(id) { 
+    if (document.getElementById(id).innerHTML == "C")
+	   document.getElementById(id).innerHTML = "B"
+	else
+	   document.getElementById(id).innerHTML  = "C"
+ } 
+ 
+ 
+function ChangeMode(id) {
+
+
+
+    if (document.getElementById(id).innerHTML == "Auto")
+	{
+	   document.getElementById(id).innerHTML = "Tele";
+	   var element = document.getElementById(id);
+	   element.style.backgroundColor = "blue";
+	}   
+	else
+	{
+	   document.getElementById(id).innerHTML  = "Auto";
+	   var element = document.getElementById(id);
+	   element.style.backgroundColor = "brown";
+	}
+ } 
+
+
+function increment(id, value) {
+    document.getElementById(id).innerHTML = Number(document.getElementById(id).innerHTML) + value;
+ } 
+
+function SubtractFumble() {
+	    document.getElementById('FumbleType').innerHTML = Number(document.getElementById('FumbleType').innerHTML) -1;
+		if  (Number(document.getElementById('FumbleType').innerHTML) < 0)
+			document.getElementById('FumbleType').innerHTML = 0
+} 
+
+
+function ToggleAutoLocation(id) {
+
+    if (document.getElementById(id).innerHTML == "ClickMe")
+	{
+		document.getElementById(id).innerHTML = "OpenSpace";
+	}
+	else if (document.getElementById(id).innerHTML == "OpenSpace")
+	{
+	    document.getElementById(id).innerHTML = "MiddleSpace";		
+	}
+	else if (document.getElementById(id).innerHTML == "MiddleSpace")
+	{
+	    document.getElementById(id).innerHTML = "RestrictedSpace";		
+	}
+	else if (document.getElementById(id).innerHTML == "RestrictedSpace")
+	{
+	    document.getElementById(id).innerHTML = "OpenSpace";		
+	}
+	else
+	{
+	    document.getElementById(id).innerHTML = "This shouldn't happen";		
+	}		
+
+}
+
+
+function ToggleColor(id) {
+	
+    if (document.getElementById(id).innerHTML == "N/A")
+	{
+		   var element = document.getElementById(id);
+	       element.style.backgroundColor = "blue";
+		   document.getElementById(id).innerHTML = "BLUE";
+
+	    document.getElementById(id).style.borderBlockColor = blue;
+	}
+	else if (document.getElementById(id).innerHTML == "BLUE")
+	{
+	    document.getElementById(id).innerHTML = "RED";
+		var element = document.getElementById(id);
+	    element.style.backgroundColor = "red";
+		
+	}
+	else
+	{
+		var element = document.getElementById(id);
+	    element.style.backgroundColor = "blue";
+	    document.getElementById(id).innerHTML  = "BLUE";
+	    document.getElementById(id).style.borderBlockColor = "blue";
+	}		
+ } 
+
+
+function ToggleYesNo(id) {
+
+	if (id == 'AutoDoc')
+	{
+		if(document.getElementById(id).innerHTML == "YES")
+		{
+			document.getElementById('AutoEngaged').innerHTML = "NO"		
+		}
+	}
+
+
+	
+    if (document.getElementById(id).innerHTML == "YES")
+	   document.getElementById(id).innerHTML = "NO"
+	else
+	   document.getElementById(id).innerHTML  = "YES"
+	
+	
+	if(document.getElementById('AutoMove').innerHTML == "YES")
+		document.getElementById('AutoMovePts').innerHTML =3
+	else
+		document.getElementById('AutoMovePts').innerHTML =0
+	
+	if(document.getElementById('AutoEngaged').innerHTML == "YES")
+	{
+		document.getElementById('AutoDoc').innerHTML = "YES"
+	}
+		
+	if(document.getElementById('AutoDoc').innerHTML == "YES")
+		if (document.getElementById('AutoEngaged').innerHTML == "YES")
+			document.getElementById('AutoDocEngPts').innerHTML = 12
+		else
+			document.getElementById('AutoDocEngPts').innerHTML = 8
+	else
+		document.getElementById('AutoDocEngPts').innerHTML = 0
+
+
+
+
+		
+	if (id == 'EndGameParked')
+	{
+		if (document.getElementById('EndGameParked').innerHTML == "YES")
+		{
+			document.getElementById('EndGameDocked').innerHTML = "NO";
+			document.getElementById('EndGameEngaged').innerHTML = "NO";
+		}
+	}
+	else
+	if (id == 'EndGameEngaged')
+	{
+		if (document.getElementById('EndGameEngaged').innerHTML == "YES")
+		{
+			document.getElementById('EndGameDocked').innerHTML = "YES";
+			document.getElementById('EndGameParked').innerHTML = "NO";
+		}
+	}
+	else
+	if (id == 'EndGameDocked')
+	{	
+		if (document.getElementById('EndGameDocked').innerHTML == "YES")
+		{
+			document.getElementById('EndGameParked').innerHTML = "NO";
+			document.getElementById('EndGameEngaged').innerHTML = "NO";
+		}
+		else
+		{
+			document.getElementById('EndGameEngaged').innerHTML = "NO";
+
+		}
+	}
+
+	document.getElementById('EndGameEngPts').innerHTML = 0
+
+
+	if(document.getElementById('EndGameDocked').innerHTML == "YES")
+		if (document.getElementById('EndGameEngaged').innerHTML == "YES")
+			document.getElementById('EndGameEngPts').innerHTML = 10
+		else
+			document.getElementById('EndGameEngPts').innerHTML = 6
+	else if (document.getElementById('EndGameParked').innerHTML == "YES")
+			document.getElementById('EndGameEngPts').innerHTML = 2
+
+	updateRP();
+	updateTotal()
+ } 
+ 
+function ChangePrompt(id) {
+
+	let value = ""
+	let promptVal = ""
+
+	if (id.match(/Match/))
+	{
+		value = "Match ID"
+		promptVal = ""
+	}	
+ 	else if (id.match(/Team/))
+	{
+		value = "Team ID"
+		promptVal = "7531"
+	}	
+	else if (id.match(/Scout/))
+	{
+		value = "Scout Name"
+		promptVal = "Enter Name Here"
+	}
+	else
+	{
+		value = ""
+		promptVal = ""
+	}
+	 
+	blah = prompt('What is your ' + value + '?', promptVal );
+	document.getElementById(id).innerHTML  = blah
+	
+	updateRP();
+	updateTotal()
+ } 
+
+function reset(){
+	document.getElementById('MatchID').innerHTML = Number(document.getElementById('MatchID').innerHTML) + 1;
+
+	document.getElementById('col1Top').innerHTML = 0;
+	document.getElementById('col1Mid').innerHTML = 0;
+	document.getElementById('col1Low').innerHTML = 0;
+	document.getElementById('col2Top').innerHTML = 0;
+	document.getElementById('col2Mid').innerHTML = 0;
+	document.getElementById('col2Low').innerHTML = 0;	
+	document.getElementById('col3Top').innerHTML = 0;
+	document.getElementById('col3Mid').innerHTML = 0;
+	document.getElementById('col3Low').innerHTML = 0;	
+	
+	document.getElementById('col4Top').innerHTML = 0;
+	document.getElementById('col4Mid').innerHTML = 0;
+	document.getElementById('col4Low').innerHTML = 0;
+	document.getElementById('col5Top').innerHTML = 0;
+	document.getElementById('col5Mid').innerHTML = 0;
+	document.getElementById('col5Low').innerHTML = 0;	
+	document.getElementById('col6Top').innerHTML = 0;
+	document.getElementById('col6Mid').innerHTML = 0;
+	document.getElementById('col6Low').innerHTML = 0;
+	
+	document.getElementById('col7Top').innerHTML = 0;
+	document.getElementById('col7Mid').innerHTML = 0;
+	document.getElementById('col7Low').innerHTML = 0;
+	document.getElementById('col8Top').innerHTML = 0;
+	document.getElementById('col8Mid').innerHTML = 0;
+	document.getElementById('col8Low').innerHTML = 0;	
+	document.getElementById('col9Top').innerHTML = 0;
+	document.getElementById('col9Mid').innerHTML = 0;
+	document.getElementById('col9Low').innerHTML = 0;
+	
+
+	document.getElementById('Block').innerHTML = "NO";
+	document.getElementById('FumbleType').innerHTML = "0";
+	document.getElementById('CoOp').innerHTML = "NO";
+	document.getElementById('Cone').innerHTML = "NO";
+	document.getElementById('AutoMove').innerHTML = "NO";
+	document.getElementById('AutoDoc').innerHTML = "NO";
+	document.getElementById('AutoEngaged').innerHTML = "NO";
+	document.getElementById('EndGameDocked').innerHTML = "NO";
+	document.getElementById('EndGameEngaged').innerHTML = "NO";
+	document.getElementById('EndGameParked').innerHTML = "NO";
+	alert ("Everything is AWESOME!")
+	
+	document.getElementById('AllianceOPoints').innerHTML=0;
+	document.getElementById('AllianceDPoints').innerHTML=0;
+	document.getElementById('AllianceLinks').innerHTML=0;
+	document.getElementById('AllianceChargeStation').innerHTML=0;
+	document.getElementById('AllianceWinRP').innerHTML=0;
+	document.getElementById('LinkRP').innerHTML=0;
+	document.getElementById('ChargeRP').innerHTML=0;
+	document.getElementById('TotalRP').innerHTML=0;
+	
+	document.getElementById('AutoMovePts').innerHTML=0;
+	document.getElementById('AutoDocEngPts').innerHTML=0;
+	document.getElementById('EndGameEngPts').innerHTML=0;
+	document.getElementById('Summary').innerHTML="";
+	document.getElementById('AutoLocationValue').innerHTML ="ClickMe"
+
+
+	var ele = document.getElementsByClassName('blockbox');
+	for (var i=0; i< ele.length; i++ ) {
+		document.getElementById(ele[i].id).style.border = "none";
+	}
+
+
+	var ele = document.getElementsByClassName('box');
+	for (var i=0; i< ele.length; i++ ) {
+		document.getElementById(ele[i].id).style.border = "none";
+	}
+
+	updateTotal()
+} 
+ 
+</script>
+
+	<div class=MainView" id="MainDiv" style="visibility:hidden;" >
+		 
+		 <h3>MatchData</h3>
+		 
+		 Click on the values to see how things change.
+		 
+		 <div class="MatchMeta">
+			<div class="label" id="Label">MatchID</div>
+			<div class="Keys" id="MatchID" onclick='ChangePrompt(this.id)'>1</div>
+			<div class="label" id="ScoutIDLabel">ScoutName</div>
+			<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Elmo</div>		
+
+			<div class="label" id="TeamIDLabel">TeamID</div>
+			<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
+		</div>
+		<br>
+		
+		 <div class="TeamColorDiv">		
+			<div class="label" id="TeamColorLabel">TeamColor</div>
+			<div class="teamColor" id="TeamColorValue" onclick='ToggleColor(this.id)'>N/A</div>
+		</div>
+
+		 <h1>Autonomous Movement</h1>
+
+		 <div class="TeamColorDiv">		
+			<div class="label" id="AutoLocationLabel:">Auto Start Location</div>
+			<div class="AutoLocationLabel" id="AutoLocationValue" onclick='ToggleAutoLocation(this.id)'>ClickMe</div>
+		</div>		 
+		 
+		 <div class="Movement">		
+			<div class="label" id="AutoMoveLabel">Auto: Did it exit the community?</div>
+			<div class="yesno" id="AutoMove" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="AutoMovePtsLabel">Auto Move Pts</div>		
+			<div class="box" id="AutoMovePts">0</div>
+		</div>
+		<div class="Movement">
+			<div class="label" id="AutoDocLabel">Auto: Docked?</div>
+			<div class="yesno" id="AutoDoc" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="AutoEngagedLabel">Auto: Engaged?</div>
+			<div class="yesno" id="AutoEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="AutoDocEngPtsLabel">Auto Dock Pts</div>		
+			<div class="box" id="AutoDocEngPts">0</div>
+		</div>
+				 
+		 <h1>GameGrid</h1>
+		 <div class="Mode">
+			 <div class="label" id="ModeIDLabel:">Current Mode:  For Autonomous change Tele to Auto</div>
+			 <div class="TeleOpMode" id="ModeID" onclick='ChangeMode(this.id)' >Tele</div>
+		 </div> 
+		 <br>
+
+		 <div class="wrapper">
+
+			<div class="box" id="col1Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col1Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col1Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col1Label" >C1</div>
+			<div class="blockbox" id="col2Top" onclick='myfunction(this.id)'>0</div>
+			<div class="blockbox" id="col2Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col2Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col2Label" >C2</div>
+			<div class="box" id="col3Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col3Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col3Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col3Label" >C3</div>
+			<div class="box" id="col4Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col4Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col4Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col4Label" >C4</div>
+			<div class="blockbox" id="col5Top" onclick='myfunction(this.id)'>0</div>
+			<div class="blockbox" id="col5Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col5Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col5Label" >C5</div>
+			<div class="box" id="col6Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col6Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col6Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col6Label" >C6</div>	
+			<div class="box" id="col7Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col7Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col7Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col7Label" >C7</div>
+			<div class="blockbox" id="col8Top" onclick='myfunction(this.id)'>0</div>
+			<div class="blockbox" id="col8Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col8Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col8Label" >C8</div>		
+			<div class="box" id="col9Top" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col9Mid" onclick='myfunction(this.id)'>0</div>
+			<div class="box" id="col9Low" onclick='myfunction(this.id)'>0</div>
+			<div class="label" id="col9Label" >C9</div>
+		</div>
+		
+		<br>
+		<div class="Fumble">
+			<div class="label" id="FumbleLabel">FumbleCounter</div>
+			<div class="yesno" id="FumbleType" onclick='increment(this.id, 1)'>0</div>	
+
+			<div class="label" id="FumbleLabel">Fumble</div>
+			<div class="yesno" id="FumbleDec" onclick='SubtractFumble(FumbleType)'>Subtract from Fumble</div>	
+		</div>			
+		
+		
+		<h1>EndGame Movements</h1>
+		<div class="Movement2">
+			<div class="label" id="EndGameDockedLabel">EndGame: Docked?</div>
+			<div class="yesno" id="EndGameDocked" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="EndGameEngagedLabel">EndGame: Engaged?</div>
+			<div class="yesno" id="EndGameEngaged" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="EndGameParkedLabel">EndGame: Parked?</div>
+			<div class="yesno" id="EndGameParked" onclick='ToggleYesNo(this.id)'>NO</div>
+			
+			<div class="label" id="EndGameEngPtsLabel">EndGame Pts</div>		
+			<div class="box" id="EndGameEngPts">0</div>		
+			
+		 </div>
+		 <br><br>
+		 
+		
+		<div class="MatchDetailMeta">
+			<div class="label" id="ConeLabel">Score Cone?</div>
+			<div class="yesno" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
+			<div class="label" id="BlockLabel">Score Block?</div>
+			<div class="yesno" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
+			<div class="label" id="CoOpLabel">CoOperation</div>
+			<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>		
+		</div>
+			
+
+		<br>
+		<h1> Point Totals</h1>
+		<div class ="PointTotals">
+			
+			<div class="label" id="TeamPointsLabel">Team Points</div>
+			<div class="Points" id="TeamPoints" >0</div>
+			
+			<div class="label" id="AllianceOffenseLabel">Alliance Points</div>
+			<div class="Points" id="AllianceOPoints" onclick='ChangePrompt(this.id)' >0</div>
+			<div class="label" id="AllianceDLabel">Opponent Points</div>
+			<div class="Points" id="AllianceDPoints" onclick='ChangePrompt(this.id)' >0</div>
+			
+			<div class="label" id="AllianceLinksLabel">Team Links</div>
+			<div class="Points" id="AllianceLinks" onclick='ChangePrompt(this.id)' >0</div>
+					
+			<div class="label" id="AllianceChargeStationLabel">Team Total ChargePts</div>
+			<div class="Points" id="AllianceChargeStation" onclick='ChangePrompt(this.id)'>0</div>						
+		 </div>
+
+		<br>
+		<h1> Ranking Points</h1>
+
+		<div class="RP">
+			<div class="label" id="AllianceWinRPLabel">OutcomeRP</div>
+			<div class="rpvalue" id="AllianceWinRP" >0</div>
+			<div class="label" id="LinkRPLabel">LinkRP</div>
+			<div class="rpvalue" id="LinkRP" >0</div>
+			<div class="label" id="ChargeRPLabel">ChargeRP</div>
+			<div class="rpvalue" id="ChargeRP" >0</div>
+			<div class="label" id="TotalLabel">TotalRP</div>
+			<div class="value" id="TotalRP" >0</div>
+			
+		</div>	
+		<br>
+		<div class="Summary">
+			<div class="label" id="Label">Match Notes</div>
+			<div class="SummaryKeys" id="Summary" onclick='ChangePrompt(this.id)'></div>
+		</div>
+
+		<br>
+		<div class="buttons"><button class = "buttons" id="reset" name="submitMatch" onclick="appendData()">Submit Match</button></div>
+		<div class="buttons"><button class = "buttons" id="reset" name="reset" onclick="reset()">Reset Values</button></div>
+
+	</div>
+	
+  </body>
 </html>
+<!-- [END sheets_quickstart] -->
