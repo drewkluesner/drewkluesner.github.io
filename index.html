@@ -21,6 +21,16 @@ limitations under the License.
     <meta charset="utf-8" />
 	
 	 <style>
+	label {
+		font-size: 2em; /* doubles the font size */
+	}
+  
+	input[type="text"], select, button {
+		font-size: 2em; /* doubles the font size */
+		height: 2em; /* doubles the height */
+	}
+	 
+	 
 	body {
 		margin: 40px;
 		background-color:  #bfbfbf;
@@ -164,10 +174,7 @@ limitations under the License.
 	}
 
 	.MatchMeta {
-		display: grid;
-    grid-gap: 10px;
-		grid-template-rows: 50px 50px ;
-		grid-auto-flow: column;
+
 	}
 
 	.Summary {
@@ -286,13 +293,14 @@ limitations under the License.
 	
   </head>
   <body>
+	<div onclick="showApp()">
     <p>7531 - Scouting App</p>
-	<p>version: 2/19/2023</p>
-	Fixed Scope
+	<p>version: 2/25/2023</p>
+	</div>
     <!--Add buttons to initiate auth sequence and sign out-->
-    <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize and push data to google sheets</button>
+    <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize</button>
     <button class="specialButton" id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-    <button class="specialButton" id="nogoogle" onclick="showApp()">I don't have google let me in anyways.</button>
+    <!--<button class="specialButton" id="nogoogle" onclick="showApp()">I don't have google let me in anyways.</button>-->
 	
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -446,20 +454,24 @@ limitations under the License.
 		
 		function appendData() {
 		  // Set up the request
-		  
-
+					  
+			const selectElement = document.getElementById("team-position");
+			const selectedIndex = selectElement.selectedIndex;
+			const selectedOption = selectElement.options[selectedIndex].value;
 			
 		  const request = {
 			spreadsheetId: '1JTg8hwLcdisRMR0c2rAI9_0ABHc8NgyV3Hku0Ud9_6k', // The ID of the spreadsheet to update
 			range: 'Data!A:AY', // The name of the sheet to append the data to
 			insertDataOption: 'INSERT_ROWS', // How the input data should be inserted
 			valueInputOption: 'USER_ENTERED', // How the input data should be interpreted
+			
+			
 			resource: {
 			  values: [[
-				document.getElementById('MatchID').innerHTML, 
+				document.getElementById('match-key').innerHTML, 
 				document.getElementById('ScoutID').innerHTML, 
 				document.getElementById('TeamID').innerHTML, 
-				document.getElementById('TeamColorValue').innerHTML,
+				selectedOption,
 				parseInt(document.getElementById('col1Top').innerHTML),
 				parseInt(document.getElementById('col2Top').innerHTML),
 				parseInt(document.getElementById('col3Top').innerHTML),
@@ -788,31 +800,6 @@ function ToggleAutoLocation(id) {
 }
 
 
-function ToggleColor(id) {
-	
-    if (document.getElementById(id).innerHTML == "N/A")
-	{
-		   var element = document.getElementById(id);
-	       element.style.backgroundColor = "blue";
-		   document.getElementById(id).innerHTML = "BLUE";
-
-	    document.getElementById(id).style.borderBlockColor = blue;
-	}
-	else if (document.getElementById(id).innerHTML == "BLUE")
-	{
-	    document.getElementById(id).innerHTML = "RED";
-		var element = document.getElementById(id);
-	    element.style.backgroundColor = "red";
-		
-	}
-	else
-	{
-		var element = document.getElementById(id);
-	    element.style.backgroundColor = "blue";
-	    document.getElementById(id).innerHTML  = "BLUE";
-	    document.getElementById(id).style.borderBlockColor = "blue";
-	}		
- } 
 
 
 function ToggleYesNo(id) {
@@ -936,8 +923,8 @@ function ChangePrompt(id) {
  } 
 
 function reset(){
-	document.getElementById('MatchID').innerHTML = Number(document.getElementById('MatchID').innerHTML) + 1;
-
+    //document.getElementById('MatchID').innerHTML = Number(document.getElementById('MatchID').innerHTML) + 1;
+	document.getElementById("match-key").value = incrementMatch(document.getElementById("match-key").value);
 	document.getElementById('col1Top').innerHTML = 0;
 	document.getElementById('col1Mid').innerHTML = 0;
 	document.getElementById('col1Low').innerHTML = 0;
@@ -978,9 +965,7 @@ function reset(){
 	document.getElementById('AutoEngaged').innerHTML = "NO";
 	document.getElementById('EndGameDocked').innerHTML = "NO";
 	document.getElementById('EndGameEngaged').innerHTML = "NO";
-	document.getElementById('EndGameParked').innerHTML = "NO";
-	alert ("Everything is AWESOME!")
-	
+	document.getElementById('EndGameParked').innerHTML = "NO";	
 	document.getElementById('AllianceOPoints').innerHTML=0;
 	document.getElementById('AllianceDPoints').innerHTML=0;
 	document.getElementById('AllianceLinks').innerHTML=0;
@@ -996,6 +981,8 @@ function reset(){
 	document.getElementById('Summary').innerHTML="";
 	document.getElementById('AutoLocationValue').innerHTML ="ClickMe"
 
+	alert ("Lets Go!!")
+
 
 	var ele = document.getElementsByClassName('blockbox');
 	for (var i=0; i< ele.length; i++ ) {
@@ -1010,31 +997,96 @@ function reset(){
 
 	updateTotal()
 } 
- 
-</script>
+
+</script>		
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"> </script>
+	<script>
+		function getTeamNumber() {
+			var eventKey = "2022iacf";
+			var matchKey = document.getElementById("match-key").value;
+			var teamPosition = document.getElementById("team-position").value;
+			var url = "https://www.thebluealliance.com/api/v3/match/" + eventKey + "_" + matchKey;
+			var header = { 'X-TBA-Auth-Key': 'OqfVa93QKlqTKo8D6839qmFZ6uRHIfH3URdPjoyD7dou2lqMfKXxlHfdGHkA5WuM' };
+			axios.get(url, { headers: header })
+				.then(function(response) {
+					var alliance;
+					if (teamPosition == "blue1") {
+						alliance = response.data.alliances.blue.team_keys[0];
+					} else if (teamPosition == "blue2") {
+						alliance = response.data.alliances.blue.team_keys[1];
+					} else if (teamPosition == "blue3") {
+						alliance = response.data.alliances.blue.team_keys[2];
+					} else if (teamPosition == "red1") {
+						alliance = response.data.alliances.red.team_keys[0];
+					} else if (teamPosition == "red2") {
+						alliance = response.data.alliances.red.team_keys[1];
+					} else if (teamPosition == "red3") {
+						alliance = response.data.alliances.red.team_keys[2];
+					} else {
+						alert("Invalid team position");
+						return;
+					}
+					var teamNumber = alliance.substring(3);
+					document.getElementById("TeamID").innerText = teamNumber;
+
+				})
+				.catch(function(error) {
+					alert("Error: " + error);
+				});
+		}
+		
+		function incrementMatch(str) {
+			  const match = str.match(/^([a-zA-Z]+)(\d+)$/);
+			  if (match) {
+				const prefix = match[1];
+				let number = parseInt(match[2]);
+
+				// Increment the number by 1
+				number++;
+
+				// Construct the output string by combining the prefix and the incremented number
+				const outputString = prefix + number;
+
+				return outputString;
+			  } else {
+				// If there is no number at the end of the string, throw an error
+				throw new Error("Input string does not end with a number");
+			  }
+		}
+		
+	</script>
 
 	<div class=MainView" id="MainDiv" style="visibility:hidden;" >
-		 
-		 <h3>MatchData</h3>
-		 
-		 Click on the values to see how things change.
-		 
-		 <div class="MatchMeta">
-			<div class="label" id="Label">MatchID</div>
-			<div class="Keys" id="MatchID" onclick='ChangePrompt(this.id)'>1</div>
-			<div class="label" id="ScoutIDLabel">ScoutName</div>
-			<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Elmo</div>		
 
+		<div class="MatchMeta">		 
+		<h3>Pre-MatchData</h3>
+		 
+		<p>
+		<label for="event-key">Event Key:</label>
+		<input type="text" id="event-key" value="2022iacf" readonly>
+		<p>
+		<label for="match-key">Match Key:(qm|sf|f):</label>
+		<input type="text" id="match-key" value="qm1">
+		<p>
+		<label for="team-position">Team Position:</label>
+		<select id="team-position" onchange="getTeamNumber()">
+			<option value="blue1">Blue 1</option>
+			<option value="blue2">Blue 2</option>
+			<option value="blue3">Blue 3</option>
+			<option value="red1">Red 1</option>
+			<option value="red2">Red 2</option>
+			<option value="red3">Red 3</option>
+		</select>
+		<button onclick="getTeamNumber()">RefreshTeamID</button>		
+		<p>
 			<div class="label" id="TeamIDLabel">TeamID</div>
-			<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
+			<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>ThisIsAutoGenerated</div>
+			
+			<div class="label" id="ScoutIDLabel">ScoutName</div>
+			<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>ScoutName</div>		
 		</div>
 		<br>
 		
-		 <div class="TeamColorDiv">		
-			<div class="label" id="TeamColorLabel">TeamColor</div>
-			<div class="teamColor" id="TeamColorValue" onclick='ToggleColor(this.id)'>N/A</div>
-		</div>
-
 		 <h1>Autonomous Movement</h1>
 
 		 <div class="TeamColorDiv">		
