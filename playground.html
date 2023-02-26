@@ -300,7 +300,7 @@ limitations under the License.
     <!--Add buttons to initiate auth sequence and sign out-->
     <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize</button>
     <button class="specialButton" id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
-    <button class="specialButton" id="nogoogle" onclick="showApp()">I don't have google let me in anyways.</button>
+    <!--<button class="specialButton" id="nogoogle" onclick="showApp()">I don't have google let me in anyways.</button>-->
 	
     <pre id="content" style="white-space: pre-wrap;"></pre>
 
@@ -924,7 +924,7 @@ function ChangePrompt(id) {
 
 function reset(){
     //document.getElementById('MatchID').innerHTML = Number(document.getElementById('MatchID').innerHTML) + 1;
-	incrementMatch(document.getElementById("match-key").value)
+	document.getElementById("match-key").value = incrementMatch(document.getElementById("match-key").value);
 	document.getElementById('col1Top').innerHTML = 0;
 	document.getElementById('col1Mid').innerHTML = 0;
 	document.getElementById('col1Low').innerHTML = 0;
@@ -1036,7 +1036,9 @@ function reset(){
 		}
 		
 		function incrementMatch(str) {
+				
 			  const match = str.match(/^([a-zA-Z]+)(\d+)$/);
+			  alert(match);
 
 			  if (match) {
 				const prefix = match[1];
