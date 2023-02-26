@@ -1013,6 +1013,42 @@ function reset(){
  
 </script>
 
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script>
+		function getTeamNumber() {
+			var eventKey = "2022iacf";
+			var matchKey = document.getElementById("match-key").value;
+			var teamPosition = document.getElementById("team-position").value;
+			var url = "https://www.thebluealliance.com/api/v3/match/" + eventKey + "_" + matchKey;
+			var header = { 'X-TBA-Auth-Key': 'OqfVa93QKlqTKo8D6839qmFZ6uRHIfH3URdPjoyD7dou2lqMfKXxlHfdGHkA5WuM' };
+			axios.get(url, { headers: header })
+				.then(function(response) {
+					var alliance;
+					if (teamPosition == "blue1") {
+						alliance = response.data.alliances.blue.team_keys[0];
+					} else if (teamPosition == "blue2") {
+						alliance = response.data.alliances.blue.team_keys[1];
+					} else if (teamPosition == "blue3") {
+						alliance = response.data.alliances.blue.team_keys[2];
+					} else if (teamPosition == "red1") {
+						alliance = response.data.alliances.red.team_keys[0];
+					} else if (teamPosition == "red2") {
+						alliance = response.data.alliances.red.team_keys[1];
+					} else if (teamPosition == "red3") {
+						alliance = response.data.alliances.red.team_keys[2];
+					} else {
+						alert("Invalid team position");
+						return;
+					}
+					var teamNumber = alliance.substring(3);
+					document.getElementById("team-number").value = teamNumber;
+				})
+				.catch(function(error) {
+					alert("Error: " + error);
+				});
+		}
+	</script>
+
 	<div class=MainView" id="MainDiv" style="visibility:hidden;" >
 		 
 		 <h3>MatchData</h3>
@@ -1024,6 +1060,33 @@ function reset(){
 			<div class="Keys" id="MatchID" onclick='ChangePrompt(this.id)'>1</div>
 			<div class="label" id="ScoutIDLabel">ScoutName</div>
 			<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Elmo</div>		
+			
+			
+	<p>
+		<label for="event-key">Event Key:</label>
+		<input type="text" id="event-key" value="2022iacf" readonly>
+	</p>
+	<p>
+		<label for="match-key">Match Key:</label>
+		<input type="text" id="match-key" value="qm1">
+	</p>
+	<p>
+		<label for="team-position">Team Position:</label>
+		<select id="team-position">
+			<option value="blue1">Blue 1</option>
+			<option value="blue2">Blue 2</option>
+			<option value="blue3">Blue 3</option>
+			<option value="red1">Red 1</option>
+			<option value="red2">Red 2</option>
+			<option value="red3">Red 3</option>
+		</select>
+	</p>
+	<button onclick="getTeamNumber()">Get Team Number</button>			
+			
+	<label for="team-number">Team Number:</label>
+	<input type="text" id="team-number" readonly>
+			
+			
 
 			<div class="label" id="TeamIDLabel">TeamID</div>
 			<div class="Keys" id="TeamID" onclick='ChangePrompt(this.id)'>7531</div>
