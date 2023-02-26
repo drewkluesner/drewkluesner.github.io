@@ -924,7 +924,7 @@ function ChangePrompt(id) {
 
 function reset(){
     //document.getElementById('MatchID').innerHTML = Number(document.getElementById('MatchID').innerHTML) + 1;
-
+	incrementMatch(document.getElementById('match-key').innerHTML)
 	document.getElementById('col1Top').innerHTML = 0;
 	document.getElementById('col1Mid').innerHTML = 0;
 	document.getElementById('col1Low').innerHTML = 0;
@@ -1034,6 +1034,27 @@ function reset(){
 					alert("Error: " + error);
 				});
 		}
+		
+		function incrementMatch(str) {
+			  const match = str.match(/^([a-zA-Z]+)(\d+)$/);
+
+			  if (match) {
+				const prefix = match[1];
+				let number = parseInt(match[2]);
+
+				// Increment the number by 1
+				number++;
+
+				// Construct the output string by combining the prefix and the incremented number
+				const outputString = prefix + number;
+
+				return outputString;
+			  } else {
+				// If there is no number at the end of the string, throw an error
+				throw new Error("Input string does not end with a number");
+			  }
+		}
+		
 	</script>
 
 	<div class=MainView" id="MainDiv" style="visibility:hidden;" >
