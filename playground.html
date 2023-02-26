@@ -965,9 +965,7 @@ function reset(){
 	document.getElementById('AutoEngaged').innerHTML = "NO";
 	document.getElementById('EndGameDocked').innerHTML = "NO";
 	document.getElementById('EndGameEngaged').innerHTML = "NO";
-	document.getElementById('EndGameParked').innerHTML = "NO";
-	alert ("Everything is AWESOME!")
-	
+	document.getElementById('EndGameParked').innerHTML = "NO";	
 	document.getElementById('AllianceOPoints').innerHTML=0;
 	document.getElementById('AllianceDPoints').innerHTML=0;
 	document.getElementById('AllianceLinks').innerHTML=0;
@@ -982,6 +980,8 @@ function reset(){
 	document.getElementById('EndGameEngPts').innerHTML=0;
 	document.getElementById('Summary').innerHTML="";
 	document.getElementById('AutoLocationValue').innerHTML ="ClickMe"
+
+	alert ("Lets Go!!")
 
 
 	var ele = document.getElementsByClassName('blockbox');
@@ -1036,10 +1036,7 @@ function reset(){
 		}
 		
 		function incrementMatch(str) {
-				
 			  const match = str.match(/^([a-zA-Z]+)(\d+)$/);
-			  alert(match);
-
 			  if (match) {
 				const prefix = match[1];
 				let number = parseInt(match[2]);
