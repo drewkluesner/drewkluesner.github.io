@@ -992,27 +992,15 @@ function reset(){
 
 	var ele = document.getElementsByClassName('box');
 	for (var i=0; i< ele.length; i++ ) {
+		document.getElementById(ele[i].id).style.border = "none";
+	}
 
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	updateTotal()
+} 
+
+</script>		
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"> </script>
 	<script>
-	
-		function setBlue()
-		{
-			id = 'TeamColorValue';
-			var element = document.getElementById(id);
-			element.style.backgroundColor = "blue";
-			document.getElementById(id).innerHTML = "BLUE";
-		}
-
-		function setRed()
-		{
-			id = 'TeamColorValue';
-			var element = document.getElementById(id);
-			element.style.backgroundColor = "red";
-			document.getElementById(id).innerHTML = "RED";
-		}
-
-	
 		function getTeamNumber() {
 			var eventKey = "2022iacf";
 			var matchKey = document.getElementById("match-key").value;
