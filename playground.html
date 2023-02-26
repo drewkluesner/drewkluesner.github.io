@@ -455,10 +455,10 @@ limitations under the License.
 			valueInputOption: 'USER_ENTERED', // How the input data should be interpreted
 			resource: {
 			  values: [[
-				document.getElementById('MatchID').innerHTML, 
+				document.getElementById('match-key').innerHTML, 
 				document.getElementById('ScoutID').innerHTML, 
 				document.getElementById('TeamID').innerHTML, 
-				document.getElementById('TeamColorValue').innerHTML,
+				document.getElementById('team-position').innerHTML,
 				parseInt(document.getElementById('col1Top').innerHTML),
 				parseInt(document.getElementById('col2Top').innerHTML),
 				parseInt(document.getElementById('col3Top').innerHTML),
@@ -787,31 +787,6 @@ function ToggleAutoLocation(id) {
 }
 
 
-function ToggleColor(id) {
-	
-    if (document.getElementById(id).innerHTML == "N/A")
-	{
-		   var element = document.getElementById(id);
-	       element.style.backgroundColor = "blue";
-		   document.getElementById(id).innerHTML = "BLUE";
-
-	    document.getElementById(id).style.borderBlockColor = blue;
-	}
-	else if (document.getElementById(id).innerHTML == "BLUE")
-	{
-	    document.getElementById(id).innerHTML = "RED";
-		var element = document.getElementById(id);
-	    element.style.backgroundColor = "red";
-		
-	}
-	else
-	{
-		var element = document.getElementById(id);
-	    element.style.backgroundColor = "blue";
-	    document.getElementById(id).innerHTML  = "BLUE";
-	    document.getElementById(id).style.borderBlockColor = "blue";
-	}		
- } 
 
 
 function ToggleYesNo(id) {
@@ -935,7 +910,7 @@ function ChangePrompt(id) {
  } 
 
 function reset(){
-	document.getElementById('MatchID').innerHTML = Number(document.getElementById('MatchID').innerHTML) + 1;
+    //document.getElementById('MatchID').innerHTML = Number(document.getElementById('MatchID').innerHTML) + 1;
 
 	document.getElementById('col1Top').innerHTML = 0;
 	document.getElementById('col1Mid').innerHTML = 0;
@@ -1014,6 +989,24 @@ function reset(){
 
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<script>
+	
+		function setBlue()
+		{
+			id = 'TeamColorValue';
+			var element = document.getElementById(id);
+			element.style.backgroundColor = "blue";
+			document.getElementById(id).innerHTML = "BLUE";
+		}
+
+		function setRed()
+		{
+			id = 'TeamColorValue';
+			var element = document.getElementById(id);
+			element.style.backgroundColor = "red";
+			document.getElementById(id).innerHTML = "RED";
+		}
+
+	
 		function getTeamNumber() {
 			var eventKey = "2022iacf";
 			var matchKey = document.getElementById("match-key").value;
@@ -1040,7 +1033,8 @@ function reset(){
 						return;
 					}
 					var teamNumber = alliance.substring(3);
-					document.getElementById("team-number").value = teamNumber;
+					document.getElementById("TeamID").innerText = teamNumber;
+
 				})
 				.catch(function(error) {
 					alert("Error: " + error);
@@ -1054,22 +1048,13 @@ function reset(){
 		 
 		 Click on the values to see how things change.
 		 
-		 <div class="MatchMeta">
-			<div class="label" id="Label">MatchID</div>
-			<div class="Keys" id="MatchID" onclick='ChangePrompt(this.id)'>1</div>
-			<div class="label" id="ScoutIDLabel">ScoutName</div>
-			<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Elmo</div>		
-			
-			
-	<p>
+		<p>
 		<label for="event-key">Event Key:</label>
 		<input type="text" id="event-key" value="2022iacf" readonly>
-	</p>
-	<p>
-		<label for="match-key">Match Key:</label>
+		<p>
+		<label for="match-key">Match Key:(qm|sf|f):</label>
 		<input type="text" id="match-key" value="qm1">
-	</p>
-	<p>
+		<p>
 		<label for="team-position">Team Position:</label>
 		<select id="team-position">
 			<option value="blue1">Blue 1</option>
@@ -1079,12 +1064,18 @@ function reset(){
 			<option value="red2">Red 2</option>
 			<option value="red3">Red 3</option>
 		</select>
-	</p>
-	<button onclick="getTeamNumber()">Get Team Number</button>			
+		<button onclick="getTeamNumber()">Get Team Number</button>		
+		<p>
+				
 			
-	<label for="team-number">Team Number:</label>
-	<input type="text" id="team-number" readonly>
 			
+		 
+		 <div class="MatchMeta">
+			<div class="label" id="ScoutIDLabel">ScoutName</div>
+			<div class="Keys" id="ScoutID" onclick='ChangePrompt(this.id)'>Elmo</div>		
+			
+			
+
 			
 
 			<div class="label" id="TeamIDLabel">TeamID</div>
@@ -1092,10 +1083,6 @@ function reset(){
 		</div>
 		<br>
 		
-		 <div class="TeamColorDiv">		
-			<div class="label" id="TeamColorLabel">TeamColor</div>
-			<div class="teamColor" id="TeamColorValue" onclick='ToggleColor(this.id)'>N/A</div>
-		</div>
 
 		 <h1>Autonomous Movement</h1>
 
