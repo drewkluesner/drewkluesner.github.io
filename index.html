@@ -295,7 +295,7 @@ limitations under the License.
   <body>
 	<div onclick="showApp()">
     <p>7531 - Scouting App</p>
-	<p>version: 2/25/2023</p>
+	<p>version: 3/1/2023</p>
 	</div>
     <!--Add buttons to initiate auth sequence and sign out-->
     <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize</button>
@@ -468,7 +468,7 @@ limitations under the License.
 			
 			resource: {
 			  values: [[
-				document.getElementById('match-key').innerHTML, 
+				document.getElementById('match-key').value, 
 				document.getElementById('ScoutID').innerHTML, 
 				document.getElementById('TeamID').innerHTML, 
 				selectedOption,
@@ -524,8 +524,8 @@ limitations under the License.
 				document.getElementById('ChargeRP').innerHTML,
 				document.getElementById('TotalRP').innerHTML,
 				document.getElementById('Summary').innerHTML,
-				"Reserved",
-				"Reserved",
+				convertYesNoToNumber(document.getElementById('Sideways').innerHTML),
+				document.getElementById('DefenseRank').value,												
 				"Reserved",
 				"Reserved",
 				"Reserved",
@@ -533,6 +533,7 @@ limitations under the License.
 				"=COUNTIF(INDIRECT(\"E\"&ROW()):INDIRECT(\"M\"&ROW()), 6)",
 				"=COUNTIF(INDIRECT(\"N\"&ROW()):INDIRECT(\"V\"&ROW()), 4)",
 				"=COUNTIF(INDIRECT(\"W\"&ROW()):INDIRECT(\"AE\"&ROW()), 3)",
+				
 				"=SUM(INDIRECT(\"E\"&ROW()&\":M\"&ROW()))",
 				"=SUM(INDIRECT(\"N\"&ROW()&\":V\"&ROW()))",			
 				"=SUM(INDIRECT(\"W\"&ROW()&\":AE\"&ROW()))",			
@@ -540,7 +541,14 @@ limitations under the License.
 				"=SUM(INDIRECT(\"H\"&ROW()), INDIRECT(\"I\"&ROW()), INDIRECT(\"J\"&ROW()), INDIRECT(\"Q\"&ROW()), INDIRECT(\"R\"&ROW()), INDIRECT(\"Z\"&ROW()), INDIRECT(\"AA\"&ROW()), INDIRECT(\"AB\"&ROW()))",
 				"=SUM(INDIRECT(\"F\"&ROW()), INDIRECT(\"I\"&ROW()), INDIRECT(\"L\"&ROW()))",
 				"=SUM(INDIRECT(\"O\"&ROW()), INDIRECT(\"R\"&ROW()), INDIRECT(\"U\"&ROW()))",
-				"=SUM(INDIRECT(\"BQ\"&ROW()&\":BR\"&ROW()))"
+				"=SUM(INDIRECT(\"BQ\"&ROW()&\":BR\"&ROW()))",
+
+				"=COUNTIF(INDIRECT(\"E\"&ROW()):INDIRECT(\"M\"&ROW()), \">0\")",
+				"=COUNTIF(INDIRECT(\"N\"&ROW()):INDIRECT(\"V\"&ROW()), \">0\")",
+				"=COUNTIF(INDIRECT(\"W\"&ROW()):INDIRECT(\"AE\"&ROW()), \">0\")"
+				
+				
+				
 				]] // The new values to append to the sheet
 			},
 		  };
@@ -778,19 +786,19 @@ function ToggleAutoLocation(id) {
 
     if (document.getElementById(id).innerHTML == "ClickMe")
 	{
-		document.getElementById(id).innerHTML = "OpenSpace";
+		document.getElementById(id).innerHTML = "WallSide";
 	}
-	else if (document.getElementById(id).innerHTML == "OpenSpace")
+	else if (document.getElementById(id).innerHTML == "WallSide")
 	{
 	    document.getElementById(id).innerHTML = "MiddleSpace";		
 	}
 	else if (document.getElementById(id).innerHTML == "MiddleSpace")
 	{
-	    document.getElementById(id).innerHTML = "RestrictedSpace";		
+	    document.getElementById(id).innerHTML = "Substation Side";		
 	}
-	else if (document.getElementById(id).innerHTML == "RestrictedSpace")
+	else if (document.getElementById(id).innerHTML == "Substation Side")
 	{
-	    document.getElementById(id).innerHTML = "OpenSpace";		
+	    document.getElementById(id).innerHTML = "WallSide";		
 	}
 	else
 	{
@@ -924,6 +932,9 @@ function ChangePrompt(id) {
 
 function reset(){
     //document.getElementById('MatchID').innerHTML = Number(document.getElementById('MatchID').innerHTML) + 1;
+	
+	document.getElementById("DefenseRank").selectedIndex = 0;
+
 	document.getElementById("match-key").value = incrementMatch(document.getElementById("match-key").value);
 	document.getElementById('col1Top').innerHTML = 0;
 	document.getElementById('col1Mid').innerHTML = 0;
@@ -960,6 +971,7 @@ function reset(){
 	document.getElementById('FumbleType').innerHTML = "0";
 	document.getElementById('CoOp').innerHTML = "NO";
 	document.getElementById('Cone').innerHTML = "NO";
+	document.getElementById('Sideways').innerHTML = "NO";
 	document.getElementById('AutoMove').innerHTML = "NO";
 	document.getElementById('AutoDoc').innerHTML = "NO";
 	document.getElementById('AutoEngaged').innerHTML = "NO";
@@ -1192,8 +1204,18 @@ function reset(){
 			<div class="yesno" id="Cone" onclick='ToggleYesNo(this.id)'>NO</div>
 			<div class="label" id="BlockLabel">Score Block?</div>
 			<div class="yesno" id="Block" onclick='ToggleYesNo(this.id)'>NO</div>
-			<div class="label" id="CoOpLabel">CoOperation</div>
-			<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>		
+			<div class="label" id="SidewaysLabel">PickUp sideways Cone??</div>
+			<div class="yesno" id="Sideways" onclick='ToggleYesNo(this.id)'>NO</div>			
+			
+			<div class="label" id="BlockLabel">Defense?</div>
+			
+			<select id="DefenseRank" onchange="getTeamNumber()">
+				<option value="0" selected>No Defense</option>
+				<option value="1">Partial Defense - Bad</option>
+				<option value="2">Partial Defense - Good</option>					
+				<option value="3">Primary Defense - OK</option>
+				<option value="5">Primary Defense - Awesome</option>
+			</select>
 		</div>
 			
 
@@ -1220,6 +1242,9 @@ function reset(){
 		<h1> Ranking Points</h1>
 
 		<div class="RP">
+			<div class="label" id="CoOpLabel">CoOperation</div>
+			<div class="yesno" id="CoOp" onclick='ToggleYesNo(this.id)'>NO</div>		
+
 			<div class="label" id="AllianceWinRPLabel">OutcomeRP</div>
 			<div class="rpvalue" id="AllianceWinRP" >0</div>
 			<div class="label" id="LinkRPLabel">LinkRP</div>
