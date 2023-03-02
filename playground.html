@@ -295,7 +295,7 @@ limitations under the License.
   <body>
 	<div onclick="showApp()">
     <p>7531 - Scouting App</p>
-	<p>version: 2/25/2023</p>
+	<p>version: 3/1/2023</p>
 	</div>
     <!--Add buttons to initiate auth sequence and sign out-->
     <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize</button>
@@ -505,7 +505,6 @@ limitations under the License.
 				document.getElementById('FumbleType').innerHTML,
 				convertYesNoToNumber(document.getElementById('CoOp').innerHTML),
 				convertYesNoToNumber(document.getElementById('Cone').innerHTML),
-				convertYesNoToNumber(document.getElementById('Sideways').innerHTML),
 				document.getElementById('AutoLocationValue').innerHTML,
 				convertYesNoToNumber(document.getElementById('AutoMove').innerHTML),
 				document.getElementById('AutoMovePts').innerHTML,
@@ -525,9 +524,8 @@ limitations under the License.
 				document.getElementById('ChargeRP').innerHTML,
 				document.getElementById('TotalRP').innerHTML,
 				document.getElementById('Summary').innerHTML,
+				convertYesNoToNumber(document.getElementById('Sideways').innerHTML),
 				document.getElementById('DefenseRank').value,												
-				"Reserved",
-				"Reserved",
 				"Reserved",
 				"Reserved",
 				"Reserved",
@@ -535,6 +533,7 @@ limitations under the License.
 				"=COUNTIF(INDIRECT(\"E\"&ROW()):INDIRECT(\"M\"&ROW()), 6)",
 				"=COUNTIF(INDIRECT(\"N\"&ROW()):INDIRECT(\"V\"&ROW()), 4)",
 				"=COUNTIF(INDIRECT(\"W\"&ROW()):INDIRECT(\"AE\"&ROW()), 3)",
+				
 				"=SUM(INDIRECT(\"E\"&ROW()&\":M\"&ROW()))",
 				"=SUM(INDIRECT(\"N\"&ROW()&\":V\"&ROW()))",			
 				"=SUM(INDIRECT(\"W\"&ROW()&\":AE\"&ROW()))",			
@@ -542,7 +541,14 @@ limitations under the License.
 				"=SUM(INDIRECT(\"H\"&ROW()), INDIRECT(\"I\"&ROW()), INDIRECT(\"J\"&ROW()), INDIRECT(\"Q\"&ROW()), INDIRECT(\"R\"&ROW()), INDIRECT(\"Z\"&ROW()), INDIRECT(\"AA\"&ROW()), INDIRECT(\"AB\"&ROW()))",
 				"=SUM(INDIRECT(\"F\"&ROW()), INDIRECT(\"I\"&ROW()), INDIRECT(\"L\"&ROW()))",
 				"=SUM(INDIRECT(\"O\"&ROW()), INDIRECT(\"R\"&ROW()), INDIRECT(\"U\"&ROW()))",
-				"=SUM(INDIRECT(\"BQ\"&ROW()&\":BR\"&ROW()))"
+				"=SUM(INDIRECT(\"BQ\"&ROW()&\":BR\"&ROW()))",
+
+				"=COUNTIF(INDIRECT(\"E\"&ROW()):INDIRECT(\"M\"&ROW()), ">0")",
+				"=COUNTIF(INDIRECT(\"N\"&ROW()):INDIRECT(\"V\"&ROW()), ">0")",
+				"=COUNTIF(INDIRECT(\"W\"&ROW()):INDIRECT(\"AE\"&ROW()), ">0")",
+				
+				
+				
 				]] // The new values to append to the sheet
 			},
 		  };
