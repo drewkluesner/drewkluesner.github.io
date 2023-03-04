@@ -171,6 +171,8 @@ limitations under the License.
     grid-gap: 10px;
 		grid-template-rows: 100px 50px ;
 		grid-auto-flow: column;
+		height: 200px;
+
 	}
 
 	.MatchMeta {
@@ -295,7 +297,7 @@ limitations under the License.
   <body>
 	<div onclick="showApp()">
     <p>7531 - Scouting App</p>
-	<p>version: 3/3/2023</p>
+	<p>version: 3/4/2023</p>
 	</div>
     <!--Add buttons to initiate auth sequence and sign out-->
     <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize</button>
@@ -526,9 +528,9 @@ limitations under the License.
 				document.getElementById('Summary').innerHTML,
 				convertYesNoToNumber(document.getElementById('Sideways').innerHTML),
 				document.getElementById('DefenseRank').value,												
-				"Reserved",
-				"Reserved",
-				"Reserved",
+				document.getElementById('TeleOpGridTeamPoints').innerHTML,
+				document.getElementById('AutoGridTeamPoints').innerHTML,
+				document.getElementById('AutoPoints').innerHTML,
 				"Reserved",
 				"=COUNTIF(INDIRECT(\"E\"&ROW()):INDIRECT(\"M\"&ROW()), 6)",
 				"=COUNTIF(INDIRECT(\"N\"&ROW()):INDIRECT(\"V\"&ROW()), 4)",
@@ -626,6 +628,10 @@ function updateTotal()
 	
 	
 	document.getElementById('TeamPoints').innerHTML =sum;
+	
+
+
+	document.getElementById('AutoPoints').innerHTML = 	parseInt(document.getElementById('AutoGridTeamPoints').innerHTML)  + parseInt(document.getElementById('AutoMovePts').innerHTML) + parseInt(document.getElementById('AutoDocEngPts').innerHTML);
 
 }
 
@@ -693,7 +699,7 @@ function myfunction(id) {
 		color = "Brown";
 		if (id.match(/Top/))
 		{
-				Val = 6;
+			Val = 6;				
 		}
 		else if (id.match(/Mid/))
 		{
@@ -707,6 +713,7 @@ function myfunction(id) {
 		{
 			Val = 0;
 		}
+		document.getElementById('AutoGridTeamPoints').innerHTML = parseInt(document.getElementById('AutoGridTeamPoints').innerHTML) + parseInt(Val);
 	}
 	else if (document.getElementById('ModeID').innerHTML == "Tele")
 	{
@@ -726,7 +733,12 @@ function myfunction(id) {
 		else
 		{
 			Val = 0;
-		}			
+		}
+		
+
+		document.getElementById('TeleOpGridTeamPoints').innerHTML = parseInt(document.getElementById('TeleOpGridTeamPoints').innerHTML)+parseInt(Val);
+		
+		
 	}
     document.getElementById(id).innerHTML = Val;
 
@@ -966,6 +978,9 @@ function reset(){
 	document.getElementById('col9Mid').innerHTML = 0;
 	document.getElementById('col9Low').innerHTML = 0;
 	
+	document.getElementById('TeleOpGridTeamPoints').innerHTML = 0;
+	document.getElementById('AutoGridTeamPoints').innerHTML = 0;
+
 
 	document.getElementById('Block').innerHTML = "NO";
 	document.getElementById('FumbleType').innerHTML = "0";
@@ -1222,6 +1237,17 @@ function reset(){
 		<br>
 		<h1> Point Totals</h1>
 		<div class ="PointTotals">
+			
+			<div class="label" id="AutoGridTeamPointsLabel">AutoGrid Points</div>
+			<div class="Points" id="AutoGridTeamPoints" >0</div>
+			<div class="label" id="TeleOpGridTeamPointsLabel">TeleGrid Points</div>
+			<div class="Points" id="TeleOpGridTeamPoints" >0</div>
+			
+			
+			<div class="label" id="AutoPointsLabel">Auto Points</div>
+			<div class="Points" id="AutoPoints" >0</div>
+		</div>
+		<div class = "PointTotals">
 			
 			<div class="label" id="TeamPointsLabel">Team Points</div>
 			<div class="Points" id="TeamPoints" >0</div>
