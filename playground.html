@@ -187,6 +187,12 @@ limitations under the License.
 	}
 
 
+	.autoLocationDiv {
+		display: grid;
+		grid-gap: 10px;
+		grid-template-columns: repeat(2, 1fr);
+		grid-auto-flow: row;
+	}
 
 	.MatchDetailMeta {
 		display: grid;
@@ -297,7 +303,7 @@ limitations under the License.
   <body>
 	<div onclick="showApp()">
     <p>7531 - Scouting App</p>
-	<p>version: 3/4/2023</p>
+	<p>version: 3/5/2023</p>
 	</div>
     <!--Add buttons to initiate auth sequence and sign out-->
     <button class="specialButton" id="authorize_button" onclick="handleAuthClick()">Authorize</button>
@@ -507,7 +513,7 @@ limitations under the License.
 				document.getElementById('FumbleType').innerHTML,
 				convertYesNoToNumber(document.getElementById('CoOp').innerHTML),
 				convertYesNoToNumber(document.getElementById('Cone').innerHTML),
-				document.getElementById('AutoLocationValue').innerHTML,
+				document.getElementById('autoLocation').value,
 				convertYesNoToNumber(document.getElementById('AutoMove').innerHTML),
 				document.getElementById('AutoMovePts').innerHTML,
 				convertYesNoToNumber(document.getElementById('AutoDoc').innerHTML),
@@ -531,7 +537,7 @@ limitations under the License.
 				document.getElementById('TeleOpGridTeamPoints').innerHTML,
 				document.getElementById('AutoGridTeamPoints').innerHTML,
 				document.getElementById('AutoPoints').innerHTML,
-				"Reserved",
+				document.getElementById('robotHealth').value,												
 				"=COUNTIF(INDIRECT(\"E\"&ROW()):INDIRECT(\"M\"&ROW()), 6)",
 				"=COUNTIF(INDIRECT(\"N\"&ROW()):INDIRECT(\"V\"&ROW()), 4)",
 				"=COUNTIF(INDIRECT(\"W\"&ROW()):INDIRECT(\"AE\"&ROW()), 3)",
@@ -946,6 +952,7 @@ function reset(){
     //document.getElementById('MatchID').innerHTML = Number(document.getElementById('MatchID').innerHTML) + 1;
 	
 	document.getElementById("DefenseRank").selectedIndex = 0;
+	document.getElementById("robotHealth").selectedIndex = 0;
 
 	document.getElementById("match-key").value = incrementMatch(document.getElementById("match-key").value);
 	document.getElementById('col1Top').innerHTML = 0;
@@ -1116,10 +1123,18 @@ function reset(){
 		
 		 <h1>Autonomous Movement</h1>
 
-		 <div class="TeamColorDiv">		
-			<div class="label" id="AutoLocationLabel:">Auto Start Location</div>
-			<div class="AutoLocationLabel" id="AutoLocationValue" onclick='ToggleAutoLocation(this.id)'>ClickMe</div>
-		</div>		 
+			<!--<div class="AutoLocationLabel" id="AutoLocationValue" onclick='ToggleAutoLocation(this.id)'>ClickMe</div>-->
+			
+			<div class="autoLocationDiv" id="AutoLocationValue">
+				<div class="label" id="AutoLocationLabel:">Auto Start Location</div>
+
+				<select id="autoLocation" onchange="getTeamNumber()">
+					<option value="default" selected></option>
+					<option value="WallSide">Wall Side</option>
+					<option value="MiddleSpace">Middle</option>				
+					<option value="Substation Side">Substation Side</option>					
+				</select>
+			</div>
 		 
 		 <div class="Movement">		
 			<div class="label" id="AutoMoveLabel">Auto: Did it exit the community?</div>
@@ -1230,6 +1245,16 @@ function reset(){
 				<option value="2">Partial Defense - Good</option>					
 				<option value="3">Primary Defense - OK</option>
 				<option value="5">Primary Defense - Awesome</option>
+			</select>
+			
+			<div class="label" id="BlockLabel">Robot Health?</div>
+
+			
+			<select id="robotHealth" onchange="getTeamNumber()">
+				<option value="healthy" selected>No Health Issues</option>
+				<option value="Failed2Start">Failed2Start</option>
+				<option value="StalledButRecovered">StalledButRecovered</option>				
+				<option value="CatastrophicFailure">Catastrophic Failure</option>					
 			</select>
 		</div>
 			
