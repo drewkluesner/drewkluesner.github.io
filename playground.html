@@ -460,8 +460,28 @@ limitations under the License.
 		}
 		
 		
+		function validate() {
+
+			if(document.getElementById("autoLocation").selectedIndex == 0)
+			{
+				Alert("Need to select an autolocation.. fix and re-submit")
+				return 0;
+			}
+			else
+				return 1;
+
+		}
+		
 		function appendData() {
 		  // Set up the request
+		  
+			validate_Result = validate();
+			
+			if(!validate_Result)
+			{
+				return;
+			}
+			
 					  
 			const selectElement = document.getElementById("team-position");
 			const selectedIndex = selectElement.selectedIndex;
@@ -1133,6 +1153,7 @@ function reset(){
 					<option value="WallSide">Wall Side</option>
 					<option value="MiddleSpace">Middle</option>				
 					<option value="Substation Side">Substation Side</option>					
+					<option value="NotPresent">NotPresent</option>					
 				</select>
 			</div>
 		 
