@@ -708,8 +708,40 @@ function myfunction(id) {
 	
 	if (document.getElementById(id).innerHTML  > 0)
 	{
-		document.getElementById(id).innerHTML = 0;
 
+		
+		if (document.getElementById(id).innerHTML == "6" ||document.getElementById(id).innerHTML == "4" )
+		{
+			document.getElementById('AutoGridTeamPoints').innerHTML = parseInt(document.getElementById('AutoGridTeamPoints').innerHTML) - parseInt(document.getElementById(id).innerHTML);
+
+		}
+		else if (document.getElementById(id).innerHTML == "5" ||document.getElementById(id).innerHTML == "2" )
+		{
+
+			document.getElementById('TeleOpGridTeamPoints').innerHTML = parseInt(document.getElementById('TeleOpGridTeamPoints').innerHTML) - parseInt(document.getElementById(id).innerHTML);
+		
+		}
+		else if (document.getElementById(id).innerHTML == "3")
+		{
+			if (id.indexOf("Mid") !== -1) 
+			{
+				// Has to be middle so remove from TeleOp Points
+				document.getElementById('TeleOpGridTeamPoints').innerHTML = parseInt(document.getElementById('TeleOpGridTeamPoints').innerHTML) - parseInt(document.getElementById(id).innerHTML);
+
+			}
+			else
+			{
+				// Has to be bottom so remove from Auto Points
+				document.getElementById('AutoGridTeamPoints').innerHTML = parseInt(document.getElementById('AutoGridTeamPoints').innerHTML) - parseInt(document.getElementById(id).innerHTML);
+				
+			}
+		
+		}		
+		
+		
+		
+		document.getElementById(id).innerHTML = 0;
+		
 		if (className == "blockbox")
 		{
 			color = "teal";
