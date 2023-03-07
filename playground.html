@@ -238,7 +238,7 @@ limitations under the License.
 	.Movement {
 		display: grid;
     grid-gap: 10px;
-		grid-template-rows: 80px 100px ;
+		grid-template-rows: 100px 100px ;
 		grid-auto-flow: column;
 		height: 200px
 	}
@@ -661,29 +661,6 @@ function updateTotal()
 
 }
 
-function updateRP()
-{
-	if (document.getElementById('AllianceOPoints').innerHTML > document.getElementById('AllianceDPoints').innerHTML)
-		document.getElementById('AllianceWinRP').innerHTML = 2;
-	else if (document.getElementById('AllianceOPoints').innerHTML == document.getElementById('AllianceDPoints').innerHTML)
-		document.getElementById('AllianceWinRP').innerHTML = 1;
-	else
-		document.getElementById('AllianceWinRP').innerHTML = 0;
-	
-
-    if (document.getElementById('AllianceChargeStation').innerHTML >26) 
-		document.getElementById('ChargeRP').innerHTML = 1;
-	else
-		document.getElementById('ChargeRP').innerHTML = 0;
-	
-	var sum = 0.0;
-	$('.rpvalue').each(function()
-	{
-		sum += parseFloat($(this).text());
-	});
-	document.getElementById('TotalRP').innerHTML =sum;
-
-}
 
 
 
@@ -798,9 +775,6 @@ function myfunction(id) {
 	var element = document.getElementById('ModeID');
 
 	element.style.backgroundColor = "blue";
-
-
-	updateRP();
 	updateTotal();
  } 
  
@@ -970,7 +944,6 @@ function ToggleYesNo(id) {
 	else if (document.getElementById('EndGameParked').innerHTML == "YES")
 			document.getElementById('EndGameEngPts').innerHTML = 2
 
-	updateRP();
 	updateTotal()
  } 
  
@@ -1003,7 +976,6 @@ function ChangePrompt(id) {
 	blah = prompt('What is your ' + value + '?', promptVal );
 	document.getElementById(id).innerHTML  = blah
 	
-	updateRP();
 	updateTotal()
  } 
 
@@ -1205,7 +1177,7 @@ function reset(){
 		</div>
 		<div class="Movement">
 
-			<div class="label" id="AutoAttemptLabel">Auto: Attempt to Charge?</div>
+			<div class="label" id="AutoAttemptLabel">Auto: Attempt?</div>
 			<div class="yesno" id="AutoAttempt" onclick='ToggleYesNo(this.id)'>NO</div>
 		
 		
@@ -1352,16 +1324,6 @@ function reset(){
 		 </div>
 
 		<br>
-		<h1> Ranking Points</h1>
-
-		<div class="RP">
-
-
-			<div class="label" id="AllianceWinRPLabel">OutcomeRP</div>
-			<div class="rpvalue" id="AllianceWinRP" >0</div>
-
-			
-		</div>	
 		<br>
 		<div class="Summary">
 			<div class="label" id="Label">Match Notes</div>
