@@ -1053,7 +1053,7 @@ function reset(){
 	for (var i=0; i< ele.length; i++ ) {
 		document.getElementById(ele[i].id).style.border = "none";
 	}
-	getTeamNumber()
+	getTeamNumber
 	updateTotal()
 } 
 
@@ -1061,7 +1061,7 @@ function reset(){
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"> </script>
 	<script>
 		function getTeamNumber() {
-			var eventKey = "2022iacf";
+			var eventKey = "2023iacf";
 			var matchKey = document.getElementById("match-key").value;
 			var teamPosition = document.getElementById("team-position").value;
 			var url = "https://www.thebluealliance.com/api/v3/match/" + eventKey + "_" + matchKey;
@@ -1122,7 +1122,7 @@ function reset(){
 		 
 		<p>
 		<label for="event-key">Event Key:</label>
-		<input type="text" id="event-key" value="2022iacf" readonly>
+		<input type="text" id="event-key" value="2023iacf" readonly>
 		<p>
 		<label for="match-key">Match Key:(qm|sf|f):</label>
 		<input type="text" id="match-key" value="qm1">
